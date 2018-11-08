@@ -1,0 +1,101 @@
+﻿@model MeckDoramenAndAssociates.Models.Contacts
+
+@{
+    ViewData["Title"] = "View";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h2>
+        CONTACT DETAILS
+    </h2>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-4">
+            <dt>
+                <b>Weekdays Open</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OpenWeekdays)
+            </dd>
+        </div>
+        <div class="col-md-4">
+            <dt>
+                <b>Opening Time </b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WeekdaysOpenTime.TimeOfDay) AM
+            </dd>
+        </div>
+        <div class="col-md-4">
+            <dt>
+                <b>Closing Time </b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WeekdaysCloseTime.TimeOfDay) PM
+            </dd>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <dt>
+                <b>Weekends Open</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OpenWeekends)
+            </dd>
+        </div>
+        <div class="col-md-4">
+            <dt>
+                <b>Opening Time </b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WeekendsOpenTime.TimeOfDay) AM
+            </dd>
+        </div>
+        <div class="col-md-4">
+            <dt>
+                <b>Closing Time </b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WeekendsCloseTIme.TimeOfDay) PM
+            </dd>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dt>
+                <b>Email</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </div>
+        <div class="col-md-6">
+            <dt>
+                <b>Phone Number</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Number)
+            </dd>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dt>
+                <b>Address</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row pull-right">
+        <div class="col-md-12">
+            <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+        </div>
+    </div>
+</div>

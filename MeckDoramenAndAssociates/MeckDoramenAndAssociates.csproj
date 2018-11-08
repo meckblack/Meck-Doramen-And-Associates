@@ -2570,7 +2570,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Contacts\" />
+    <Folder Include="wwwroot\UploadedFiles\Logo\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,114 @@
+﻿@model dynamic
+@using MeckDoramenAndAssociates.Models.Enums
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Landing Details
+    </h1>
+    <ol class="breadcrumb">
+        <li><a asp-action="Dashboard" asp-controller="Admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Landing Details</li>
+    </ol>
+</section>
+
+<section class="content">
+    @if (TempData["landing"] != null)
+    {
+        if (TempData["notificationType"].Equals(NotificationType.Success.ToString()))
+        {
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["landing"]
+            </div>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Error.ToString()))
+        {
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["landing"]
+            </div>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+        {
+            <div class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["landing"]
+            </div>
+        }
+
+    }
+
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-blue" style="align-content: center">
+                            <!-- /.widget-user-image -->
+                            <h3 class="widget-user-username">LOGO</h3>
+                        </div>
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                @if (Convert.ToInt32(ViewData["logochecker"]) == 0)
+                                {
+                                    <li><a asp-action="AddLogo" asp-controller="Logo">Add Image <span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                                }
+
+                                @foreach (Logo logo in Model.Logos)
+                                {
+                                    <li><a data-modal="" asp-action="View" asp-controller="Logo" asp-route-id="@logo.LogoId">View logo<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                                    <li><a data-modal="" asp-action="Delete" asp-controller="Logo" asp-route-id="@logo.LogoId">Delete Logo<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+                <div class="col-md-3">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-blue" style="align-content: center">
+                            <!-- /.widget-user-image -->
+                            <h3 class="widget-user-username">CONTACT</h3>
+                        </div>
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                @if (Convert.ToInt32(ViewData["contactchecker"]) == 0)
+                                {
+                                    <li><a data-modal="" asp-action="Create" asp-controller="Contacts">Add Contact Details <span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                                }
+
+                                @foreach (Contacts contact in Model.Contacts)
+                                {
+                                    <li><a data-modal="" asp-action="View" asp-controller="Contacts" asp-route-id="@contact.ContactsId">View Contact<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                                    <li><a data-modal="" asp-action="Delete" asp-controller="Contacts" asp-route-id="@contact.ContactsId">Delete Contact<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+            </div>
+</section>
+
+
+<script src="~/Admin/bower_components/jquery/dist/jquery.js"></script>
+<script src="~/Modal/Modal.js"></script>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'>
+            </div>
+        </div>
+    </div>
+</div>

@@ -15,9 +15,17 @@
             </li>
             @if (ViewData["candoeverything"] != null)
             {
+            <li>
+                <a asp-action="Index" asp-controller="Landing">
+                    <i class="fa fa-dashboard"></i> <span>Landing Details</span>
+                </a>
+            </li>
+            }
+            @*@if (ViewData["candoeverything"] != null)
+            {
                 <li class="treeview">
                     <a>
-                        <i class="fa fa-car"></i> <span>Vechiles</span>
+                        <i class="fa fa-car"></i> <span>Landing Details</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -29,25 +37,8 @@
                         <li><a asp-action="RentedCars" asp-controller="Car"><i class="fa fa-circle-o"></i>Booked Cars</a></li>
                     </ul>
                 </li>
-            }
-            @*@if (ViewData["canmangebookings"] != null || ViewData["candoeverything"] != null)
-            {
-                <li class="treeview">
-                    <a>
-                        <i class="fa fa-bookmark"></i> <span>Car Rental</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a asp-action="ProcessingRentACar" asp-controller="RentACar"><i class="fa fa-circle-o"></i>Process Rent A Car</a></li>
-                        <li><a asp-action="UnPaidRentACar" asp-controller="RentACar"><i class="fa fa-circle-o"></i>Unpaid Rent A Car</a></li>
-                        <li><a asp-action="ExpiredRentACar" asp-controller="RentACar"><i class="fa fa-circle-o"></i>Expired Rent A Car</a></li>
-                        <li><a asp-action="PaidRentACar" asp-controller="RentACar"><i class="fa fa-circle-o"></i>Paid Rent A Car</a></li>
-                    </ul>
-                </li>
             }*@
-            
+
 
         </ul>
     </section>
