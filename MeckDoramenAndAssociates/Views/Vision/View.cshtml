@@ -1,0 +1,90 @@
+﻿@model MeckDoramenAndAssociates.Models.Vision
+
+@{
+    ViewData["Title"] = "View";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h2>
+        Company Vision
+    </h2>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-3">
+            <dt>
+                <b>Vision One</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VisionOne)
+            </dd>
+        </div>
+        <div class="col-md-3">
+            <dt>
+                <b>Vision One Number</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VisionOneRating)
+            </dd>
+        </div>
+        <div class="col-md-3">
+            <dt>
+                <b>Vision Two</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VisionTwo)
+            </dd>
+        </div>
+        <div class="col-md-3">
+            <dt>
+                <b>Vision Two Number</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VisionTwoRating)
+            </dd>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <dt>
+                <b>Vision Three</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VisionThree)
+            </dd>
+        </div>
+        <div class="col-md-3">
+            <dt>
+                <b>Vision Three Number</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VisionThreeRating)
+            </dd>
+        </div>
+        <div class="col-md-3">
+            <dt>
+                <b>Vision Four</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VisionFour)
+            </dd>
+        </div>
+        <div class="col-md-3">
+            <dt>
+                <b>Vision Four Number</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VisionFourRating)
+            </dd>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row pull-right">
+        <div class="col-md-12">
+            <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+        </div>
+    </div>
+</div>

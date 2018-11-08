@@ -44,11 +44,16 @@ namespace MeckDoramenAndAssociates.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
-
-
+            mymodel.LandingAboutUs = GetLandingAboutUs();
+            mymodel.Vision = GetVision();
+            mymodel.LandingSkill = GetLandingSkill();
+            
             ViewData["logochecker"] = _database.Logo.Count();
             ViewData["contactchecker"] = _database.Contacts.Count();
-
+            ViewData["landingaboutuschecker"] = _database.LandingAboutUs.Count();
+            ViewData["visionchecker"] = _database.Vision.Count();
+            ViewData["landingskillchecker"] = _database.LandingSkills.Count();
+            
             var roleid = _user.RoleId;
 
             var role = _database.Roles.Find(roleid);
@@ -85,6 +90,38 @@ namespace MeckDoramenAndAssociates.Controllers
             var _contacts = _database.Contacts.ToList();
 
             return _contacts;
+        }
+
+        #endregion
+
+        #region Get Landing About Us
+
+        private List<LandingAboutUs> GetLandingAboutUs()
+        {
+            var _landingAboutUs = _database.LandingAboutUs.ToList();
+            return _landingAboutUs;
+        }
+
+        #endregion
+
+        #region Get Vision
+
+        private List<Vision> GetVision()
+        {
+            var _vision = _database.Vision.ToList();
+
+            return _vision;
+        }
+
+        #endregion
+
+        #region Get Landing Skill
+
+        private List<LandingSkill> GetLandingSkill()
+        {
+            var _landingskill = _database.LandingSkills.ToList();
+
+            return _landingskill;
         }
 
         #endregion

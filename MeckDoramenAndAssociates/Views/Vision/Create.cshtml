@@ -1,0 +1,88 @@
+﻿@model MeckDoramenAndAssociates.Models.Vision
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+
+<!--MODAL HEADER-->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3> <strong> ADD COMPANY VISION</strong> </h3>
+</div>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <!--MODAL BODY-->
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Vision One</label>
+                    <input asp-for="VisionOne" class="form-control " />
+                    <span asp-validation-for="VisionOne" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Vision One Number</label>
+                    <input asp-for="VisionOneRating" class="form-control " />
+                    <span asp-validation-for="VisionOneRating" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Vision Two</label>
+                    <input asp-for="VisionTwo" class="form-control " />
+                    <span asp-validation-for="VisionTwo" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Vision Two Number</label>
+                    <input asp-for="VisionTwoRating" class="form-control " />
+                    <span asp-validation-for="VisionTwoRating" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Vision Three</label>
+                    <input asp-for="VisionThree" class="form-control " />
+                    <span asp-validation-for="VisionOne" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Vision One Number</label>
+                    <input asp-for="VisionThreeRating" class="form-control " />
+                    <span asp-validation-for="VisionThreeRating" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Vision Four</label>
+                    <input asp-for="VisionFour" class="form-control " />
+                    <span asp-validation-for="VisionFour" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Vision Four Number</label>
+                    <input asp-for="VisionFourRating" class="form-control " />
+                    <span asp-validation-for="VisionFourRating" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MODAL FOOTER-->
+    <div class="modal-footer">
+        <div class="row pull-right">
+            <div class="col-md-12">
+                <input type="submit" value="Add" class="btn btn-primary" />
+                <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

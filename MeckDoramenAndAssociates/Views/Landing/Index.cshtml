@@ -43,60 +43,144 @@
 
     }
 
-            <div class="row">
-                <div class="col-md-3">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user-2">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-blue" style="align-content: center">
-                            <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">LOGO</h3>
-                        </div>
-                        <div class="box-footer no-padding">
-                            <ul class="nav nav-stacked">
-                                @if (Convert.ToInt32(ViewData["logochecker"]) == 0)
-                                {
-                                    <li><a asp-action="AddLogo" asp-controller="Logo">Add Image <span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
-                                }
-
-                                @foreach (Logo logo in Model.Logos)
-                                {
-                                    <li><a data-modal="" asp-action="View" asp-controller="Logo" asp-route-id="@logo.LogoId">View logo<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
-                                    <li><a data-modal="" asp-action="Delete" asp-controller="Logo" asp-route-id="@logo.LogoId">Delete Logo<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
-                                }
-
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /.widget-user -->
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-blue" style="align-content: center">
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">LOGO</h3>
                 </div>
-                <div class="col-md-3">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user-2">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-blue" style="align-content: center">
-                            <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">CONTACT</h3>
-                        </div>
-                        <div class="box-footer no-padding">
-                            <ul class="nav nav-stacked">
-                                @if (Convert.ToInt32(ViewData["contactchecker"]) == 0)
-                                {
-                                    <li><a data-modal="" asp-action="Create" asp-controller="Contacts">Add Contact Details <span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
-                                }
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        @if (Convert.ToInt32(ViewData["logochecker"]) == 0)
+                        {
+                            <li><a asp-action="AddLogo" asp-controller="Logo">Add Image <span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                        }
 
-                                @foreach (Contacts contact in Model.Contacts)
-                                {
-                                    <li><a data-modal="" asp-action="View" asp-controller="Contacts" asp-route-id="@contact.ContactsId">View Contact<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
-                                    <li><a data-modal="" asp-action="Delete" asp-controller="Contacts" asp-route-id="@contact.ContactsId">Delete Contact<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
-                                }
+                        @foreach (Logo logo in Model.Logos)
+                        {
+                            <li><a data-modal="" asp-action="View" asp-controller="Logo" asp-route-id="@logo.LogoId">View logo<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                            <li><a data-modal="" asp-action="Delete" asp-controller="Logo" asp-route-id="@logo.LogoId">Delete Logo<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                        }
 
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /.widget-user -->
+                    </ul>
                 </div>
             </div>
+            <!-- /.widget-user -->
+        </div>
+
+        <div class="col-md-3">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-blue" style="align-content: center">
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">CONTACT</h3>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        @if (Convert.ToInt32(ViewData["contactchecker"]) == 0)
+                        {
+                            <li><a data-modal="" asp-action="Create" asp-controller="Contacts">Add Contact Details <span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                        }
+
+                        @foreach (Contacts contact in Model.Contacts)
+                        {
+                            <li><a data-modal="" asp-action="View" asp-controller="Contacts" asp-route-id="@contact.ContactsId">View Contact<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                            <li><a data-modal="" asp-action="Delete" asp-controller="Contacts" asp-route-id="@contact.ContactsId">Delete Contact<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
+
+        <div class="col-md-3">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-blue" style="align-content: center">
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">ABOUT US</h3>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        @if (Convert.ToInt32(ViewData["landingaboutuschecker"]) == 0)
+                        {
+                            <li><a data-modal="" asp-action="Create" asp-controller="LandingAboutUs">Add About Us<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                        }
+
+                        @foreach (LandingAboutUs landingAboutUs in Model.LandingAboutUs)
+                        {
+                            <li><a data-modal="" asp-action="View" asp-controller="LandingAboutUs" asp-route-id="@landingAboutUs.LandingAboutUsId">View Contact<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                            <li><a data-modal="" asp-action="Delete" asp-controller="LandingAboutUs" asp-route-id="@landingAboutUs.LandingAboutUsId">Delete Contact<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
+
+        <div class="col-md-3">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-blue" style="align-content: center">
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">Vision</h3>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        @if (Convert.ToInt32(ViewData["visionchecker"]) == 0)
+                        {
+                            <li><a data-modal="" asp-action="Create" asp-controller="Vision">Add Vision<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                        }
+
+                        @foreach (Vision vision in Model.Vision)
+                        {
+                            <li><a data-modal="" asp-action="View" asp-controller="Vision" asp-route-id="@vision.VisionId">View Vision<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                            <li><a data-modal="" asp-action="Delete" asp-controller="Vision" asp-route-id="@vision.VisionId">Delete Vision<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-blue" style="align-content: center">
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">Skill</h3>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        @if (Convert.ToInt32(ViewData["landingskillchecker"]) == 0)
+                        {
+                            <li><a data-modal="" asp-action="Create" asp-controller="LandingSkill">Add Landing Skill<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                        }
+
+                        @foreach (LandingSkill landingSkill in Model.LandingSkill)
+                        {
+                            <li><a data-modal="" asp-action="View" asp-controller="LandingSkill" asp-route-id="@landingSkill.LandingSkillId">View Landing Skill<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                            <li><a data-modal="" asp-action="Delete" asp-controller="LandingSkill" asp-route-id="@landingSkill.LandingSkillId">Delete Landing Skill<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
+    </div>
 </section>
 
 
