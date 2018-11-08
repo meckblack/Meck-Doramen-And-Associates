@@ -1,0 +1,41 @@
+﻿@model MeckDoramenAndAssociates.Models.LandingAboutUs
+
+@{
+    ViewData["Title"] = "View";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h2>
+        Landing About Us
+    </h2>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <dt>
+                <b>Header</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Header)
+            </dd>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dt>
+                <b>Body</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Body)
+            </dd>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row pull-right">
+        <div class="col-md-12">
+            <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+        </div>
+    </div>
+</div>

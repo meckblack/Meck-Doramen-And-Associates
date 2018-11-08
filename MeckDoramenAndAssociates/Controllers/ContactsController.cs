@@ -156,16 +156,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-        #region Exists
-
-        private bool ContactExists(int id)
-        {
-            return _database.Contacts.Any(e => e.ContactsId == id);
-        }
-
-        #endregion
-
+        
         #region Get Logos
 
         private List<Logo> GetLogos()
