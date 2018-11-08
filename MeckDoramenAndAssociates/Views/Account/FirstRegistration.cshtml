@@ -1,0 +1,53 @@
+﻿@model MeckDoramenAndAssociates.Models.ApplicationUser
+
+@{
+    Layout = "~/Views/Shared/AuthenticationLayout/_AuthenticationLayout.cshtml";
+    ViewData["Title"] = "First Registration";
+}
+
+<div class="login-logo">
+    <a><b>MECK DORAMEN</b> AND ACCOCIATES</a>
+</div>
+<!-- /.login-logo -->
+<div class="login-box-body">
+    <p class="login-box-msg">WELCOME</p>
+    <form asp-action="FirstRegistration" asp-controller="Account">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group has-feedback">
+            <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter First Name">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input asp-for="LastName" type="text" class="form-control" placeholder="Enter Last Name">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input asp-for="Email" type="email" class="form-control" placeholder="Enter Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input asp-for="Password" type="password" class="form-control" placeholder="Enter Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Enter Confrim Password">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+<!-- /.login-box-body -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

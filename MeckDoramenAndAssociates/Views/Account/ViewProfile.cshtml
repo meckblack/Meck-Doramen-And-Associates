@@ -1,0 +1,100 @@
+﻿@model MeckDoramenAndAssociates.Models.ApplicationUser
+@using MeckDoramenAndAssociates.Models.Enums
+
+@{
+    ViewData["Title"] = "View Profile";
+    Layout = "~/Views/Shared/AdminLayout/_AdminLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+
+<section class="content">
+    @if (TempData["user"] != null)
+    {
+        if (TempData["notificationType"].Equals(NotificationType.Success.ToString()))
+        {
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["user"]
+            </div>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Error.ToString()))
+        {
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["user"]
+            </div>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+        {
+            <div class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["user"]
+            </div>
+        }
+
+    }
+    <div class="box">
+        <div class="box-header with-border">
+            <h2>
+                <strong>VIEW PROFILE</strong>
+            </h2>
+        </div>
+
+        <div class="box-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--MODAL BODY-->
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>FIRST NAME</label>
+                            <input asp-for="FirstName" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <label>LAST NAME</label>
+                            <input asp-for="LastName" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>EMAIL ADDRESS</label>
+                            <input asp-for="Email" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <label>ROLE</label>
+                            <input value="@ViewData["userrole"]" class="form-control " placeholder="Engine" readonly />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+            <!--MODAL FOOTER-->
+            <div class="modal-footer">
+                <div class="row pull-right">
+                    <div class="col-md-12">
+                        <a asp-action="EditProfile" class="btn btn-success pull-left">Edit Profile</a>
+                        <a asp-action="ChangePassword" class="btn btn-primary">Change Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<script src="~/Admin/bower_components/jquery/dist/jquery.js"></script>
+<script src="~/Modal/Modal.js"></script>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'>
+            </div>
+        </div>
+    </div>
+</div>

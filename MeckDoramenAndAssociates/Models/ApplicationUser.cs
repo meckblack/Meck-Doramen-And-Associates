@@ -29,7 +29,6 @@ namespace MeckDoramenAndAssociates.Models
 
         [Required(ErrorMessage = "Password is required")]
         [StringLength(18, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -38,7 +37,6 @@ namespace MeckDoramenAndAssociates.Models
         [Compare("Password")]
         [DataType(DataType.Password)]
         [StringLength(18, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$")]
         public string ConfirmPassword { get; set; }
 
         public string DisplayName

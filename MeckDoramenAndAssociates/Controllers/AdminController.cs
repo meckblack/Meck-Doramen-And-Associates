@@ -7,6 +7,7 @@ using MeckDoramenAndAssociates.Models;
 using MeckDoramenAndAssociates.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace MeckDoramenAndAssociates.Controllers
@@ -32,14 +33,18 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         [Route("admin/dashboard")]
         [SessionExpireFilterAttribute]
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
-            var userObject = _session.GetString("EDnAloggedinuser");
+            var userObject = _session.GetString("MDnAloggedinuser");
             var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
 
             ViewData["loggedinuserfullname"] = _user.DisplayName;
 
-            ViewData["userrole"] = _user.Role.Name;
+            var roleid = _user.RoleId;
+            var role = await _database.Roles.FindAsync(roleid);
+            ViewData["userrole"] = role.Name;
+
+            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
             return View();
         }

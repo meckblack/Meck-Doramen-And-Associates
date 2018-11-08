@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MeckDoramenAndAssociates.Data;
 using MeckDoramenAndAssociates.Models;
+using MeckDoramenAndAssociates.Models.Enums;
+using MeckDoramenAndAssociates.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -59,8 +61,8 @@ namespace MeckDoramenAndAssociates.Controllers
                 var password = BCrypt.Net.BCrypt.Verify(user.Password, _user.Password);
                 if (password == true)
                 {
-                    _session.SetString("EDnAloggedinuser", JsonConvert.SerializeObject(_user));
-                    _session.SetInt32("EDnAloggedinuserid", _user.ApplicationUserId);
+                    _session.SetString("MDnAloggedinuser", JsonConvert.SerializeObject(_user));
+                    _session.SetInt32("MDnAloggedinuserid", _user.ApplicationUserId);
                     return RedirectToAction("Dashboard", "Admin");
                 }
                 else
@@ -136,6 +138,283 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
+
+        #region View Profile
+
+        [SessionExpireFilterAttribute]
+        [Route("account/viewprofile")]
+        public async Task<IActionResult> ViewProfile()
+        {
+            var userid = _session.GetInt32("MDnAloggedinuserid");
+
+            var _user = await _database.ApplicationUsers.SingleOrDefaultAsync(u => u.ApplicationUserId == userid);
+
+            ViewData["loggedinuserfullname"] = _user.DisplayName;
+
+            var roleid = _user.RoleId;
+
+            var role = _database.Roles.Find(roleid);
+
+            ViewData["userrole"] = role.Name;
+
+            if (role.RoleId != roleid)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+
+            return View(_user);
+        }
+
+        #endregion
+
+        #region Edit Profile
+
+        [HttpGet]
+        [Route("account/editprofile")]
+        [SessionExpireFilterAttribute]
+        public async Task<IActionResult> EditProfile()
+        {
+            var userid = _session.GetInt32("MDnAloggedinuserid");
+
+            if (userid == null)
+            {
+                TempData["error"] = "Sorry your session has expired. Try signin again";
+                return RedirectToAction("Signin", "Account");
+            }
+
+            var _user = await _database.ApplicationUsers.SingleOrDefaultAsync(u => u.ApplicationUserId == userid);
+
+            if (_user == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            ViewData["loggedinuserfullname"] = _user.DisplayName;
+
+            var roleid = _user.RoleId;
+
+            var role = _database.Roles.Find(roleid);
+
+            ViewData["userrole"] = role.Name;
+
+            if (role.RoleId != roleid)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+
+            return PartialView("EditProfile", _user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SessionExpireFilterAttribute]
+        public async Task<IActionResult> EditProfile(ApplicationUser applicationUser)
+        {
+            var userid = _session.GetInt32("MDnAloggedinuserid");
+
+            if (userid != applicationUser.ApplicationUserId)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            try
+            {
+                applicationUser.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+                applicationUser.DateLastModified = DateTime.Now;
+
+                TempData["user"] = "You have successfully modified " + applicationUser.DisplayName + " profile.";
+                TempData["notificationType"] = NotificationType.Success.ToString();
+
+                _database.ApplicationUsers.Update(applicationUser);
+                await _database.SaveChangesAsync();
+
+                return Json(new { success = true });
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
         
+        #region Password Recovery
+
+        [HttpGet]
+        [Route("account/passwordrecovery")]
+        public IActionResult PasswordRecovery()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PasswordRecovery(ApplicationUser user)
+        {
+            var _user = await _database.ApplicationUsers.SingleOrDefaultAsync(u => u.Email == user.Email);
+
+            if (_user == null)
+            {
+                ViewData["appuser"] = "Sorry the email you enter does not exist. Check the email and try again";
+                return View();
+            }
+
+            //new Mailer().PasswordRecovery(new AppConfig().ForgotPasswordHtml, _user);
+
+            _session.SetString("recoveriedemail", _user.Email);
+
+            return RedirectToAction("Success", "Account");
+
+        }
+
+        #endregion
+
+        #region Success
+
+        [HttpGet]
+        [Route("account/success")]
+        public IActionResult Success()
+        {
+            ViewData["recoveriedemail"] = _session.GetString("recoveriedemail");
+            if (ViewData["recoveriedemail"] == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            return View();
+        }
+
+        #endregion
+
+        #region New Password
+
+        [HttpGet]
+        [Route("account/newpassword")]
+        public async Task<IActionResult> NewPassword(string appUser)
+        {
+            if (appUser == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            var _checker = await _database.ApplicationUsers.SingleOrDefaultAsync(c => c.Password == appUser);
+
+            if (_checker == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            _session.SetInt32("id", _checker.ApplicationUserId);
+            return View(_checker);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewPassword(ApplicationUser applicationUser)
+        {
+            var userid = _session.GetInt32("id");
+
+            if (userid != applicationUser.ApplicationUserId)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            try
+            {
+                applicationUser.Password = BCrypt.Net.BCrypt.HashPassword(applicationUser.Password);
+                applicationUser.ConfirmPassword = BCrypt.Net.BCrypt.HashPassword(applicationUser.ConfirmPassword);
+
+                
+                _database.ApplicationUsers.Update(applicationUser);
+                await _database.SaveChangesAsync();
+
+                return RedirectToAction("Signin", "Account");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+        #region Change Password
+
+        [HttpGet]
+        [Route("account/changepassword")]
+        [SessionExpireFilterAttribute]
+        public async Task<IActionResult> ChangePassword()
+        {
+            var userid = _session.GetInt32("MDnAloggedinuserid");
+
+            if (userid == null)
+            {
+                TempData["error"] = "Sorry your session has expired. Try signin again";
+                return RedirectToAction("Signin", "Account");
+            }
+
+            var _user = await _database.ApplicationUsers.SingleOrDefaultAsync(u => u.ApplicationUserId == userid);
+
+            if (_user == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            ViewData["loggedinuserfullname"] = _user.DisplayName;
+
+            var roleid = _user.RoleId;
+
+            var role = _database.Roles.Find(roleid);
+
+            ViewData["userrole"] = role.Name;
+
+            if (role.RoleId != roleid)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+
+            return View("ChangePassword", _user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SessionExpireFilterAttribute]
+        public async Task<IActionResult> ChangePassword(ApplicationUser applicationUser)
+        {
+            var userid = _session.GetInt32("MDnAloggedinuserid");
+
+            if (userid != applicationUser.ApplicationUserId)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            try
+            {
+                applicationUser.ConfirmPassword = BCrypt.Net.BCrypt.HashPassword(applicationUser.ConfirmPassword);
+                applicationUser.Password = BCrypt.Net.BCrypt.HashPassword(applicationUser.Password);
+                applicationUser.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+                applicationUser.DateLastModified = DateTime.Now;
+
+                TempData["user"] = "You have successfully changed " + applicationUser.DisplayName + " password.";
+                TempData["notificationType"] = NotificationType.Success.ToString();
+
+                _database.ApplicationUsers.Update(applicationUser);
+                await _database.SaveChangesAsync();
+
+                return Json(new { success = true });
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
     }
 }

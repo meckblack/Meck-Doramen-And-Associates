@@ -1,0 +1,46 @@
+﻿@model MeckDoramenAndAssociates.Models.ApplicationUser
+
+@{
+    Layout = "~/Views/Shared/AuthenticationLayout/_AuthenticationLayout.cshtml";
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="login-logo">
+    <a asp-action="SingIn" asp-controller="Account"><b>MECK DORAMEN</b> AND ACCOCIATES</a>
+</div>
+<!-- /.login-logo -->
+<div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+    <form asp-action="SignIn" asp-controller="Account">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (ViewData["mismatch"] != null && Convert.ToString(ViewData["mismatch"]) != " ")
+        {
+            <h5 style="padding-left:1em;" class="text-danger">@ViewData["mismatch"]</h5>
+        }
+        <div class="form-group has-feedback">
+            <input asp-for="Email" type="email" class="form-control" placeholder="Enter Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input asp-for="Password" type="password" class="form-control" placeholder="Enter Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="checkbox icheck">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- /.social-auth-links -->
+    <a asp-action="PasswordRecovery" asp-controller="Account">I forgot my password</a><br>
+</div>
+<!-- /.login-box-body -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
