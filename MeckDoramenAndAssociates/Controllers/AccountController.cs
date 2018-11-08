@@ -59,8 +59,8 @@ namespace MeckDoramenAndAssociates.Controllers
                 var password = BCrypt.Net.BCrypt.Verify(user.Password, _user.Password);
                 if (password == true)
                 {
-                    _session.SetString("imouloggedinuser", JsonConvert.SerializeObject(_user));
-                    _session.SetInt32("imouloggedinuserid", _user.ApplicationUserId);
+                    _session.SetString("EDnAloggedinuser", JsonConvert.SerializeObject(_user));
+                    _session.SetInt32("EDnAloggedinuserid", _user.ApplicationUserId);
                     return RedirectToAction("Dashboard", "Admin");
                 }
                 else
