@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
+}
+
+
+<section class="bg-black">
+    <div class="container">
+        <partial name="~/Views/Shared/LandingAboutUs.cshtml" />
+    </div>
+    <div class="counter">
+        <partial name="~/Views/Shared/LandingVision.cshtml" />
+    </div>
+</section>
+
+<section class="skills">
+    <partial name="~/Views/Shared/LandingSkill.cshtml" />
+</section>
+
+<section class="index-contact">
+    <partial name="~/Views/Shared/LandingContacts.cshtml" />
+</section>
