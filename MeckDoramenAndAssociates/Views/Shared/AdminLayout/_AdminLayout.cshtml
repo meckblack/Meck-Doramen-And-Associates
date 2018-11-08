@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Meck Doramen And Associates</title>
+    <environment include="Development">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="~/Admin/bower_components/font-awesome/css/font-awesome.css">
+
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.4.1/collection/icon/icon.css"
+              asp-fallback-href="~/Admin/bower_components/Ionicons/css/ionicons.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="~/Admin/dist/css/AdminLTE.css">
+
+        <!-- AdminLTE Skins -->
+        <link rel="stylesheet" href="~/Admin/dist/css/skins/skin-blue.css">
+
+        <link rel="stylesheet" type="text/css" href="~/DatePicker/jquery-ui.css" />
+
+        <!--Search Sorting Pagination CSS-->
+        <link href="~/DataTables/jquery.dataTables.css" rel="stylesheet" />
+        <link href="~/DataTables/table-responsive.css" rel="stylesheet" />
+
+        <!-- Google Font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+    </environment>
+</head>
+<body class="skin-blue">
+    <div class="wrapper" style="overflow: hidden">
+        <header class="main-header">
+            <!--Logo-->
+            <a asp-action="Admin" asp-controller="Dashboard" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>MDnA</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>MECK DORAMEN AND ASSOCIATES</b></span>
+            </a>
+
+            <partial name="~/Views/Shared/AdminLayout/_AdminHeader.cshtml" />
+
+        </header>
+
+        <!-- =============================================== -->
+        <!-- Left side column. contains the sidebar -->
+        <partial name="~/Views/Shared/AdminLayout/_AdminSideBar.cshtml" />
+
+        <!-- =============================================== -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            @RenderBody()
+
+        </div>
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>meckblvck</b>
+            </div>
+            <strong>Copyright &copy; @DateTime.Now.Year </strong>
+            reserved.
+        </footer>
+        <!-- /.content-wrapper -->
+
+    </div>
+    <environment include="Development">
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+
+        <!-- SlimScroll -->
+        <script src="~/Admin/bower_components/jquery-slimscroll//jquery.slimscroll.js"></script>
+        <!-- FastClick -->
+        <script src="~/Admin/bower_components/fastclick/lib/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="~/Admin/dist/js/adminlte.js"></script>
+        <!--Search Sorting Pagination JS-->
+        <script src="~/DataTables/jquery.dataTables.min.js"></script>
+
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
