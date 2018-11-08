@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser : Transport
     {
         #region Data Model
 
@@ -28,12 +28,17 @@ namespace MeckDoramenAndAssociates.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
+        [StringLength(18, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$")]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Confirm Password is required")]
         [Compare("Password")]
         [DataType(DataType.Password)]
+        [StringLength(18, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$")]
         public string ConfirmPassword { get; set; }
 
         public string DisplayName

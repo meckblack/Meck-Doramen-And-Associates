@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class LandingSkill
+    public class LandingSkill : Transport
     {
         #region Data Model
 

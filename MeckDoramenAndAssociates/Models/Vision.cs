@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class Vision
+    public class Vision : Transport
     {
         #region Data Model
 

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class Contacts
+    public class Contacts : Transport
     {
-        #region Data Models
+        #region Data Models 
 
         public int ContactsId { get; set; }
 
