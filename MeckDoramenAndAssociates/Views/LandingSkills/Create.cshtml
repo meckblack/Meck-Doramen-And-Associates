@@ -1,0 +1,129 @@
+﻿@model MeckDoramenAndAssociates.Models.LandingSkill
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+
+<!--MODAL HEADER-->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3> <strong> ADD LANDING SKILL</strong> </h3>
+</div>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <!--MODAL BODY-->
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Header</label>
+                    <input asp-for="Header" class="form-control " />
+                    <span asp-validation-for="Header" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Body</label>
+                    <textarea asp-for="Body" class="form-control "></textarea>
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Skill One</label>
+                    <input asp-for="SkillOne" class="form-control " />
+                    <span asp-validation-for="SkillOne" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Skill One Rating</label>
+                    <input asp-for="SkillOneRating" class="form-control "/>
+                    <span asp-validation-for="SkillOneRating" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Skill Two</label>
+                    <input asp-for="SkillTwo" class="form-control " />
+                    <span asp-validation-for="SkillTwo" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Skill Two Rating</label>
+                    <input asp-for="SkillTwoRating" class="form-control " />
+                    <span asp-validation-for="SkillTwoRating" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Skill Three</label>
+                    <input asp-for="SkillThree" class="form-control " />
+                    <span asp-validation-for="SkillThree" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Skill Three Rating</label>
+                    <input asp-for="SkillThreeRating" class="form-control " />
+                    <span asp-validation-for="SkillThreeRating" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Skill Four</label>
+                    <input asp-for="SkillFour" class="form-control " />
+                    <span asp-validation-for="SkillFour" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Skill Four Rating</label>
+                    <input asp-for="SkillFourRating" class="form-control " />
+                    <span asp-validation-for="SkillFourRating" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Skill Five</label>
+                    <input asp-for="SkillFive" class="form-control " />
+                    <span asp-validation-for="SkillFive" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Skill Five Rating</label>
+                    <input asp-for="SkillFiveRating" class="form-control " />
+                    <span asp-validation-for="SkillFiveRating" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Skill Six</label>
+                    <input asp-for="SkillSix" class="form-control " />
+                    <span asp-validation-for="SkillSix" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Skill Six Rating</label>
+                    <input asp-for="SkillSixRating" class="form-control " />
+                    <span asp-validation-for="SkillSixRating" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MODAL FOOTER-->
+    <div class="modal-footer">
+        <div class="row pull-right">
+            <div class="col-md-12">
+                <input type="submit" value="Add" class="btn btn-primary" />
+                <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

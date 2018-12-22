@@ -166,13 +166,13 @@
                     <ul class="nav nav-stacked">
                         @if (Convert.ToInt32(ViewData["landingskillchecker"]) == 0)
                         {
-                            <li><a data-modal="" asp-action="Create" asp-controller="LandingSkill">Add Landing Skill<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                            <li><a data-modal="" asp-action="Create" asp-controller="LandingSkills">Add Landing Skill<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
                         }
 
                         @foreach (LandingSkill landingSkill in Model.LandingSkill)
                         {
-                            <li><a data-modal="" asp-action="View" asp-controller="LandingSkill" asp-route-id="@landingSkill.LandingSkillId">View Landing Skill<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
-                            <li><a data-modal="" asp-action="Delete" asp-controller="LandingSkill" asp-route-id="@landingSkill.LandingSkillId">Delete Landing Skill<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                            <li><a data-modal="" asp-action="View" asp-controller="LandingSkills" asp-route-id="@landingSkill.LandingSkillId">View Landing Skill<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                            <li><a data-modal="" asp-action="Delete" asp-controller="LandingSkills" asp-route-id="@landingSkill.LandingSkillId">Delete Landing Skill<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
                         }
 
                     </ul>
