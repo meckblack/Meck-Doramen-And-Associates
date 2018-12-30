@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MeckDoramenAndAssociates.Data;
+﻿using MeckDoramenAndAssociates.Data;
 using MeckDoramenAndAssociates.Models;
 using MeckDoramenAndAssociates.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Controllers
 {
@@ -27,12 +24,12 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-        
+
         #region Dashboard
 
         [HttpGet]
         [Route("admin/dashboard")]
-        [SessionExpireFilterAttribute]
+        //[SessionExpireFilterAttribute]
         public async Task<IActionResult> Dashboard()
         {
             var userObject = _session.GetString("MDnAloggedinuser");

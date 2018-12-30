@@ -680,9 +680,7 @@ textarea {
 }
 
 footer {
-    background: url(../images/myfooter.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+    
     text-align: center;
     clear: both;
     padding-bottom: 77px;

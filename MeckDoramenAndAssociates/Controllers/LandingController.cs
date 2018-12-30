@@ -32,7 +32,7 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Index
 
         [Route("landing/index")]
-        [SessionExpireFilterAttribute]
+        //[SessionExpireFilterAttribute]
         public async Task<IActionResult> Index()
         {
             var userObject = _session.GetString("MDnAloggedinuser");
@@ -53,7 +53,7 @@ namespace MeckDoramenAndAssociates.Controllers
             ViewData["landingaboutuschecker"] = _database.LandingAboutUs.Count();
             ViewData["visionchecker"] = _database.Vision.Count();
             ViewData["landingskillchecker"] = _database.LandingSkills.Count();
-            
+
             var roleid = _user.RoleId;
 
             var role = _database.Roles.Find(roleid);

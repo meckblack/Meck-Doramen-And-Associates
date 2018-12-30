@@ -46,7 +46,8 @@ namespace MeckDoramenAndAssociates
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(100);
+                options.Cookie.Name = ".adventureWorks.session";
+                options.IdleTimeout = TimeSpan.FromHours(1);
                 options.Cookie.HttpOnly = true;
             });
 
@@ -55,9 +56,6 @@ namespace MeckDoramenAndAssociates
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
-            app.UseSession();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -68,6 +66,8 @@ namespace MeckDoramenAndAssociates
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseSession();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
