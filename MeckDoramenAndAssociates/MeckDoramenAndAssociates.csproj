@@ -2571,6 +2571,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\UploadedFiles\Logo\" />
+    <Folder Include="wwwroot\UploadedFiles\HeaderImage\" />
+    <Folder Include="wwwroot\UploadedFiles\FooterImage\" />
   </ItemGroup>
 
 </Project>

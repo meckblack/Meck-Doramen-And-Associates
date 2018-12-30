@@ -18,6 +18,8 @@ namespace MeckDoramenAndAssociates.Data
         public DbSet<LandingSkill> LandingSkills { get; set; }
         public DbSet<Logo> Logo { get; set; }
         public DbSet<Vision> Vision { get; set; }
-        public DbSet<HeaderAndFooterImages> HeaderAndFooterImages { get; set; }
+        public DbSet<HeaderImage> HeaderImages { get; set; }
+        public DbSet<FooterImage> FooterImages { get; set; }
+
     }
 }

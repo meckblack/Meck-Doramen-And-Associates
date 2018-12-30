@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MeckDoramenAndAssociates.Controllers
 {
-    public class LogoController : Controller
+    public class HeaderImageController : Controller
     {
         private readonly ApplicationDbContext _database;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -22,7 +23,7 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #region Constructor
 
-        public LogoController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IHostingEnvironment environment)
+        public HeaderImageController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IHostingEnvironment environment)
         {
             _database = context;
             _httpContextAccessor = httpContextAccessor;
@@ -31,18 +32,18 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #endregion
 
-        #region Add Logo
+        #region Add Header Images
 
         [HttpGet]
-        [Route("logo/add")]
+        [Route("headerimage/add")]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> AddLogo()
+        public async Task<IActionResult> AddImages()
         {
             var counter = _database.Logo.Count();
 
             if (counter == 1)
             {
-                TempData["landing"] = "Sorry there exist a logo. You can change it by deleting first before adding!!!";
+                TempData["landing"] = "Sorry there exist header image. You can change it by deleting first before adding!!!";
                 TempData["notificationType"] = NotificationType.Info.ToString();
                 return RedirectToAction("Index", "Landing");
             }
@@ -61,7 +62,7 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-            
+
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
 
             return View();
@@ -69,8 +70,8 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpPost]
         [SessionExpireFilterAttribute]
-        [Route("logo/add")]
-        public async Task<IActionResult> AddLogo(Logo logo, IFormFile file)
+        [Route("headerimage/add")]
+        public async Task<IActionResult> AddImages(HeaderImage image, IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -80,7 +81,7 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 var fileinfo = new FileInfo(file.FileName);
                 var filename = DateTime.Now.ToFileTime() + fileinfo.Extension;
-                var uploads = Path.Combine(_environment.WebRootPath, "UploadedFiles\\Logo");
+                var uploads = Path.Combine(_environment.WebRootPath, "UploadedFiles\\HeaderImage");
                 if (file.Length > 0)
                 {
                     using (var fileStream = new FileStream(Path.Combine(uploads, filename), FileMode.Create))
@@ -91,16 +92,16 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    logo.Image = filename;
-                    logo.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuser"));
-                    logo.DateCreated = DateTime.Now;
-                    logo.DateLastModified = DateTime.Now;
-                    logo.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuser"));
+                    image.Image = filename;
+                    image.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuser"));
+                    image.DateCreated = DateTime.Now;
+                    image.DateLastModified = DateTime.Now;
+                    image.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuser"));
 
-                    TempData["landing"] = "You have successfully added Meck Doramen And Associates's Logo !!!";
+                    TempData["landing"] = "You have successfully added a Header Image !!!";
                     TempData["notificationType"] = NotificationType.Success.ToString();
 
-                    await _database.Logo.AddAsync(logo);
+                    await _database.HeaderImages.AddAsync(image);
                     await _database.SaveChangesAsync();
 
 
@@ -109,7 +110,7 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 }
             }
-            return View(logo);
+            return View(image);
         }
 
         #endregion
@@ -135,27 +136,27 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            var logo = await _database.Logo
-                .SingleOrDefaultAsync(m => m.LogoId == id);
-            if (logo == null)
+            var headerImage = await _database.HeaderImages
+                .SingleOrDefaultAsync(m => m.HeaderImageId == id);
+            if (headerImage == null)
             {
                 return RedirectToAction("Index", "Error");
             }
             return View("Delete");
         }
 
-        // POST: Logo/Delete/5
+        // POST: HeaderImage/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var logo = await _database.Logo.SingleOrDefaultAsync(m => m.LogoId == id);
-            if (logo != null)
+            var headerImage = await _database.Logo.SingleOrDefaultAsync(m => m.LogoId == id);
+            if (headerImage != null)
             {
-                _database.Logo.Remove(logo);
+                _database.Logo.Remove(headerImage);
                 await _database.SaveChangesAsync();
 
-                TempData["landing"] = "You have successfully deleted Meck Doramen And Associates Logo!";
+                TempData["landing"] = "You have successfully deleted Meck Doramen And Associates Header Image!";
                 TempData["notificationType"] = NotificationType.Success.ToString();
 
                 return Json(new { success = true });
@@ -186,23 +187,23 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            var _logo = await _database.Logo.SingleOrDefaultAsync(l => l.LogoId == id);
+            var _headerImage = await _database.HeaderImages.SingleOrDefaultAsync(l => l.HeaderImageId == id);
 
-            if (_logo == null)
+            if (_headerImage == null)
             {
                 return RedirectToAction("Index", "Error");
             }
 
-            return View(_logo);
+            return View(_headerImage);
         }
 
         #endregion
 
         #region Exist
 
-        private bool LogoExists(int id)
+        private bool HeaderImageExists(int id)
         {
-            return _database.Logo.Any(e => e.LogoId == id);
+            return _database.HeaderImages.Any(e => e.HeaderImageId == id);
         }
 
         #endregion
