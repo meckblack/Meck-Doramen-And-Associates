@@ -1,0 +1,42 @@
+﻿@model MeckDoramenAndAssociates.Models.FooterImage
+
+@{
+    ViewData["Title"] = "Add Footer Image";
+    Layout = "~/Views/Shared/AdminLayout/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h2>
+                ADD FOOTER IMAGE
+            </h2>
+        </div>
+        <div class="box-body">
+            <form asp-action="AddLogo" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input class="form-control" type="file" name="file" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="modal-footer">
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <input type="hidden" value="blank" asp-for="Image" />
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <a class="btn btn-danger" asp-action="Index" asp-controller="Landing">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

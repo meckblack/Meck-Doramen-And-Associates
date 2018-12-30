@@ -47,12 +47,16 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.LandingAboutUs = GetLandingAboutUs();
             mymodel.Vision = GetVision();
             mymodel.LandingSkill = GetLandingSkill();
+            mymodel.HeaderImage = GetHeaderImage();
+            mymodel.FooterImage = GetFooterImage();
             
             ViewData["logochecker"] = _database.Logo.Count();
             ViewData["contactchecker"] = _database.Contacts.Count();
             ViewData["landingaboutuschecker"] = _database.LandingAboutUs.Count();
             ViewData["visionchecker"] = _database.Vision.Count();
             ViewData["landingskillchecker"] = _database.LandingSkills.Count();
+            ViewData["footerimage"] = _database.FooterImages.Count();
+            ViewData["headerimage"] = _database.HeaderImages.Count();
 
             var roleid = _user.RoleId;
 
@@ -125,5 +129,28 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
+
+        #region Get Header Image
+
+        private List<HeaderImage> GetHeaderImage()
+        {
+            var _headerImage = _database.HeaderImages.ToList();
+
+            return _headerImage;
+        }
+
+        #endregion
+
+        #region Get Footer Image
+
+        private List<FooterImage> GetFooterImage()
+        {
+            var _footerImage = _database.FooterImages.ToList();
+
+            return _footerImage;
+        }
+
+        #endregion
+
     }
 }
