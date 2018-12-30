@@ -2,54 +2,57 @@
     <div class="row">
         <div class="col-lg-5" data-aos="fade-up" data-aos-duration="800">
             <span>Our Skills and Expertises</span>
-            <h3>See Where We Really Stand In The Different Generes of Photography</h3>
+            <h3>@ViewData["skillheader"]</h3>
             <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book.
+                @ViewData["skillbody"]
             </p>
         </div>
 
         <div class="col-lg-7 progress-text" data-aos="fade-up" data-aos-duration="800">
             <div class="p-text">
-                <span>wedding Photography</span>
+                <a href="">
+                    <span>@ViewData["skillone"]</span>
+                </a>
             </div>
             <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:75%;height:6px" data-aos="fade-right" data-aos-duration="800">
+                <div class="progress-bar" style="width:@ViewData["skillonerating"]%;height:6px" data-aos="fade-right" data-aos-duration="800">
                 </div>
-                <span class="one" data-aos="fade-right" data-aos-duration="800"></span>
             </div>
 
             <div class="p-text">
-                <span>Portraits Photography</span>
+                <a href="">
+                    <span>@ViewData["skilltwo"]</span>
+                </a>
             </div>
             <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:90%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
-                <span class="two" data-aos="fade-right" data-aos-duration="800"></span>
+                <div class="progress-bar" style="width:@ViewData["skilltworating"]%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
             </div>
 
             <div class="p-text">
-                <span>Nature Photography</span>
+                <a href="">
+                    <span>@ViewData["skillthree"]</span>
+                </a>
             </div>
             <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:60%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
-                <span class="three" data-aos="fade-right" data-aos-duration="800"></span>
+                <div class="progress-bar" style="width:@ViewData["skillthreerating"]%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
             </div>
 
             <div class="p-text">
-                <span>Post Processing</span>
+                <a href="">
+                    <span>@ViewData["skillfour"]</span>
+                </a>
             </div>
             <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:80%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
-                <span class="four" data-aos="fade-right" data-aos-duration="800"></span>
+                <div class="progress-bar" style="width:@ViewData["skillfourrating"]%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
             </div>
 
             <div class="p-text">
-                <span>Street Photography</span>
+                <a href="">
+                    <span>@ViewData["skillfive"]</span>
+                </a>
             </div>
             <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:75%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
-                <span class="five" data-aos="fade-right" data-aos-duration="800"></span>
+                <div class="progress-bar" style="width:@ViewData["skillfiverating"]%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
             </div>
         </div>
     </div>

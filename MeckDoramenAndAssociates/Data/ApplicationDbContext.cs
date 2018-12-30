@@ -20,6 +20,7 @@ namespace MeckDoramenAndAssociates.Data
         public DbSet<Vision> Vision { get; set; }
         public DbSet<HeaderImage> HeaderImages { get; set; }
         public DbSet<FooterImage> FooterImages { get; set; }
+        public DbSet<Skills> Skills { get; set; }
 
     }
 }

@@ -38,6 +38,8 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.LandingAboutUs = GetLandingAboutUs();
             mymodel.Vision = GetVision();
             mymodel.LandingSkill = GetLandingSkill();
+            mymodel.HeaderImage = GetHeaderImage();
+            mymodel.FooterImage = GetFooterImage();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -65,16 +67,52 @@ namespace MeckDoramenAndAssociates.Controllers
 
             foreach (Vision vision in mymodel.Vision)
             {
-                
+                ViewData["visionone"] = vision.VisionOne;
+                ViewData["visiononerating"] = vision.VisionOneRating;
+
+                ViewData["visiontwo"] = vision.VisionTwo;
+                ViewData["visiontworating"] = vision.VisionTwoRating;
+
+                ViewData["visionthree"] = vision.VisionThree;
+                ViewData["visionthreerating"] = vision.VisionThreeRating;
+
+                ViewData["visionfour"] = vision.VisionFour;
+                ViewData["visionfourrating"] = vision.VisionFourRating;
             }
 
             foreach (LandingSkill landingSkill in mymodel.LandingSkill)
             {
-                
+                ViewData["skillheader"] = landingSkill.Header;
+                ViewData["skillbody"] = landingSkill.Body;
+
+                ViewData["skillone"] = landingSkill.SkillOne;
+                ViewData["skillonerating"] = landingSkill.SkillOneRating;
+
+                ViewData["skilltwo"] = landingSkill.SkillTwo;
+                ViewData["skilltworating"] = landingSkill.SkillTwoRating;
+
+                ViewData["skillthree"] = landingSkill.SkillThree;
+                ViewData["skillthreerating"] = landingSkill.SkillThreeRating;
+
+                ViewData["skillfour"] = landingSkill.SkillFour;
+                ViewData["skillfourrating"] = landingSkill.SkillFourRating;
+
+                ViewData["skillfive"] = landingSkill.SkillFive;
+                ViewData["skillfiverating"] = landingSkill.SkillFiveRating;
+
+                ViewData["skillsix"] = landingSkill.SkillSix;
+                ViewData["skillsixrating"] = landingSkill.SkillSixRating;
             }
 
+            foreach (HeaderImage headerImage in mymodel.HeaderImage)
+            {
+                ViewData["headerimage"] = headerImage.Image;
+            }
 
-
+            foreach (FooterImage footerImage in mymodel.FooterImage)
+            {
+                ViewData["footerimage"] = footerImage.Image;
+            }
 
 
             return View();
@@ -132,6 +170,28 @@ namespace MeckDoramenAndAssociates.Controllers
             var _landingskill = _database.LandingSkills.ToList();
 
             return _landingskill;
+        }
+
+        #endregion
+
+        #region Get Header Image
+
+        private List<HeaderImage> GetHeaderImage()
+        {
+            var _headerImage = _database.HeaderImages.ToList();
+
+            return _headerImage;
+        }
+
+        #endregion
+
+        #region Get Footer Image
+
+        private List<FooterImage> GetFooterImage()
+        {
+            var _footerImage = _database.FooterImages.ToList();
+
+            return _footerImage;
         }
 
         #endregion
