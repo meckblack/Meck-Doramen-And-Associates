@@ -37,9 +37,9 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         [Route("footerimage/add")]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> AddImages()
+        public async Task<IActionResult> AddImage()
         {
-            var counter = _database.Logo.Count();
+            var counter = _database.FooterImages.Count();
 
             if (counter == 1)
             {
@@ -71,7 +71,7 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpPost]
         [SessionExpireFilterAttribute]
         [Route("footerimage/add")]
-        public async Task<IActionResult> AddImages(FooterImage image, IFormFile file)
+        public async Task<IActionResult> AddImage(FooterImage image, IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -98,7 +98,7 @@ namespace MeckDoramenAndAssociates.Controllers
                     image.DateLastModified = DateTime.Now;
                     image.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuser"));
 
-                    TempData["landing"] = "You have successfully added a Header Image !!!";
+                    TempData["landing"] = "You have successfully added a Footer Image !!!";
                     TempData["notificationType"] = NotificationType.Success.ToString();
 
                     await _database.FooterImages.AddAsync(image);

@@ -186,13 +186,13 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-blue" style="align-content: center">
                     <!-- /.widget-user-image -->
-                    <h3 class="widget-user-username">Skill</h3>
+                    <h3 class="widget-user-username">HEADER </h3>
                 </div>
                 <div class="box-footer no-padding">
                     <ul class="nav nav-stacked">
                         @if (Convert.ToInt32(ViewData["headerimage"]) == 0)
                         {
-                            <li><a data-modal="" asp-action="Create" asp-controller="LandingSkills">Add Landing Skill<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                            <li><a asp-action="AddImage" asp-controller="HeaderImage">Add Header Image<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
                         }
 
                         @foreach (HeaderImage headerImage in Model.HeaderImage)
@@ -212,13 +212,13 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-blue" style="align-content: center">
                     <!-- /.widget-user-image -->
-                    <h3 class="widget-user-username">Skill</h3>
+                    <h3 class="widget-user-username">FOOTER</h3>
                 </div>
                 <div class="box-footer no-padding">
                     <ul class="nav nav-stacked">
                         @if (Convert.ToInt32(ViewData["footerimage"]) == 0)
                         {
-                            <li><a data-modal="" asp-action="Create" asp-controller="LandingSkills">Add Landing Skill<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                            <li><a asp-action="AddImage" asp-controller="FooterImage">Add Footer Image<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
                         }
 
                         @foreach (FooterImage footerImage in Model.FooterImage)

@@ -37,9 +37,9 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         [Route("headerimage/add")]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> AddImages()
+        public async Task<IActionResult> AddImage()
         {
-            var counter = _database.Logo.Count();
+            var counter = _database.HeaderImages.Count();
 
             if (counter == 1)
             {
@@ -71,7 +71,7 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpPost]
         [SessionExpireFilterAttribute]
         [Route("headerimage/add")]
-        public async Task<IActionResult> AddImages(HeaderImage image, IFormFile file)
+        public async Task<IActionResult> AddImage(HeaderImage image, IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
