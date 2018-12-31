@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class Skills
+    public class Skills : Transport
     {
         public int SkillsId { get; set; }
 

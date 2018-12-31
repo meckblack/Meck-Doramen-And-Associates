@@ -32,7 +32,7 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Index
 
         [Route("landing/index")]
-        //[SessionExpireFilterAttribute]
+        [SessionExpireFilterAttribute]
         public async Task<IActionResult> Index()
         {
             var userObject = _session.GetString("MDnAloggedinuser");

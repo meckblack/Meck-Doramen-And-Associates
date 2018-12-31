@@ -92,10 +92,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 if (ModelState.IsValid)
                 {
                     logo.Image = filename;
-                    logo.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuser"));
+                    logo.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
                     logo.DateCreated = DateTime.Now;
                     logo.DateLastModified = DateTime.Now;
-                    logo.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuser"));
+                    logo.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
 
                     TempData["landing"] = "You have successfully added Meck Doramen And Associates's Logo !!!";
                     TempData["notificationType"] = NotificationType.Success.ToString();

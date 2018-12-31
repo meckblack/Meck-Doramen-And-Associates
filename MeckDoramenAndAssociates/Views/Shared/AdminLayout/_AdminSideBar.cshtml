@@ -21,6 +21,14 @@
                 </a>
             </li>
             }
+            @if (ViewData["candoeverything"] != null)
+            {
+            <li>
+                <a asp-action="Index" asp-controller="Skills">
+                    <i class="fa fa-dashboard"></i> <span>Skills</span>
+                </a>
+            </li>
+            }
             @*@if (ViewData["candoeverything"] != null)
             {
                 <li class="treeview">

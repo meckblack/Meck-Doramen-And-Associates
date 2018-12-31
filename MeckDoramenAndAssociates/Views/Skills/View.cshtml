@@ -1,0 +1,21 @@
+﻿@model MeckDoramenAndAssociates.Models.Skills
+
+@{
+    ViewData["Title"] = "View";
+    Layout = null;
+}
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget">
+                <div class="box-body">
+                    <img class="img-responsive pad" src="~/UploadedFiles/SKills/@Html.DisplayFor(model => model.Image)" alt="Skill Image" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+</div>

@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@model dynamic
+
+<div class="container">
     <div class="row">
         <div class="col-lg-5" data-aos="fade-up" data-aos-duration="800">
             <span>Our Skills and Expertises</span>
@@ -9,51 +11,19 @@
         </div>
 
         <div class="col-lg-7 progress-text" data-aos="fade-up" data-aos-duration="800">
-            <div class="p-text">
-                <a href="">
-                    <span>@ViewData["skillone"]</span>
-                </a>
-            </div>
-            <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:@ViewData["skillonerating"]%;height:6px" data-aos="fade-right" data-aos-duration="800">
+
+            @foreach (Skills skills in Model.Skills)
+            {
+                <div class="p-text">
+                    <a href="">
+                        <span>@skills.Name</span>
+                    </a>
                 </div>
-            </div>
-
-            <div class="p-text">
-                <a href="">
-                    <span>@ViewData["skilltwo"]</span>
-                </a>
-            </div>
-            <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:@ViewData["skilltworating"]%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
-            </div>
-
-            <div class="p-text">
-                <a href="">
-                    <span>@ViewData["skillthree"]</span>
-                </a>
-            </div>
-            <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:@ViewData["skillthreerating"]%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
-            </div>
-
-            <div class="p-text">
-                <a href="">
-                    <span>@ViewData["skillfour"]</span>
-                </a>
-            </div>
-            <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:@ViewData["skillfourrating"]%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
-            </div>
-
-            <div class="p-text">
-                <a href="">
-                    <span>@ViewData["skillfive"]</span>
-                </a>
-            </div>
-            <div class="progress" style="height:6px;">
-                <div class="progress-bar" style="width:@ViewData["skillfiverating"]%;height:6px" data-aos="fade-right" data-aos-duration="800"></div>
-            </div>
+                <div class="progress" style="height:6px;">
+                    <div class="progress-bar" style="width:@skills.Rating%;height:6px" data-aos="fade-right" data-aos-duration="800">
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

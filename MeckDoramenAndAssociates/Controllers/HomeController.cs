@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MeckDoramenAndAssociates.Models;
 using MeckDoramenAndAssociates.Data;
@@ -28,8 +25,7 @@ namespace MeckDoramenAndAssociates.Controllers
         #endregion
 
         #region Index
-
-
+        
         public IActionResult Index()
         {
             dynamic mymodel = new ExpandoObject();
@@ -40,6 +36,7 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.LandingSkill = GetLandingSkill();
             mymodel.HeaderImage = GetHeaderImage();
             mymodel.FooterImage = GetFooterImage();
+            mymodel.Skills = GetSkills();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -84,24 +81,6 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 ViewData["skillheader"] = landingSkill.Header;
                 ViewData["skillbody"] = landingSkill.Body;
-
-                ViewData["skillone"] = landingSkill.SkillOne;
-                ViewData["skillonerating"] = landingSkill.SkillOneRating;
-
-                ViewData["skilltwo"] = landingSkill.SkillTwo;
-                ViewData["skilltworating"] = landingSkill.SkillTwoRating;
-
-                ViewData["skillthree"] = landingSkill.SkillThree;
-                ViewData["skillthreerating"] = landingSkill.SkillThreeRating;
-
-                ViewData["skillfour"] = landingSkill.SkillFour;
-                ViewData["skillfourrating"] = landingSkill.SkillFourRating;
-
-                ViewData["skillfive"] = landingSkill.SkillFive;
-                ViewData["skillfiverating"] = landingSkill.SkillFiveRating;
-
-                ViewData["skillsix"] = landingSkill.SkillSix;
-                ViewData["skillsixrating"] = landingSkill.SkillSixRating;
             }
 
             foreach (HeaderImage headerImage in mymodel.HeaderImage)
@@ -115,7 +94,7 @@ namespace MeckDoramenAndAssociates.Controllers
             }
 
 
-            return View();
+            return View(mymodel);
         }
 
         #endregion
@@ -196,6 +175,16 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #endregion
 
+        #region Get Skill 
+
+        private List<Skills> GetSkills()
+        {
+            var _skills = _database.Skills.ToList();
+
+            return _skills;
+        }
+
+        #endregion
 
     }
 }
