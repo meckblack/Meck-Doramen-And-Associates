@@ -3,6 +3,56 @@
     Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
 }
 
+<div id="carouselExampleIndicators" class="banner carousel slide" data-ride="carousel">
+    <partial name="~/Views/Shared/LandingLayout/_LandingBody.cshtml" />
+</div>
+
+<section class="index-blog-sec">
+    <div class="container">
+        <div class="index-blog-heading" data-aos="zoom-in" data-aos-duration="800">
+            <h3>Read Latest Finacial Happenings</h3>
+        </div>
+        <ul class="row r2">
+            <li class="col-md-6 col-lg-4 m-b-34" data-aos="fade-up" data-aos-duration="800">
+                <div class="blog-2">
+                    <a href="blog.html">
+                        <figure style="background: url(landing/images/finger.jpg);"></figure>
+                    </a>
+                    <a href="blog.html">
+                        <h4>Engagement of Suzi</h4>
+                        <span>jan 19,2016 / fashion, wedding</span>
+                    </a>
+                </div>
+            </li>
+            <li class="col-md-6 col-lg-4 m-b-34" data-aos="fade-up" data-aos-duration="1100">
+                <div class="blog-2">
+                    <a href="blog.html">
+                        <figure style="background: url(landing/images/mysix.jpg);background-position:center top;"></figure>
+                    </a>
+                    <a href="blog.html">
+                        <h4>Engagement of Suzi</h4>
+                        <span>jan 19,2016 / fashion, wedding</span>
+                    </a>
+                </div>
+            </li>
+            <li class="col-md-6 col-lg-4 m-b-34" data-aos="fade-up" data-aos-duration="1400">
+                <div class="blog-2 blog-21">
+                    <a href="blog.html">
+                        <figure style="background: url(landing/images/lastimg.jpg);"></figure>
+                    </a>
+                    <a href="blog.html">
+                        <h4>Engagement of Suzi</h4>
+                        <span>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                            the industry's 1500s, when an unknown..
+                        </span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
 
 <section class="bg-black">
     <div class="container">
@@ -17,42 +67,5 @@
     <partial name="~/Views/Shared/LandingSkill.cshtml" />
 </section>
 
-<section class="index-contact">
-    <partial name="~/Views/Shared/LandingContacts.cshtml" />
-</section>
 
-<footer style="background: url(UploadedFiles/FooterImage/@ViewData["footerimage"]); background-size: cover; background-repeat: no-repeat;">
-    <div class="container">
-        <div class="footernav pull-left" data-aos="fade-up" data-aos-duration="800">
-            <ul class="">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="services.html">Our Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="portfolio.html">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="technology.html">Technologies</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blog.html">Read Blog</a>
-                </li>
-            </ul>
-            <p>
-                (C) @DateTime.Now.Year, All Rights Reserved, <br /> Designed by meckblvck
-                
-            </p>
-            <a href="index.html">
-                <img style="width:160px; height:61px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
-            </a>
-            
-        </div>
-    </div>
 
-</footer>

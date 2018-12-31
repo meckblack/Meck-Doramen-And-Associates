@@ -357,7 +357,7 @@ namespace MeckDoramenAndAssociates.Controllers
 
             foreach (FooterImage footerImage in mymodel.FooterImage)
             {
-                ViewData["footerimage"] = footerImage.Image;
+                ViewData["footeimage"] = footerImage.Image;
             }
 
             if (id == null)
