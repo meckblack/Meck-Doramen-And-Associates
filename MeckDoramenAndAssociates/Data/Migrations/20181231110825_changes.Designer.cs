@@ -4,14 +4,16 @@ using MeckDoramenAndAssociates.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MeckDoramenAndAssociates.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181231110825_changes")]
+    partial class changes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,24 +59,6 @@ namespace MeckDoramenAndAssociates.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("ApplicationUsers");
-                });
-
-            modelBuilder.Entity("MeckDoramenAndAssociates.Models.BulletPoint", b =>
-                {
-                    b.Property<int>("BulletPointId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Body")
-                        .IsRequired();
-
-                    b.Property<int>("ParagraphId");
-
-                    b.HasKey("BulletPointId");
-
-                    b.HasIndex("ParagraphId");
-
-                    b.ToTable("BulletPoints");
                 });
 
             modelBuilder.Entity("MeckDoramenAndAssociates.Models.Contacts", b =>
@@ -293,23 +277,6 @@ namespace MeckDoramenAndAssociates.Data.Migrations
                     b.ToTable("News");
                 });
 
-            modelBuilder.Entity("MeckDoramenAndAssociates.Models.Paragraph", b =>
-                {
-                    b.Property<int>("ParagraphId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Body");
-
-                    b.Property<int>("SubServiceId");
-
-                    b.HasKey("ParagraphId");
-
-                    b.HasIndex("SubServiceId");
-
-                    b.ToTable("Paragraphs");
-                });
-
             modelBuilder.Entity("MeckDoramenAndAssociates.Models.Role", b =>
                 {
                     b.Property<int>("RoleId")
@@ -332,20 +299,6 @@ namespace MeckDoramenAndAssociates.Data.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("MeckDoramenAndAssociates.Models.Service", b =>
-                {
-                    b.Property<int>("ServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("ServiceId");
-
-                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("MeckDoramenAndAssociates.Models.Skills", b =>
@@ -376,24 +329,6 @@ namespace MeckDoramenAndAssociates.Data.Migrations
                     b.HasKey("SkillsId");
 
                     b.ToTable("Skills");
-                });
-
-            modelBuilder.Entity("MeckDoramenAndAssociates.Models.SubService", b =>
-                {
-                    b.Property<int>("SubServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<int>("ServiceId");
-
-                    b.HasKey("SubServiceId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("SubServices");
                 });
 
             modelBuilder.Entity("MeckDoramenAndAssociates.Models.Vision", b =>
@@ -436,30 +371,6 @@ namespace MeckDoramenAndAssociates.Data.Migrations
                     b.HasOne("MeckDoramenAndAssociates.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MeckDoramenAndAssociates.Models.BulletPoint", b =>
-                {
-                    b.HasOne("MeckDoramenAndAssociates.Models.Paragraph", "Paragraph")
-                        .WithMany()
-                        .HasForeignKey("ParagraphId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MeckDoramenAndAssociates.Models.Paragraph", b =>
-                {
-                    b.HasOne("MeckDoramenAndAssociates.Models.SubService", "SubService")
-                        .WithMany()
-                        .HasForeignKey("SubServiceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MeckDoramenAndAssociates.Models.SubService", b =>
-                {
-                    b.HasOne("MeckDoramenAndAssociates.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

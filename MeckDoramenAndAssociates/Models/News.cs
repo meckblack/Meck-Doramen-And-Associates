@@ -19,5 +19,9 @@ namespace MeckDoramenAndAssociates.Models
 
         [Required(ErrorMessage = "Image field is required")]
         public string Image { get; set; }
+
+        [DataType(DataType.Url)]
+        [Required(ErrorMessage ="Read More field is required")]
+        public string ReadMore { get; set; }
     }
 }
