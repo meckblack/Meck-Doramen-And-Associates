@@ -2,7 +2,7 @@
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class Service
+    public class Service : Transport
     {
         #region Data Model
 

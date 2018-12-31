@@ -1,0 +1,26 @@
+﻿@model MeckDoramenAndAssociates.Models.Service
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><b>Name:</b></p>
+                            <p>@Html.DisplayFor(model => model.Name)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+</div>

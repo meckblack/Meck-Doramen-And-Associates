@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class SubService
+    public class SubService : Transport
     {
         #region Model Data
 

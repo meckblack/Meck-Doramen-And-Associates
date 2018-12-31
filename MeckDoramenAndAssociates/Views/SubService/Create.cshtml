@@ -1,0 +1,53 @@
+﻿@model MeckDoramenAndAssociates.Models.SubService
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+
+<!--MODAL HEADER-->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3> <strong> ADD SUB SERVICE</strong> </h3>
+</div>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <!--MODAL BODY-->
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Service</label>
+                    <select asp-for="ServiceId" class="form-control" asp-items="ViewBag.ServiceId">
+                        <option selected>------------------------------------------ Select A Service --------------------------------------------</option>
+                    </select>
+                    <span asp-validation-for="Service" class="text-danger"></span>
+                </div>
+                <br />
+                <br />
+                <div class="col-md-12">
+                    <label>Name</label>
+                    <input asp-for="Name" class="form-control " />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MODAL FOOTER-->
+    <div class="modal-footer">
+        <div class="row pull-right">
+            <div class="col-md-12">
+                <input type="submit" value="Add" class="btn btn-primary" />
+                <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

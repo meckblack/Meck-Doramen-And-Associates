@@ -29,7 +29,7 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("admin/dashboard")]
-        //[SessionExpireFilterAttribute]
+        [SessionExpireFilterAttribute]
         public async Task<IActionResult> Dashboard()
         {
             var userObject = _session.GetString("MDnAloggedinuser");
