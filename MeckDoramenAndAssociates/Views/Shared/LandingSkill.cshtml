@@ -5,7 +5,7 @@
         <div class="col-lg-5" data-aos="fade-up" data-aos-duration="800">
             <span>Our Skills and Expertises</span>
             <h3>@ViewData["skillheader"]</h3>
-            <p>
+            <p style="text-align: justify">
                 @ViewData["skillbody"]
             </p>
         </div>
@@ -15,7 +15,7 @@
             @foreach (Skills skills in Model.Skills)
             {
                 <div class="p-text">
-                    <a href="">
+                    <a asp-action="expand" asp-controller="skills" asp-route-id="@skills.SkillsId">
                         <span>@skills.Name</span>
                     </a>
                 </div>

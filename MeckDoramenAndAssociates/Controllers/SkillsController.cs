@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -324,11 +325,96 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #endregion
 
+        #region Expand
+
+        [HttpGet]
+        [Route("skill/moreaboutskill")]
+        public async Task<IActionResult> Expand(int? id)
+        {
+
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Logos = GetLogos();
+            mymodel.Contacts = GetContacts();
+            mymodel.FooterImage = GetFooterImage();
+
+            foreach (Logo logo in mymodel.Logos)
+            {
+                ViewData["logo"] = logo.Image;
+            }
+
+            foreach (Contacts contacts in mymodel.Contacts)
+            {
+                ViewData["address"] = contacts.Address;
+                ViewData["email"] = contacts.Email;
+                ViewData["number"] = contacts.Number;
+                ViewData["openweekdays"] = contacts.OpenWeekdays;
+                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
+                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
+                ViewData["openweekends"] = contacts.OpenWeekends;
+                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
+                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+            }
+
+            foreach (FooterImage footerImage in mymodel.FooterImage)
+            {
+                ViewData["footerimage"] = footerImage.Image;
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var _skill = await _database.Skills.SingleOrDefaultAsync(s => s.SkillsId == id);
+
+            if (_skill == null)
+            {
+                return NotFound();
+            }
+
+            return View(_skill);
+        }
+
+        #endregion
+
         #region Skills Exists
 
         private bool SkillsExists(int id)
         {
             return _database.Skills.Any(e => e.SkillsId == id);
+        }
+
+        #endregion
+
+        #region Get Logo
+
+        private List<Logo> GetLogos()
+        {
+            var _logos = _database.Logo.ToList();
+
+            return _logos;
+        }
+
+        #endregion
+
+        #region Get Contacts
+
+        private List<Contacts> GetContacts()
+        {
+            var _contacts = _database.Contacts.ToList();
+
+            return _contacts;
+        }
+
+        #endregion
+
+        #region Get Footer Image
+
+        private List<FooterImage> GetFooterImage()
+        {
+            var _footerImage = _database.FooterImages.ToList();
+
+            return _footerImage;
         }
 
         #endregion

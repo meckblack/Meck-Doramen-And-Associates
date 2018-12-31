@@ -1,0 +1,186 @@
+﻿@model MeckDoramenAndAssociates.Models.Skills
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Meck Doramen And Associates</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+        <link rel="stylesheet" href="~/landing/css/aos.css" />
+
+        <link rel="stylesheet" href="~/landing/css/style.css" />
+
+
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <div id="main">
+        <header class="top">
+            <partial name="~/Views/Shared/LandingLayout/_LandingHeader.cshtml" />
+        </header>
+
+        <div id="carouselExampleIndicators" class="banner carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background: url(UploadedFiles/Skills/@Html.DisplayFor(model => model.Name);background-size:cover;background-repeat: no-repeat;">
+                    <div class="layer">
+                        <div style="padding-top: 300px;" class="container" data-aos="zoom-in" data-aos-duration="800">
+                            @*<h4>SKILL</h4>*@
+                            @*<span>to</span>*@
+                            <h4>@Html.DisplayFor(model => model.Name)</h4>
+                            @*<a asp-action="Index" asp-controller="AboutUs">About Us</a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="bg-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-10 col-md-offset-1">
+                        <h1>
+                            <b>
+                                @Html.DisplayFor(model => model.Name)
+                            </b>
+                        </h1>
+                        <br />
+                        <p style="text-align: justify">
+                            @Html.DisplayFor(model => model.Explanation)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="index-contact">
+            <partial name="~/Views/Shared/LandingContacts.cshtml" />
+        </section>
+        <footer style="background: url(UploadedFiles/FooterImage/@ViewData["footerimage"]); background-size: cover; background-repeat: no-repeat;">
+            <div class="container">
+                <div class="footernav pull-left" data-aos="fade-up" data-aos-duration="800">
+                    <ul class="">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">Our Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="portfolio.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="technology.html">Technologies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Read Blog</a>
+                        </li>
+                    </ul>
+                    <p>
+                        (C) @DateTime.Now.Year, All Rights Reserved, <br /> Designed by meckblvck
+
+                    </p>
+                    <a href="index.html">
+                        <img style="width:160px; height:61px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
+                    </a>
+
+                </div>
+            </div>
+
+        </footer>
+
+
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+        <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+
+        <script src="~/landing/js/script.js"></script>
+
+        <script src="~/landing/assests/js/jquery.countup.min.js"></script>
+
+        <script>
+            function openNav() {
+                if (screen.width > 815) {
+                    document.getElementById("mySidenav").style.width = "250px";
+                    document.getElementById("mySidenav").style.opacity = "1";
+                } else {
+                    document.getElementById("mySidenav").style.width = "200px";
+                    document.getElementById("mySidenav").style.opacity = "1";
+                }
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("mySidenav").style.opacity = "0";
+            }
+
+            $(document).on('click', function (e) {
+                if ($(e.target).closest("#mySidenav, .slide-menu").length === 0) {
+                    document.getElementById("mySidenav").style.width = "0";
+                }
+            });
+        </script>
+        <script>
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+        </script>
+
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    
+</body>
+</html>
