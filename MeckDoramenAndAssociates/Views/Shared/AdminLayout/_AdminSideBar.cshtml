@@ -33,7 +33,7 @@
             {
                 <li>
                     <a asp-action="Index" asp-controller="Service">
-                        <i class="fa fa-dashboard"></i> <span>Service</span>
+                        <i class="fa fa-dashboard"></i> <span>Services</span>
                     </a>
                 </li>
             }
@@ -41,11 +41,19 @@
             {
                 <li>
                     <a asp-action="Index" asp-controller="SubService">
-                        <i class="fa fa-dashboard"></i> <span>Sub-Service</span>
+                        <i class="fa fa-dashboard"></i> <span>Sub-Services</span>
                     </a>
                 </li>
             }
-            </ul>
+            @if (ViewData["candoeverything"] != null)
+            {
+                <li>
+                    <a asp-action="Index" asp-controller="Paragraph">
+                        <i class="fa fa-dashboard"></i> <span>Paragraphs</span>
+                    </a>
+                </li>
+            }
+        </ul>
     </section>
     <!-- /.sidebar -->
 </aside>

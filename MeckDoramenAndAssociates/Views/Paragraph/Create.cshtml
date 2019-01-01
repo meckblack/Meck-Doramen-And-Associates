@@ -1,0 +1,52 @@
+﻿@model MeckDoramenAndAssociates.Models.Paragraph
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/AdminLayout/_AdminLayout.cshtml";
+}
+
+<!--MODAL HEADER-->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3> <strong> ADD PARAGRAPH</strong> </h3>
+</div>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <!--MODAL BODY-->
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Sub-Service</label>
+                    <select asp-for="SubServiceId" class="form-control" asp-items="ViewBag.SubServiceId">
+                        <option selected>------------------------------------------ Select A Sub Service --------------------------------------------</option>
+                    </select>
+                    <span asp-validation-for="SubService" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="col-md-12">
+                    <label>Body</label>
+                    <textarea asp-for="Body" class="form-control "></textarea>
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MODAL FOOTER-->
+    <div class="modal-footer">
+        <div class="row pull-right">
+            <div class="col-md-12">
+                <input type="submit" value="Add" class="btn btn-primary" />
+                <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

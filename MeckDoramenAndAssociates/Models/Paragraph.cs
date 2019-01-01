@@ -15,7 +15,8 @@ namespace MeckDoramenAndAssociates.Models
         public int ParagraphId { get; set; }
 
         [Required(ErrorMessage = "Body is required")]
-        public int Body { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string Body { get; set; }
 
         #endregion
 

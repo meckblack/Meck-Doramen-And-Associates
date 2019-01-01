@@ -1,0 +1,30 @@
+﻿@model MeckDoramenAndAssociates.Models.Paragraph
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><b>Sub-Service:</b></p>
+                            <p>@ViewData["subservicename"]</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p><b>Body:</b></p>
+                            <p>@Html.DisplayFor(model => model.Body)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+</div>
