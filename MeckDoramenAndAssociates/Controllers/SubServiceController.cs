@@ -86,7 +86,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
             ViewBag.ServiceId = new SelectList(_database.Services, "ServiceId", "Name", _subService.ServiceId);
-            return RedirectToAction("Index", "SubService");
+            return View(_subService);
         }
 
         #endregion

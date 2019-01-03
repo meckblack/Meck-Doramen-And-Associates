@@ -62,12 +62,13 @@ namespace MeckDoramenAndAssociates.Controllers
         {
             ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name");
 
-            var _paragraph = new Paragraph();
-            return PartialView("Create", _paragraph);
+            var paragraph = new Paragraph();
+            return PartialView("Create");
         }
 
         [HttpPost]
         [Route("paragraph/create")]
+        [SessionExpireFilter]
         public async Task<IActionResult> Create(Paragraph paragraph)
         {
             if (ModelState.IsValid)
@@ -80,77 +81,18 @@ namespace MeckDoramenAndAssociates.Controllers
                 await _database.Paragraphs.AddAsync(paragraph);
                 await _database.SaveChangesAsync();
 
-                return Json(new { success = true });
-            }
-
-            ViewBag.SubServiceId = new SelectList(_database.SubServices, "ServiceId", "Name", paragraph.SubServiceId);
-            return RedirectToAction("Index", "Paragraph");
-        }
-
-        #endregion
-
-        #region Edit
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            var _paragraph = await _database.Paragraphs.SingleOrDefaultAsync(s => s.ParagraphId == id);
-
-            if (_paragraph == null)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name");
-            return PartialView("Edit", _paragraph);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(int? id, Paragraph paragraph)
-        {
-            if (id != paragraph.ParagraphId)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    paragraph.DateLastModified = DateTime.Now;
-                    paragraph.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-
-                    _database.Update(paragraph);
-                    await _database.SaveChangesAsync();
-
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ParagraphExists(paragraph.ParagraphId))
-                    {
-                        return RedirectToAction("Index", "Error");
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                TempData["paragraph"] = "You have successfully modified Meck Doramen And Associates's Sub Service Paragraph !!!";
+                TempData["paragraph"] = "You have successfully added a Meck Doramen And Associates's Sub Service Paragraph !!!";
                 TempData["notificationType"] = NotificationType.Success.ToString();
 
                 return Json(new { success = true });
             }
 
-            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name", paragraph.SubServiceId);
             return View(paragraph);
         }
 
         #endregion
+
+        
 
         #region Delete
 
