@@ -10,15 +10,43 @@ namespace MeckDoramenAndAssociates.Data
         {
         }
 
+        #region Application Users
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<Role> Roles { get; set; }
 
+        #endregion
+        
+        #region Services
+
+        public DbSet<Service> Services { get; set; }
+
+        public DbSet<SubService> SubServices { get; set; }
+
+        public DbSet<Paragraph> Paragraphs { get; set; }
+
+        public DbSet<BulletPoint> BulletPoints { get; set; }
+
+        #endregion
+
+        #region About Us
+
+        public DbSet<LandingAboutUs> LandingAboutUs { get; set; }
+
+        public DbSet<AboutUs> AboutUs { get; set; }
+
+        public DbSet<AboutUsParagraph> AboutUsParagraph { get; set; }
+
+        public DbSet<AboutUsBulletPoint> AboutUsBulletPoint { get; set; }
+
+        #endregion
+
+        #region Others
+
         public DbSet<Contacts> Contacts { get; set; }
 
         public DbSet<Enquiry> Enquiry { get; set; }
-
-        public DbSet<LandingAboutUs> LandingAboutUs { get; set; }
 
         public DbSet<LandingSkill> LandingSkills { get; set; }
 
@@ -32,13 +60,9 @@ namespace MeckDoramenAndAssociates.Data
 
         public DbSet<News> News { get; set; }
 
-        public DbSet<Service> Services { get; set; }
+        #endregion
 
-        public DbSet<SubService> SubServices { get; set; }
 
-        public DbSet<Paragraph> Paragraphs { get; set; }
-
-        public DbSet<BulletPoint> BulletPoints { get; set; }
 
 
     }
