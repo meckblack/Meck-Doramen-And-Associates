@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MeckDoramenAndAssociates.Data;
 using MeckDoramenAndAssociates.Models;
 using MeckDoramenAndAssociates.Models.Enums;
 using MeckDoramenAndAssociates.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +20,15 @@ namespace MeckDoramenAndAssociates.Controllers
         private readonly ApplicationDbContext _database;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
+        private readonly IHostingEnvironment _environment;
 
         #region Constructor
 
-        public ServiceController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public ServiceController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IHostingEnvironment environment)
         {
             _database = context;
             _httpContextAccessor = httpContextAccessor;
+            _environment = environment;
         }
 
         #endregion
@@ -57,32 +61,71 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("service/create")]
-        public IActionResult Create()
+        [SessionExpireFilter]
+        public async Task<IActionResult> Create()
         {
-            var _service = new Service();
-            return PartialView("Create", _service);
+            var userid = _session.GetInt32("MDnAloggedinuserid");
+            var _user = await _database.ApplicationUsers.FindAsync(userid);
+            ViewData["loggedinuserfullname"] = _user.DisplayName;
+
+            var roleid = _user.RoleId;
+
+            var role = _database.Roles.Find(roleid);
+
+            ViewData["userrole"] = role.Name;
+
+            if (role.CanDoEverything == false)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+
+            return View();
         }
 
         [HttpPost]
         [Route("service/create")]
-        public async Task<IActionResult> Create(Service service)
+        [SessionExpireFilter]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Service service, IFormFile file)
         {
-            if (ModelState.IsValid)
+            if (file == null || file.Length == 0)
             {
-                service.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-                service.DateCreated = DateTime.Now;
-                service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-                service.DateLastModified = DateTime.Now;
-
-                TempData["service"] = "You have successfully added Meck Doramen And Associates's Service !!!";
-                TempData["notificationType"] = NotificationType.Success.ToString();
-
-                await _database.Services.AddAsync(service);
-                await _database.SaveChangesAsync();
-
-                return Json(new { success = true });
+                ModelState.AddModelError("null_img", "File not selected");
             }
-            return RedirectToAction("Index", "Service");
+            else
+            {
+                var fileinfo = new FileInfo(file.FileName);
+                var filename = DateTime.Now.ToFileTime() + fileinfo.Extension;
+                var uploads = Path.Combine(_environment.WebRootPath, "UploadedFiles\\Services");
+                if (file.Length > 0)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(uploads, filename), FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    service.Image = filename;
+                    service.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+                    service.DateCreated = DateTime.Now;
+                    service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+                    service.DateLastModified = DateTime.Now;
+
+                    TempData["service"] = "You have successfully added Meck Doramen And Associates's Service !!!";
+                    TempData["notificationType"] = NotificationType.Success.ToString();
+
+                    await _database.Services.AddAsync(service);
+                    await _database.SaveChangesAsync();
+
+                    return RedirectToAction("Index", "Service");
+                }
+            }
+            
+            return View(service);
         }
 
         #endregion
@@ -90,9 +133,27 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Edit
 
         [HttpGet]
+        [SessionExpireFilter]
         public async Task<IActionResult> Edit(int? id)
         {
-            if(id == null)
+            var userid = _session.GetInt32("MDnAloggedinuserid");
+            var _user = await _database.ApplicationUsers.FindAsync(userid);
+            ViewData["loggedinuserfullname"] = _user.DisplayName;
+
+            var roleid = _user.RoleId;
+
+            var role = _database.Roles.Find(roleid);
+
+            ViewData["userrole"] = role.Name;
+
+            if (role.CanDoEverything == false)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+
+            if (id == null)
             {
                 return RedirectToAction("Index", "Error");
             }
@@ -104,36 +165,60 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            return PartialView("Edit", _service);
+            return View("Edit", _service);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Service service )
+        [SessionExpireFilter]
+        public async Task<IActionResult> Edit(Service service, IFormFile file)
         {
-            try
+            if (file == null || file.Length == 0)
             {
-                service.DateLastModified = DateTime.Now;
-                service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-
-                TempData["services"] = "You have successfully modified Meck Doramen And Associates's Service !!!";
-                TempData["notificationType"] = NotificationType.Success.ToString();
-
-                _database.Update(service);
-                await _database.SaveChangesAsync();
-
-                return Json(new { success = true });
+                ModelState.AddModelError("null_img", "File not selected");
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!ServiceExists(service.ServiceId))
+                var fileinfo = new FileInfo(file.FileName);
+                var filename = DateTime.Now.ToFileTime() + fileinfo.Extension;
+                var uploads = Path.Combine(_environment.WebRootPath, "UploadedFiles\\Skills");
+                if (file.Length > 0)
                 {
-                    return RedirectToAction("Index", "Error");
+                    using (var fileStream = new FileStream(Path.Combine(uploads, filename), FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
                 }
-                else
+
+                if (ModelState.IsValid)
                 {
-                    throw;
+                    try
+                    {
+                        service.Image = filename;
+                        service.DateLastModified = DateTime.Now;
+                        service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+
+                        TempData["services"] = "You have successfully modified Meck Doramen And Associates's Service !!!";
+                        TempData["notificationType"] = NotificationType.Success.ToString();
+
+                        _database.Update(service);
+                        await _database.SaveChangesAsync();
+                        
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!ServiceExists(service.ServiceId))
+                        {
+                            return RedirectToAction("Index", "Error");
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index", "Services");
                 }
             }
+            return View(service);
         }
 
         #endregion

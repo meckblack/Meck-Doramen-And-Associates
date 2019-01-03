@@ -36,7 +36,7 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.LandingSkill = GetLandingSkill();
             mymodel.HeaderImage = GetHeaderImage();
             mymodel.FooterImage = GetFooterImage();
-            mymodel.Skills = GetSkills();
+            mymodel.Service = GetServices();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -175,13 +175,13 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #endregion
 
-        #region Get Skill 
+        #region Get Services
 
-        private List<Skills> GetSkills()
+        private List<Service> GetServices()
         {
-            var _skills = _database.Skills.ToList();
+            var _services = _database.Services.ToList();
 
-            return _skills;
+            return _services;
         }
 
         #endregion

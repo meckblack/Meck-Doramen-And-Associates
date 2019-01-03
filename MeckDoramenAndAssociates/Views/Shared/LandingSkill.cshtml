@@ -12,16 +12,16 @@
 
         <div class="col-lg-7 progress-text" data-aos="fade-up" data-aos-duration="800">
 
-            @foreach (Skills skills in Model.Skills)
+            @foreach (Service services in Model.Service)
             {
                 <div class="p-text">
-                    <a asp-action="expand" asp-controller="skills" asp-route-id="@skills.SkillsId">
-                        <span>@skills.Name</span>
+                    <a asp-action="expand" asp-controller="skills" asp-route-id="@services.ServiceId">
+                        <span>@services.Name</span>
                     </a>
                 </div>
                 <div class="progress" style="height:6px;">
-                    <div class="progress-bar" style="width:@skills.Rating%;height:6px" data-aos="fade-right" data-aos-duration="800">
-                    </div>
+                    @*<div class="progress-bar" style="width:@.Rating%;height:6px" data-aos="fade-right" data-aos-duration="800">
+                    </div>*@
                 </div>
             }
         </div>

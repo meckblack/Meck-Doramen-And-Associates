@@ -30,8 +30,6 @@ namespace MeckDoramenAndAssociates.Data
 
         public DbSet<FooterImage> FooterImages { get; set; }
 
-        public DbSet<Skills> Skills { get; set; }
-
         public DbSet<News> News { get; set; }
 
         public DbSet<Service> Services { get; set; }
