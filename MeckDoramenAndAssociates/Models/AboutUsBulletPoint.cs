@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class AboutUsBulletPoint
+    public class AboutUsBulletPoint : Transport
     {
         #region Data Model
 

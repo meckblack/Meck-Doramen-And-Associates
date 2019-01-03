@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class AboutUs
+    public class AboutUs : Transport
     {
         public int AboutUsId { get; set; }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class AboutUsParagraph
+    public class AboutUsParagraph : Transport
     {
         #region Model Data
 

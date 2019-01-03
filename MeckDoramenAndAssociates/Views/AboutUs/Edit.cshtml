@@ -1,4 +1,4 @@
-﻿@model MeckDoramenAndAssociates.Models.Paragraph
+﻿@model MeckDoramenAndAssociates.Models.AboutUs
 
 @{
     ViewData["Title"] = "Edit";
@@ -8,7 +8,7 @@
 <!--MODAL HEADER-->
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3> <strong> EDIT PARAGRAPH</strong> </h3>
+    <h3> <strong> EDIT ABOUT US</strong> </h3>
 </div>
 
 <form asp-action="Edit">
@@ -18,18 +18,9 @@
         <div class="form-horizontal">
             <div class="row">
                 <div class="col-md-12">
-                    <label>Service</label>
-                    <select asp-for="SubServiceId" class="form-control" asp-items="ViewBag.SubServiceId">
-                        <option selected>------------------------------------------ Select A Sub Service --------------------------------------------</option>
-                    </select>
-                    <span asp-validation-for="SubService" class="text-danger"></span>
-                </div>
-                <br />
-                <br />
-                <div class="col-md-12">
-                    <label>Body</label>
-                    <textarea asp-for="Body" class="form-control "></textarea>
-                    <span asp-validation-for="Body" class="text-danger"></span>
+                    <label>Name</label>
+                    <textarea asp-for="Name" class="form-control "></textarea>
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -39,8 +30,7 @@
     <div class="modal-footer">
         <div class="row pull-right">
             <div class="col-md-12">
-                <input type="hidden" asp-for="ParagraphId" />
-                <input type="hidden" asp-for="SubServiceId" />
+                <input type="hidden" asp-for="AboutUsId" />
                 <input type="hidden" asp-for="DateCreated" />
                 <input type="hidden" asp-for="CreatedBy" />
                 <input type="submit" value="Save" class="btn btn-primary" />

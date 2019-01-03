@@ -284,7 +284,30 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-        
+
+        #region Explanation
+
+        [HttpGet]
+        [Route("service/explanation")]
+        public async Task<IActionResult> Explanation(int? id)
+        {
+            if(id == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            var _service = await _database.Services.SingleOrDefaultAsync(s => s.ServiceId == id);
+
+            if(_service == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            return View(_service);
+        }
+
+        #endregion
+
         #region Service Exists
 
         private bool ServiceExists(int id)
