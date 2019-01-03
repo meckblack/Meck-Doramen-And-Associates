@@ -1,0 +1,54 @@
+﻿@model MeckDoramenAndAssociates.Models.BulletPoint
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+
+<!--MODAL HEADER-->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3> <strong> ADD BULLET POINT</strong> </h3>
+</div>
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <!--MODAL BODY-->
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Sub-Service</label>
+                    <select asp-for="ParagraphId" class="form-control" asp-items="ViewBag.Paragraph">
+                        <option selected>------------------------------------------ Select A Paragraph --------------------------------------------</option>
+                    </select>
+                    <span asp-validation-for="Paragraph" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="col-md-12">
+                    <label>Body</label>
+                    <textarea asp-for="Body" class="form-control "></textarea>
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MODAL FOOTER-->
+    <div class="modal-footer">
+        <div class="row pull-right">
+            <div class="col-md-12">
+                <input type="hidden" asp-for="ParagraphId" />
+                <input type="hidden" asp-for="BulletPointId" />
+                <input type="hidden" asp-for="DateCreated" />
+                <input type="hidden" asp-for="CreatedBy" />
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

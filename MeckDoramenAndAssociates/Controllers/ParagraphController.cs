@@ -87,12 +87,76 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
+            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name", paragraph.SubServiceId);
             return View(paragraph);
         }
 
         #endregion
 
-        
+        #region Edit
+
+         [HttpGet]
+         public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            var _paragraph = await _database.Paragraphs.SingleOrDefaultAsync(p => p.ParagraphId == id);
+
+            if(_paragraph == null)
+            {
+                return RedirectToAction("Index", "Edit");
+            }
+
+            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name");
+
+            return PartialView("Edit", _paragraph);
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public async Task<IActionResult> Edit(int? id, Paragraph paragraph)
+        {
+            if(id != paragraph.ParagraphId)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    paragraph.DateLastModified = DateTime.Now;
+                    paragraph.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+
+                    _database.Paragraphs.Update(paragraph);
+                    await _database.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ParagraphExists(paragraph.ParagraphId))
+                    {
+                        return RedirectToAction("Index", "Error");
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                TempData["paragraph"] = "You have successfully modified Meck Doramen And Associates's Paragraph !!!";
+                TempData["notificationType"] = NotificationType.Success.ToString();
+
+                return Json(new { success = true });
+            }
+
+            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name", paragraph.SubServiceId);
+            return View(paragraph);
+        }
+
+        #endregion
 
         #region Delete
 
@@ -153,10 +217,10 @@ namespace MeckDoramenAndAssociates.Controllers
             }
 
             var subserviceid = _paragraph.SubServiceId;
-            var subservice = await _database.Services.FindAsync(subserviceid);
+            var subservice = await _database.SubServices.FindAsync(subserviceid);
             ViewData["subservicename"] = subservice.Name;
 
-            return PartialView("Details", subservice);
+            return PartialView("Details", _paragraph);
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MeckDoramenAndAssociates.Models.Paragraph>
+﻿@model IEnumerable<MeckDoramenAndAssociates.Models.BulletPoint>
 @using MeckDoramenAndAssociates.Models.Enums
 
 @{
@@ -10,37 +10,37 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        PARAGRAPH
+        BULLET POINTS
     </h1>
     <ol class="breadcrumb" style="padding-bottom: 10px">
         <li><a asp-controller="Admin" asp-action="Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Paragraph</li>
+        <li class="active">Bullet Points</li>
     </ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
-    @if (TempData["paragraph"] != null)
+    @if (TempData["bulletpoint"] != null)
     {
         if (TempData["notificationType"].Equals(NotificationType.Success.ToString()))
         {
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                @TempData["paragraph"]
+                @TempData["bulletpoint"]
             </div>
         }
         else if (TempData["notificationtype"].Equals(NotificationType.Error.ToString()))
         {
             <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                @TempData["paragraph"]
+                @TempData["bulletpoint"]
             </div>
         }
         else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
         {
             <div class="alert alert-info alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                @TempData["paragraph"]
+                @TempData["bulletpoint"]
             </div>
         }
 
@@ -58,7 +58,7 @@
                             S/N
                         </th>
                         <th>
-                            Body
+                            Names
                         </th>
                         <th>
                             Actions
@@ -77,9 +77,9 @@
                                 @item.Body
                             </td>
                             <td>
-                                <a class="btn btn-info btn-sm" data-modal="" asp-action="Details" asp-route-id="@item.ParagraphId"><i class="fa fa-book "></i> Details</a>
-                                <a class="btn btn-warning btn-sm" data-modal="" asp-action="Edit" asp-route-id="@item.ParagraphId"><i class="fa fa-pencil-square-o "></i> Edit</a>
-                                <a class="btn btn-danger btn-sm" data-modal="" asp-action="Delete" asp-route-id="@item.ParagraphId"><i class="fa fa-trash-o "></i> Delete</a>
+                                <a class="btn btn-info btn-sm" data-modal="" asp-action="Details" asp-route-id="@item.BulletPointId"><i class="fa fa-book "></i> Details</a>
+                                <a class="btn btn-warning btn-sm" data-modal="" asp-action="Edit" asp-route-id="@item.BulletPointId"><i class="fa fa-pencil-square-o "></i> Edit</a>
+                                <a class="btn btn-danger btn-sm" data-modal="" asp-action="Delete" asp-route-id="@item.BulletPointId"><i class="fa fa-trash-o "></i> Delete</a>
                             </td>
                         </tr>
                     }

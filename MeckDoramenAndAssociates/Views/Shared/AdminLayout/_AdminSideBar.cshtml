@@ -53,6 +53,14 @@
                     </a>
                 </li>
             }
+            @if (ViewData["candoeverything"] != null)
+            {
+                <li>
+                    <a asp-action="Index" asp-controller="BulletPoints">
+                        <i class="fa fa-dashboard"></i> <span>Bullet Points</span>
+                    </a>
+                </li>
+            }
         </ul>
     </section>
     <!-- /.sidebar -->

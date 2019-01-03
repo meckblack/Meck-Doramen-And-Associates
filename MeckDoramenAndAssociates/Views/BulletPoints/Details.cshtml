@@ -1,12 +1,13 @@
-﻿@model MeckDoramenAndAssociates.Models.SubService
+﻿@model MeckDoramenAndAssociates.Models.BulletPoint
 
 @{
     ViewData["Title"] = "Details";
     Layout = null;
 }
+
 <div class="modal-header">
     <h3>
-        DETAIL OF SUB-SERVICE
+        DETAIL OF BULLET POINT
     </h3>
 </div>
 
@@ -17,12 +18,12 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <p><b>Service:</b></p>
-                            <p>@ViewData["servicename"]</p>
+                            <p><b>Sub-Service:</b></p>
+                            <p>@ViewData["paragraphbody"]</p>
                         </div>
                         <div class="col-md-12">
-                            <p><b>Name:</b></p>
-                            <p>@Html.DisplayFor(model => model.Name)</p>
+                            <p><b>Body:</b></p>
+                            <p>@Html.DisplayFor(model => model.Body)</p>
                         </div>
                     </div>
                 </div>
