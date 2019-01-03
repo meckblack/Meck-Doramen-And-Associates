@@ -33,7 +33,6 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Index
 
         [HttpGet]
-        [Route("subservice/index")]
         [SessionExpireFilterAttribute]
         public async Task<IActionResult> Index()
         {

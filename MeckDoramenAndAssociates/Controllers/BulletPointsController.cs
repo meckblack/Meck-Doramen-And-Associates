@@ -33,7 +33,6 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Index
 
         [HttpGet]
-        [Route("bulletpoints/index")]
         [SessionExpireFilterAttribute]
         public async Task<IActionResult> Index()
         {

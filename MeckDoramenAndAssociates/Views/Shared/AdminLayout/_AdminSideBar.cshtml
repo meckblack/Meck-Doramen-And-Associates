@@ -10,55 +10,32 @@
             <li class="header">MAIN NAVIGATION</li>
             <li>
                 <a asp-action="Dashboard" asp-controller="Admin">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard"></i> <span>DASHBOARD</span>
                 </a>
             </li>
             @if (ViewData["candoeverything"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="Landing">
-                        <i class="fa fa-dashboard"></i> <span>Landing Details</span>
+                        <i class="fa fa-dashboard"></i> <span>LANDING DETAILS</span>
                     </a>
                 </li>
             }
             @if (ViewData["candoeverything"] != null)
             {
-                <li>
-                    <a asp-action="Index" asp-controller="Skills">
-                        <i class="fa fa-dashboard"></i> <span>Skills</span>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-car"></i> <span>SERVICES </span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
-                </li>
-            }
-            @if (ViewData["candoeverything"] != null)
-            {
-                <li>
-                    <a asp-action="Index" asp-controller="Service">
-                        <i class="fa fa-dashboard"></i> <span>Services</span>
-                    </a>
-                </li>
-            }
-            @if (ViewData["candoeverything"] != null)
-            {
-                <li>
-                    <a asp-action="Index" asp-controller="SubService">
-                        <i class="fa fa-dashboard"></i> <span>Sub-Services</span>
-                    </a>
-                </li>
-            }
-            @if (ViewData["candoeverything"] != null)
-            {
-                <li>
-                    <a asp-action="Index" asp-controller="Paragraph">
-                        <i class="fa fa-dashboard"></i> <span>Paragraphs</span>
-                    </a>
-                </li>
-            }
-            @if (ViewData["candoeverything"] != null)
-            {
-                <li>
-                    <a asp-action="Index" asp-controller="BulletPoints">
-                        <i class="fa fa-dashboard"></i> <span>Bullet Points</span>
-                    </a>
+                    <ul class="treeview-menu">
+                        <li><a asp-action="Index" asp-controller="Services"><i class="fa fa-circle-o"></i>Services</a></li>
+                        <li><a asp-action="Index" asp-controller="SubService"><i class="fa fa-circle-o"></i>Sub-Services</a></li>
+                        <li><a asp-action="Index" asp-controller="Paragraph"><i class="fa fa-circle-o"></i>Paragraphs</a></li>
+                        <li><a asp-action="Index" asp-controller="BulletPoints"><i class="fa fa-circle-o"></i>Bullet Points</a></li>
+                    </ul>
                 </li>
             }
         </ul>
