@@ -42,6 +42,16 @@ namespace MeckDoramenAndAssociates.Data
 
         #endregion
 
+        #region Market Research
+
+        public DbSet<MarketResearch> MarketResearches { get; set; }
+
+        public DbSet<MarketResearchBulletPoint> MarketResearchBulletPoints { get; set; }
+
+        public DbSet<MarketResearchParagraph> MarketResearchParagraphs { get; set; }
+
+        #endregion
+
         #region Others
 
         public DbSet<Contacts> Contacts { get; set; }
