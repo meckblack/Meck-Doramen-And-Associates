@@ -163,7 +163,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            var _aboutUsParagraph = await _database.AboutUsParagraph.SingleOrDefaultAsync(s => s.AboutUsIdParagraphId == id);
+            var _aboutUsParagraph = await _database.AboutUsParagraph.SingleOrDefaultAsync(s => s.AboutUsParagraphId == id);
 
             if (_aboutUsParagraph == null)
             {
