@@ -47,7 +47,7 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _aboutUsBulletPoint = await _database.AboutUs.ToListAsync();
+            var _aboutUsBulletPoint = await _database.AboutUsBulletPoint.ToListAsync();
             return View(_aboutUsBulletPoint);
         }
 
@@ -142,7 +142,7 @@ namespace MeckDoramenAndAssociates.Controllers
                         throw;
                     }
                 }
-                TempData["abooutusbulletpoint"] = "You have successfully modified Meck Doramen And Associates's About us Bullet Point !!!";
+                TempData["aboutusbulletpoint"] = "You have successfully modified Meck Doramen And Associates's About us Bullet Point !!!";
                 TempData["notificationType"] = NotificationType.Success.ToString();
 
                 return Json(new { success = true });
@@ -175,6 +175,47 @@ namespace MeckDoramenAndAssociates.Controllers
             ViewData["aboutusparagraphname"] = aboutUsParagraph.Body;
 
             return PartialView("Details", _aboutUsBulletPoint);
+        }
+
+        #endregion
+
+        #region Delete
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            var _aboutUsBulletPoint = await _database.AboutUsBulletPoint.SingleOrDefaultAsync(s => s.AboutUsBulletPointId == id);
+
+            if (_aboutUsBulletPoint == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            return PartialView("Delete", _aboutUsBulletPoint);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var _aboutUsBulletPoint = await _database.AboutUsBulletPoint.SingleOrDefaultAsync(s => s.AboutUsBulletPointId == id);
+
+            if (_aboutUsBulletPoint != null)
+            {
+                _database.AboutUsBulletPoint.Remove(_aboutUsBulletPoint);
+                await _database.SaveChangesAsync();
+
+                TempData["aboutusbulletpoint"] = "You have successfully deleted Meck Doramen And Associates About Us Bullet Point!";
+                TempData["notificationType"] = NotificationType.Success.ToString();
+
+                return Json(new { success = true });
+            }
+
+            return RedirectToAction("Index", "AboutUsBulletPoints");
         }
 
         #endregion

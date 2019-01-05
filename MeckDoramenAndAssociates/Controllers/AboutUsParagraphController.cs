@@ -47,7 +47,7 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _aboutUsParagraph = await _database.AboutUs.ToListAsync();
+            var _aboutUsParagraph = await _database.AboutUsParagraph.ToListAsync();
             return View(_aboutUsParagraph);
         }
 
@@ -142,7 +142,7 @@ namespace MeckDoramenAndAssociates.Controllers
                         throw;
                     }
                 }
-                TempData["abooutusparagraph"] = "You have successfully modified Meck Doramen And Associates's About us Paragraph !!!";
+                TempData["aboutusparagraph"] = "You have successfully modified Meck Doramen And Associates's About us Paragraph !!!";
                 TempData["notificationType"] = NotificationType.Success.ToString();
 
                 return Json(new { success = true });
