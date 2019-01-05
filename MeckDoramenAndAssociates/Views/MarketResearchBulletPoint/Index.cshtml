@@ -1,0 +1,105 @@
+﻿@model IEnumerable<MeckDoramenAndAssociates.Models.MarketResearchBulletPoint>
+@using MeckDoramenAndAssociates.Models.Enums
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout/_AdminLayout.cshtml";
+    var x = 1;
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        MARKET RESEARCH BULLET POINT
+    </h1>
+    <ol class="breadcrumb" style="padding-bottom: 10px">
+        <li><a asp-controller="Admin" asp-action="Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Market Research Bullet Point</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    @if (TempData["marketresearchbulletpoint"] != null)
+    {
+        if (TempData["notificationType"].Equals(NotificationType.Success.ToString()))
+        {
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["marketresearchbulletpoint"]
+            </div>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Error.ToString()))
+        {
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["marketresearchbulletpoint"]
+            </div>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+        {
+            <div class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @TempData["marketresearchbulletpoint"]
+            </div>
+        }
+
+    }
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <a data-modal="" asp-action="Create" class="btn btn-primary btn pull-right"><i style="color: red;" class="fa fa-plus"></i> ADD</a>
+        </div>
+        <div class="box-body">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            S/N
+                        </th>
+                        <th>
+                            Body
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>
+                                @(x++)
+                            </td>
+                            <td>
+                                @item.Body
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" data-modal="" asp-action="Details" asp-route-id="@item.MarketResearchBulletPointId"><i class="fa fa-book "></i> Details</a>
+                                <a class="btn btn-warning btn-sm" data-modal="" asp-action="Edit" asp-route-id="@item.MarketResearchBulletPointId"><i class="fa fa-pencil-square-o "></i> Edit</a>
+                                <a class="btn btn-danger btn-sm" data-modal="" asp-action="Delete" asp-route-id="@item.MarketResearchBulletPointId"><i class="fa fa-trash-o "></i> Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.box -->
+</section>
+<!-- /.content -->
+
+<script src="~/Admin/bower_components/jquery/dist/jquery.js"></script>
+<script src="~/Modal/Modal.js"></script>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'>
+            </div>
+        </div>
+    </div>
+</div>
