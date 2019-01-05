@@ -211,6 +211,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
+            var aboutUsId = _aboutUsParagraph.AboutUsId;
+            var aboutUs = await _database.AboutUs.FindAsync(aboutUsId);
+            ViewData["aboutusname"] = aboutUs.Name;
+
             return PartialView("Details", _aboutUsParagraph);
         }
 
