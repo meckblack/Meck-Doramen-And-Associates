@@ -1,0 +1,36 @@
+﻿@model MeckDoramenAndAssociates.Models.MarketResearchParagraph
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h3>
+        DETAIL OF MARKET RESEARCH PARAGRAPH
+    </h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><b>About Us:</b></p>
+                            <p>@ViewData["marketresearchname"]</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p><b>Body:</b></p>
+                            <p>@Html.DisplayFor(model => model.Body)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+</div>
