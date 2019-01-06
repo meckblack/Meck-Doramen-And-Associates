@@ -91,7 +91,9 @@ namespace MeckDoramenAndAssociates.Controllers
         {
             if (file == null || file.Length == 0)
             {
-                ModelState.AddModelError("null_img", "File not selected");
+                TempData["service"] = "You changes where not saved, because you did not select an image file !!!";
+                TempData["notificationType"] = NotificationType.Error.ToString();
+                return RedirectToAction("Index", "Service");
             }
             else
             {
@@ -173,7 +175,9 @@ namespace MeckDoramenAndAssociates.Controllers
         {
             if (file == null || file.Length == 0)
             {
-                ModelState.AddModelError("null_img", "File not selected");
+                TempData["service"] = "You changes where not saved, because you did not select an image file !!!";
+                TempData["notificationType"] = NotificationType.Error.ToString();
+                return RedirectToAction("Index", "Service");
             }
             else
             {
@@ -214,10 +218,12 @@ namespace MeckDoramenAndAssociates.Controllers
                             throw;
                         }
                     }
-                    return RedirectToAction("Index", "Services");
+                    return RedirectToAction("Index", "Service");
                 }
             }
-            return View(service);
+            TempData["service"] = "So please try again an error ecored!!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+            return RedirectToAction("Index", "Service");
         }
 
         #endregion
