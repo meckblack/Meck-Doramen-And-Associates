@@ -1,0 +1,41 @@
+﻿@model dynamic
+
+<style>
+    .text-concat{
+        position: relative;
+        display: inline-block;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-align: justify;
+        max-height: 4.6em;
+        line-height: 1.2em;
+    }
+</style>
+
+<div class="container">
+    <div class="index-blog-heading" data-aos="zoom-in" data-aos-duration="800">
+        <h3>
+            LATEST NEWS HAPPENINGS
+        </h3>
+    </div>
+    <ul class="row r2">
+        @foreach (News news in Model.News)
+        {
+            <li class="col-md-6 col-lg-4 m-b-34" data-aos="fade-up" data-aos-duration="800">
+                <div class="blog-2">
+
+                    <a asp-action="ReadMore" asp-controller="News" asp-route-id="@news.NewsId">
+                        <figure style="background: url(UploadedFiles/News/@news.Image);"></figure>
+                    </a>
+                    <a asp-action="ReadMore" asp-controller="News" asp-route-id="@news.NewsId">
+                        <h4>
+                            @news.Title
+                        </h4>
+                        <span class="text-concat">@news.Body</span>
+                    </a>
+                </div>
+            </li>
+
+        }
+    </ul>
+</div>

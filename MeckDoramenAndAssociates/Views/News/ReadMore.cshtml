@@ -1,0 +1,33 @@
+﻿@model MeckDoramenAndAssociates.Models.News
+
+@{
+    ViewData["Title"] = "Read More";
+    Layout = "~/Views/Shared/SecondLandingLayout/_SecondLandingLayout.cshtml";
+}
+
+<section class="products-title">
+    <div class="container">
+        <h3>
+            @Html.DisplayFor(model => model.Title)
+        </h3>
+    </div>
+</section>
+
+<section class="products-body">
+    <div class="container">
+        <ul class="row">
+            @*<li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
+                <figure style="background: url(images/WeddingServices.jpg);">
+                </figure>
+            </li>*@
+
+            <li class="col-12 col-sm-12 col-md-12" data-aos="fade-up" data-aos-duration="800">
+                @*<h3 class="d-inline-block">@Html.DisplayFor(model => model.Title)</h3>*@
+                <p>
+                    @Html.DisplayFor(model => model.Body)
+                </p>
+                <p>You can find more information on the above topic by clicking the following link @Html.DisplayFor(model => model.ReadMore)</p>
+            </li>
+        </ul>
+    </div>
+</section>

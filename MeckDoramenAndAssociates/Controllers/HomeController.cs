@@ -37,6 +37,7 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.HeaderImage = GetHeaderImage();
             mymodel.FooterImage = GetFooterImage();
             mymodel.Service = GetServices();
+            mymodel.News = GetNews();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -182,6 +183,17 @@ namespace MeckDoramenAndAssociates.Controllers
             var _services = _database.Services.ToList();
 
             return _services;
+        }
+
+        #endregion
+
+        #region Get News
+
+        private List<News> GetNews()
+        {
+            var _news = _database.News.ToList();
+
+            return _news;
         }
 
         #endregion

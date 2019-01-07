@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -292,12 +293,115 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-        
+
+        #region Read More
+
+        [HttpGet]
+        [Route("news/readmore/{id}")]
+        public async Task<IActionResult> ReadMore(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            var _news = await _database.News.SingleOrDefaultAsync(s => s.NewsId == id);
+
+            if (_news == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            ViewData["image"] = _news.Image;
+
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Logos = GetLogos();
+            mymodel.Contacts = GetContacts();
+            mymodel.HeaderImage = GetHeaderImage();
+            mymodel.FooterImage = GetFooterImage();
+
+            foreach (Logo logo in mymodel.Logos)
+            {
+                ViewData["logo"] = logo.Image;
+            }
+
+            foreach (Contacts contacts in mymodel.Contacts)
+            {
+                ViewData["address"] = contacts.Address;
+                ViewData["email"] = contacts.Email;
+                ViewData["number"] = contacts.Number;
+                ViewData["openweekdays"] = contacts.OpenWeekdays;
+                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
+                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
+                ViewData["openweekends"] = contacts.OpenWeekends;
+                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
+                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+            }
+
+            foreach (HeaderImage headerImage in mymodel.HeaderImage)
+            {
+                ViewData["headerimage"] = headerImage.Image;
+            }
+
+            foreach (FooterImage footerImage in mymodel.FooterImage)
+            {
+                ViewData["footerimage"] = footerImage.Image;
+            }
+
+            return View(_news);
+        }
+
+        #endregion
+
         #region News Exists
 
         private bool NewsExists(int id)
         {
             return _database.News.Any(e => e.NewsId == id);
+        }
+
+        #endregion
+
+        #region Get Footer Image
+
+        private List<FooterImage> GetFooterImage()
+        {
+            var _footerImage = _database.FooterImages.ToList();
+
+            return _footerImage;
+        }
+
+        #endregion
+
+        #region Get Contacts
+
+        private List<Contacts> GetContacts()
+        {
+            var _contacts = _database.Contacts.ToList();
+
+            return _contacts;
+        }
+
+        #endregion
+
+        #region Get Logo
+
+        private List<Logo> GetLogos()
+        {
+            var _logos = _database.Logo.ToList();
+
+            return _logos;
+        }
+
+        #endregion
+
+        #region Get Header Image
+
+        private List<HeaderImage> GetHeaderImage()
+        {
+            var _headerImage = _database.HeaderImages.ToList();
+
+            return _headerImage;
         }
 
         #endregion
