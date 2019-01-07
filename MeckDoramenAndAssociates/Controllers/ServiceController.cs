@@ -183,7 +183,7 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 var fileinfo = new FileInfo(file.FileName);
                 var filename = DateTime.Now.ToFileTime() + fileinfo.Extension;
-                var uploads = Path.Combine(_environment.WebRootPath, "UploadedFiles\\Skills");
+                var uploads = Path.Combine(_environment.WebRootPath, "UploadedFiles\\Services");
                 if (file.Length > 0)
                 {
                     using (var fileStream = new FileStream(Path.Combine(uploads, filename), FileMode.Create))
