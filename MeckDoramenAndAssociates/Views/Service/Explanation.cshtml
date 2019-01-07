@@ -1,4 +1,4 @@
-﻿@model MeckDoramenAndAssociates.Models.Service
+﻿@model dynamic
 
 @{
     Layout = "~/Views/Shared/SecondLandingLayout/_SecondLandingLayout.cshtml";
@@ -7,28 +7,36 @@
 <section class="products-title">
     <div class="container">
         <h3>
-            @Html.DisplayFor(model => model.Name)
+            @ViewData["name"]
         </h3>
     </div>
 </section>
 
-<section class="products-body">
+<section class="products-body" style="padding-top: 65px;">
     <div class="container">
-        <ul class="row">
-            <li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
-                <figure style="background: url(UploadedFiles/Services/@Html.DisplayFor(model => model.Image);">
+        <ul class="row a">
+            @*<li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
+                <figure style="background: url(UploadedFiles/Services/@ViewData["image"];">
                 </figure>
+            </li>*@
+
+            <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" style="padding-bottom: 35px;">
+                @*<h3 class="d-inline-block">@Html.DisplayFor(model => model.Name)</h3>*@
+
+                <p>
+                    @ViewData["body"]
+                </p>
+                <p style="padding-top: 20px; padding-bottom:10px;">
+                    Some of the @ViewData["name"] are:
+                </p>
+                @foreach (SubService subservice in Model.SubService)
+                {
+                    <p> <span style="color: blue">=></span> <a asp-action="" asp-controller=""> @subservice.Name</a></p>
+                }
             </li>
 
             <li class="col-12 col-sm-8 col-md-9" data-aos="fade-up" data-aos-duration="800">
-                <h3 class="d-inline-block">@Html.DisplayFor(model => model.Name)</h3>
-
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                    type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining essentially unchanged.
-                </p>
+                
             </li>
         </ul>
     </div>
