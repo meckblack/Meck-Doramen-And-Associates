@@ -1,0 +1,42 @@
+﻿@model MeckDoramenAndAssociates.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h3>
+        DETAIL OF APPLICATION USER
+    </h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Role:</b></p>
+                            <p>@ViewData["rolename"]</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Name:</b></p>
+                            <p>@Html.DisplayFor(model => model.DisplayName)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Email:</b></p>
+                            <p>@Html.DisplayFor(model => model.Email)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+</div>

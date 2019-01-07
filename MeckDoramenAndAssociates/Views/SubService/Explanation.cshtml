@@ -6,7 +6,7 @@
 
 <section class="products-title">
     <div class="container">
-        <h3>
+        <h3 style="text-transform: uppercase">
             @ViewData["name"]
         </h3>
     </div>
@@ -16,22 +16,15 @@
     <div class="container">
         <ul class="row a">
             @*<li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
-                <figure style="background: url(UploadedFiles/Services/@ViewData["image"];">
-                </figure>
-            </li>*@
+                    <figure style="background: url(UploadedFiles/Services/@ViewData["image"];">
+                    </figure>
+                </li>*@
 
             <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" style="padding-bottom: 35px;">
                 @*<h3 class="d-inline-block">@Html.DisplayFor(model => model.Name)</h3>*@
-
-                <p>
-                    @ViewData["body"]
-                </p>
-                <p style="padding-top: 20px; padding-bottom:10px;">
-                    Some of the @ViewData["name"] are:
-                </p>
-                @foreach (SubService subservice in Model.SubService)
+                @foreach(Paragraph paragraph in Model.Paragraph)
                 {
-                    <p> <span style="color: blue">=></span> <a asp-action="Explanation" asp-controller="SubService" asp-route-id="@subservice.SubServiceId"> @subservice.Name</a></p>
+                    <p style="text-align: justify; padding-bottom: 10px;">@paragraph.Body</p>
                 }
             </li>
         </ul>
