@@ -353,6 +353,52 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #endregion
 
+        #region Read News
+
+        [HttpGet]
+        [Route("news/readnews")]
+        public async Task<IActionResult> ReadNews()
+        {
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Logos = GetLogos();
+            mymodel.Contacts = GetContacts();
+            mymodel.HeaderImage = GetHeaderImage();
+            mymodel.FooterImage = GetFooterImage();
+
+            foreach (Logo logo in mymodel.Logos)
+            {
+                ViewData["logo"] = logo.Image;
+            }
+
+            foreach (Contacts contacts in mymodel.Contacts)
+            {
+                ViewData["address"] = contacts.Address;
+                ViewData["email"] = contacts.Email;
+                ViewData["number"] = contacts.Number;
+                ViewData["openweekdays"] = contacts.OpenWeekdays;
+                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
+                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
+                ViewData["openweekends"] = contacts.OpenWeekends;
+                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
+                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+            }
+
+            foreach (HeaderImage headerImage in mymodel.HeaderImage)
+            {
+                ViewData["headerimage"] = headerImage.Image;
+            }
+
+            foreach (FooterImage footerImage in mymodel.FooterImage)
+            {
+                ViewData["footerimage"] = footerImage.Image;
+            }
+
+            var _news = await _database.News.ToListAsync();
+            return View(_news);
+        }
+
+        #endregion
+
         #region News Exists
 
         private bool NewsExists(int id)

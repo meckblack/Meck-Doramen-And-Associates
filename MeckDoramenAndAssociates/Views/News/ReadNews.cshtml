@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MeckDoramenAndAssociates.Models.News>
+
+@{
+    ViewData["Title"] = "Read More";
+    Layout = "~/Views/Shared/SecondLandingLayout/_SecondLandingLayout.cshtml";
+}
+
+<style>
+    .text-concat {
+        position: relative;
+        display: inline-block;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-align: justify;
+        max-height: 4.2em;
+        line-height: 1.2em;
+    }
+</style>
+
+<section class="products-title">
+    <div class="container">
+        <h3>
+            READ LATEST NEWS
+        </h3>
+    </div>
+</section>
+
+<section class="products-body">
+    <div class="container">
+        <ul class="row">
+            @*<li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
+            <figure style="background: url(images/WeddingServices.jpg);">
+            </figure>
+        </li>*@
+
+            @foreach (var item in Model)
+            {
+                <li class="col-12 col-sm-12 col-md-12" data-aos="fade-up" data-aos-duration="800">
+                    <h3 class="d-inline-block">@item.Title</h3>
+                    <p class="text-concat">
+                        @item.Body
+                    </p>
+                    <p><a style="color:blue" asp-action="ReadMore" asp-controller="News" asp-route-id="@item.NewsId">Click here</a> to Read More</p>
+                    <br />
+                    <br />
+                </li>
+                
+
+            }
+        </ul>
+    </div>
+</section>
