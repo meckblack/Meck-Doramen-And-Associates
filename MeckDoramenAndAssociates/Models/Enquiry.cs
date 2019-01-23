@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class Enquiry : Transport
+    public class Enquiry
     {
         #region Data Model
 

@@ -59,7 +59,7 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("applicationuser/create")]
         public IActionResult Create()
         {
-            ViewBag.Role = new SelectList(_database.Paragraphs, "RoleId", "Name");
+            ViewBag.Role = new SelectList(_database.Roles, "RoleId", "Name");
 
             var appUser = new ApplicationUser();
             return PartialView("Create", appUser);
@@ -98,6 +98,7 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Details
 
         [HttpGet]
+        [Route("applicationuser/details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -105,7 +106,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            var _applicationUser = await _database.Roles.SingleOrDefaultAsync(s => s.RoleId == id);
+            var _applicationUser = await _database.ApplicationUsers.SingleOrDefaultAsync(s => s.ApplicationUserId == id);
 
             if (_applicationUser == null)
             {
@@ -124,6 +125,7 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Delete
 
         [HttpGet]
+        [Route("applicationuser/delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,6 +144,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         [HttpPost]
+        [Route("applicationuser/delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var _applicationUser = await _database.Roles.SingleOrDefaultAsync(s => s.RoleId == id);

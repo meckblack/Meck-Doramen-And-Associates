@@ -31,6 +31,14 @@
             }
             @if (ViewData["candoeverything"] != null)
             {
+                <li>
+                    <a asp-action="Index" asp-controller="ApplicationUser">
+                        <i class="fa fa-dashboard"></i> <span>APPLICATION USER</span>
+                    </a>
+                </li>
+            }
+            @if (ViewData["candoeverything"] != null)
+            {
                 <li class="treeview">
                     <a>
                         <i class="fa fa-car"></i> <span>SERVICES PAGE </span>
