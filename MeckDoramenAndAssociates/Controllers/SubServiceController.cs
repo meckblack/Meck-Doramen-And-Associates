@@ -223,16 +223,22 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.Paragraph = GetParagraphs(id);
 
 
-            var bulletpoint = GetParagraphs(id).ToArray();
+            var paragraphs = GetParagraphs(id).ToArray();
+            var length = paragraphs.Length;
 
-            var length = bulletpoint.Length;
 
             List<SelectListItem> items = new List<SelectListItem>();
-
-            for(int i = 0; i < length; i++)
+            var _object = Json(new { });
+            var paragraphStore = new List<dynamic>();
+            foreach (Paragraph paragraph in paragraphs)
             {
-                var bullet = _database.BulletPoints.Where(b => b.ParagraphId == bulletpoint[i].ParagraphId).ToList();
+                var bulletpoints = _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToArray();
+                _object = Json(new { paragraph, bulletpoints });
+                paragraphStore.Append(_object);
             }
+
+            ViewBag["paragraphs"] = paragraphStore;
+            mymodel.paragraphs = paragraphStore;
 
             foreach (Logo logo in mymodel.Logos)
             {
