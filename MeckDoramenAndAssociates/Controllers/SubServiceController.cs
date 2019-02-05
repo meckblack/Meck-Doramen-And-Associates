@@ -237,7 +237,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 paragraphStore.Append(_object);
             }
 
-            ViewBag["paragraphs"] = paragraphStore;
+            //ViewBag["paragraphs"] = paragraphStore;
             mymodel.paragraphs = paragraphStore;
 
             foreach (Logo logo in mymodel.Logos)
