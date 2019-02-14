@@ -70,6 +70,14 @@
                     </ul>
                 </li>
             }
+            @if(ViewData["candoeverything"] != null)
+            {
+                <li>
+                    <a asp-action="Index" asp-controller="Enquiry">
+                        <i class="fa fa-dashboard"></i> <span>ENQUIRY</span>
+                    </a>
+                </li>
+            }
         </ul>
     </section>
     <!-- /.sidebar -->

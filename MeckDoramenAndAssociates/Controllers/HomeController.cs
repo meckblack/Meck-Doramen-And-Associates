@@ -94,7 +94,6 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["footerimage"] = footerImage.Image;
             }
 
-
             return View(mymodel);
         }
 
