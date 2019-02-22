@@ -28,5 +28,11 @@ namespace MeckDoramenAndAssociates.Models
         public SubService SubService { get; set; }
 
         #endregion
+
+        #region IEnumerable
+
+        public virtual ICollection<BulletPoint> BulletPoints { get; set; }
+
+        #endregion
     }
 }
