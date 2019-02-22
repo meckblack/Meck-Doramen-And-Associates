@@ -21,15 +21,13 @@ namespace MeckDoramenAndAssociates.Controllers
         private readonly ApplicationDbContext _database;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
-        private readonly IHostingEnvironment _environment;
 
         #region Constructor
 
-        public ServiceController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IHostingEnvironment environment)
+        public ServiceController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _database = context;
             _httpContextAccessor = httpContextAccessor;
-            _environment = environment;
         }
 
         #endregion
@@ -122,50 +120,29 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
 
-            return View();
+            return PartialView("Create");
         }
 
         [HttpPost]
         [Route("service/create")]
         [SessionExpireFilter]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Service service, IFormFile file)
+        public async Task<IActionResult> Create(Service service)
         {
-            if (file == null || file.Length == 0)
+            if (ModelState.IsValid)
             {
-                TempData["service"] = "You changes where not saved, because you did not select an image file !!!";
-                TempData["notificationType"] = NotificationType.Error.ToString();
+                service.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+                service.DateCreated = DateTime.Now;
+                service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+                service.DateLastModified = DateTime.Now;
+
+                TempData["service"] = "You have successfully added Meck Doramen And Associates's Service !!!";
+                TempData["notificationType"] = NotificationType.Success.ToString();
+
+                await _database.Services.AddAsync(service);
+                await _database.SaveChangesAsync();
+
                 return RedirectToAction("Index", "Service");
-            }
-            else
-            {
-                var fileinfo = new FileInfo(file.FileName);
-                var filename = DateTime.Now.ToFileTime() + fileinfo.Extension;
-                var uploads = Path.Combine(_environment.WebRootPath, "UploadedFiles\\Services");
-                if (file.Length > 0)
-                {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, filename), FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    service.Image = filename;
-                    service.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-                    service.DateCreated = DateTime.Now;
-                    service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-                    service.DateLastModified = DateTime.Now;
-
-                    TempData["service"] = "You have successfully added Meck Doramen And Associates's Service !!!";
-                    TempData["notificationType"] = NotificationType.Success.ToString();
-
-                    await _database.Services.AddAsync(service);
-                    await _database.SaveChangesAsync();
-
-                    return RedirectToAction("Index", "Service");
-                }
             }
             
             return View(service);
@@ -208,61 +185,41 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            return View("Edit", _service);
+            return PartialView("Edit", _service);
         }
 
         [HttpPost]
         [SessionExpireFilter]
-        public async Task<IActionResult> Edit(Service service, IFormFile file)
+        public async Task<IActionResult> Edit(Service service)
         {
-            if (file == null || file.Length == 0)
+            if (ModelState.IsValid)
             {
-                TempData["service"] = "You changes where not saved, because you did not select an image file !!!";
-                TempData["notificationType"] = NotificationType.Error.ToString();
+                try
+                {
+                    service.DateLastModified = DateTime.Now;
+                    service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+
+                    TempData["services"] = "You have successfully modified Meck Doramen And Associates's Service !!!";
+                    TempData["notificationType"] = NotificationType.Success.ToString();
+
+                    _database.Update(service);
+                    await _database.SaveChangesAsync();
+                        
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ServiceExists(service.ServiceId))
+                    {
+                        return RedirectToAction("Index", "Error");
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction("Index", "Service");
             }
-            else
-            {
-                var fileinfo = new FileInfo(file.FileName);
-                var filename = DateTime.Now.ToFileTime() + fileinfo.Extension;
-                var uploads = Path.Combine(_environment.WebRootPath, "UploadedFiles\\Services");
-                if (file.Length > 0)
-                {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, filename), FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-                }
 
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        service.Image = filename;
-                        service.DateLastModified = DateTime.Now;
-                        service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-
-                        TempData["services"] = "You have successfully modified Meck Doramen And Associates's Service !!!";
-                        TempData["notificationType"] = NotificationType.Success.ToString();
-
-                        _database.Update(service);
-                        await _database.SaveChangesAsync();
-                        
-                    }
-                    catch (DbUpdateConcurrencyException)
-                    {
-                        if (!ServiceExists(service.ServiceId))
-                        {
-                            return RedirectToAction("Index", "Error");
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                    return RedirectToAction("Index", "Service");
-                }
-            }
             TempData["service"] = "So please try again an error ecored!!!";
             TempData["notificationType"] = NotificationType.Error.ToString();
             return RedirectToAction("Index", "Service");
@@ -310,29 +267,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-        #region Details
-
-        [HttpGet]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if(id == null)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            var _service = await _database.Services.SingleOrDefaultAsync(s => s.ServiceId == id);
-
-            if(_service == null)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            return PartialView("Details", _service);
-        }
-
-        #endregion
-
+        
         #region Explanation
 
         [HttpGet]
@@ -353,7 +288,6 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["name"] = _service.Name;
             ViewData["body"] = _service.Explanation;
-            ViewData["image"] = _service.Image;
 
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();

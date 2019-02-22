@@ -17,9 +17,6 @@ namespace MeckDoramenAndAssociates.Models
         [DataType(DataType.MultilineText)]
         public string Explanation { get; set; }
 
-        [Required(ErrorMessage = "Image field is required")]
-        public string Image { get; set; }
-
         #endregion
     }
 }
