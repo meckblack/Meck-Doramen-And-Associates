@@ -298,14 +298,14 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("news/readmore/{id}")]
-        public async Task<IActionResult> ReadMore(int? id)
+        public IActionResult ReadMore(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction("Index", "Error");
             }
 
-            var _news = await _database.News.SingleOrDefaultAsync(s => s.NewsId == id);
+            var _news = _database.News.SingleOrDefault(s => s.NewsId == id);
 
             if (_news == null)
             {
@@ -348,7 +348,12 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["footerimage"] = footerImage.Image;
             }
 
-            return View(_news);
+            ViewData["newsheader"] = _news.Title;
+            ViewData["newsbody"] = _news.Body;
+            ViewData["readmore"] = _news.ReadMore;
+
+
+            return View();
         }
 
         #endregion

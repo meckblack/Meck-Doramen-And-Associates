@@ -1,14 +1,18 @@
-﻿@model MeckDoramenAndAssociates.Models.News
-
-@{
+﻿@{
     ViewData["Title"] = "Read More";
-    Layout = "~/Views/Shared/SecondLandingLayout/_SecondLandingLayout.cshtml";
+    Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
 }
+
+<section class="banner products-banner">
+    <div class="layer">
+
+    </div>
+</section>
 
 <section class="products-title">
     <div class="container">
         <h3>
-            @Html.DisplayFor(model => model.Title)
+            @ViewData["newsheader"]
         </h3>
     </div>
 </section>
@@ -24,9 +28,9 @@
             <li class="col-12 col-sm-12 col-md-12" data-aos="fade-up" data-aos-duration="800">
                 @*<h3 class="d-inline-block">@Html.DisplayFor(model => model.Title)</h3>*@
                 <p>
-                    @Html.DisplayFor(model => model.Body)
+                    @ViewData["newsbody"]
                 </p>
-                <p>You can find more information on the above topic by clicking the following link @Html.DisplayFor(model => model.ReadMore)</p>
+                <p>You can find more information on the above topic by clicking the following link <a href="@ViewData["readmore"]">@ViewData["readmore"]</a> </p>
             </li>
         </ul>
     </div>

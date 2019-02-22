@@ -57,6 +57,47 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #endregion
 
+        #region ViewAllServices
+
+        [HttpGet]
+        [Route("service/viewallservices")]
+        public async Task<IActionResult> ViewAllServices()
+        {
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Logos = GetLogos();
+            mymodel.Contacts = GetContacts();
+            mymodel.LandingSkill = GetLandingSkills();
+
+            foreach (Logo logo in mymodel.Logos)
+            {
+                ViewData["logo"] = logo.Image;
+            }
+
+            foreach (Contacts contacts in mymodel.Contacts)
+            {
+                ViewData["address"] = contacts.Address;
+                ViewData["email"] = contacts.Email;
+                ViewData["number"] = contacts.Number;
+                ViewData["openweekdays"] = contacts.OpenWeekdays;
+                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
+                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
+                ViewData["openweekends"] = contacts.OpenWeekends;
+                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
+                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+            }
+
+            foreach (LandingSkill skill in mymodel.LandingSkill)
+            {
+                ViewData["Landingheader"] = skill.Header;
+                ViewData["Landingbody"] = skill.Body;
+            }
+            
+            var allservices = await _database.Services.ToListAsync();
+            return View(allservices);
+        }
+
+        #endregion
+
         #region Create
 
         [HttpGet]
@@ -414,6 +455,16 @@ namespace MeckDoramenAndAssociates.Controllers
             var _subService = _database.SubServices.Where(s => s.ServiceId == id).ToList();
 
             return _subService;
+        }
+
+        #endregion
+
+        #region Get Landing Skill
+
+        private List<LandingSkill> GetLandingSkills()
+        {
+            var _landingSkill = _database.LandingSkills.ToList();
+            return _landingSkill;
         }
 
         #endregion

@@ -1,8 +1,14 @@
 ﻿@model dynamic
 
 @{
-    Layout = "~/Views/Shared/SecondLandingLayout/_SecondLandingLayout.cshtml";
+    Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
 }
+
+<section class="banner products-banner">
+    <div class="layer">
+
+    </div>
+</section>
 
 <section class="products-title">
     <div class="container">
@@ -22,10 +28,10 @@
 
             <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" style="padding-bottom: 35px;">
                 @*<h3 class="d-inline-block">@Html.DisplayFor(model => model.Name)</h3>*@
-                @foreach(Paragraph paragraph in Model.Paragraph)
+                @foreach (Paragraph paragraph in Model.Paragraph)
                 {
                     <p style="text-align: justify; padding-bottom: 10px;">@paragraph.Body</p>
-                    
+
                 }
             </li>
         </ul>

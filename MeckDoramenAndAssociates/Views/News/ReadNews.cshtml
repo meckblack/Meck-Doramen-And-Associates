@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Read More";
-    Layout = "~/Views/Shared/SecondLandingLayout/_SecondLandingLayout.cshtml";
+    Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
 }
 
 <style>
@@ -17,6 +17,12 @@
     }
 </style>
 
+<section class="banner products-banner">
+    <div class="layer">
+
+    </div>
+</section>
+
 <section class="products-title">
     <div class="container">
         <h3>
@@ -25,14 +31,9 @@
     </div>
 </section>
 
-<section class="products-body">
+<section class="products-body" style="padding-top: 65px;">
     <div class="container">
         <ul class="row">
-            @*<li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
-            <figure style="background: url(images/WeddingServices.jpg);">
-            </figure>
-        </li>*@
-
             @foreach (var item in Model)
             {
                 <li class="col-12 col-sm-12 col-md-12" data-aos="fade-up" data-aos-duration="800">
@@ -41,8 +42,6 @@
                         @item.Body
                     </p>
                     <p><a style="color:blue" asp-action="ReadMore" asp-controller="News" asp-route-id="@item.NewsId">Click here</a> to Read More</p>
-                    <br />
-                    <br />
                 </li>
                 
 

@@ -1,0 +1,52 @@
+﻿@model MeckDoramenAndAssociates.Models.Enquiry
+
+@{
+    ViewData["Title"] = "Read More";
+    Layout = "~/Views/Shared/SecondLandingLayout/_SecondLandingLayout.cshtml";
+}
+
+<section class="products-title">
+    <div class="container">
+        <h3>
+            Make Enquiry
+        </h3>
+    </div>
+</section>
+
+<section class="index-contact">
+    <div class="container">
+        <ul class="row">
+            <li class="col-12 col-md-6" data-aos="fade-up" data-aos-duration="800">
+                <form asp-action="MakeEnquiry">
+                    <input asp-for="Email" type="text" placeholder="Your Email" required>
+                    <input asp-for="PhoneNumber" type="text" placeholder="Your Phone Number" required>
+
+                    <input asp-for="FullName" type="text" placeholder="Your Full Name" required>
+                    
+                    <textarea asp-for="Message" placeholder="Your Message" required></textarea>
+
+                    <button type="submit">alright submit it</button>
+                </form>
+            </li>
+            <li class="col-12 col-md-6" data-aos="fade-up" data-aos-duration="800">
+                <div class="bookings">
+                    <h6>@ViewData["address"]</h6>
+
+                    <h6> Opening Hours :</h6>
+                    <span>
+                        @ViewData["openweekdays"] @ViewData["weekdaytimeopen"] AM - @ViewData["weekdaytimeclose"] PM,
+                        @ViewData["openweekends"] @ViewData["weekendtimeopen"] AM - @ViewData["weekendtimeclose"] PM
+                    </span>
+
+                    <h6>Call for Bookings </h6>
+                    <span>@ViewData["number"]</span>
+
+                    <h6>Support Email: </h6>
+                    <a>@ViewData["email"]</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</section>
+

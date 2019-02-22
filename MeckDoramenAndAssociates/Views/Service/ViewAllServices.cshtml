@@ -1,7 +1,6 @@
-﻿@model dynamic
-
+﻿@model IEnumerable<MeckDoramenAndAssociates.Models.Service>
 @{
-    ViewData["Title"] = "Service";
+    ViewData["Title"] = "All Services";
     Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
 }
 
@@ -14,7 +13,7 @@
 <section class="products-title">
     <div class="container">
         <h3>
-            @ViewData["name"]
+            Our Services
         </h3>
     </div>
 </section>
@@ -27,18 +26,18 @@
                     </figure>
                 </li>*@
 
-            <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" style="padding-bottom: 35px;">
+            <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" >
                 @*<h3 class="d-inline-block">@Html.DisplayFor(model => model.Name)</h3>*@
-
                 <p>
-                    @ViewData["body"]
+                    @ViewData["Landingheader"] 
                 </p>
-                <p style="padding-top: 20px; padding-bottom:10px;">
-                    Some of the @ViewData["name"] are:
+                <p style="padding-top: 20px; padding-bottom:10px">
+                    @ViewData["Landingbody"]
                 </p>
-                @foreach (SubService subservice in Model.SubService)
+
+                @foreach (var item in Model)
                 {
-                    <p> <span style="color: blue">=></span> <a asp-action="Explanation" asp-controller="SubService" asp-route-id="@subservice.SubServiceId"> @subservice.Name</a></p>
+                    <p> <span style="color: blue">=></span> <a asp-action="Explanation" asp-controller="Service" asp-route-id="@item.ServiceId"> @item.Name</a></p>
                 }
             </li>
         </ul>
