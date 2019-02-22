@@ -100,27 +100,10 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("service/create")]
-        [SessionExpireFilter]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var userid = _session.GetInt32("MDnAloggedinuserid");
-            var _user = await _database.ApplicationUsers.FindAsync(userid);
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
-
-            var roleid = _user.RoleId;
-
-            var role = _database.Roles.Find(roleid);
-
-            ViewData["userrole"] = role.Name;
-
-            if (role.CanDoEverything == false)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
-
-            return PartialView("Create");
+            var service = new Service();
+            return PartialView("Create", service);
         }
 
         [HttpPost]
@@ -136,16 +119,18 @@ namespace MeckDoramenAndAssociates.Controllers
                 service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
                 service.DateLastModified = DateTime.Now;
 
-                TempData["service"] = "You have successfully added Meck Doramen And Associates's Service !!!";
+                TempData["service"] = "You have successfully added a new Service to Meck Doramen And Associates's Services !!!";
                 TempData["notificationType"] = NotificationType.Success.ToString();
 
                 await _database.Services.AddAsync(service);
                 await _database.SaveChangesAsync();
 
-                return RedirectToAction("Index", "Service");
+                return Json(new { success = true });
             }
-            
-            return View(service);
+
+            TempData["service"] = "Sorry an error occured. Try Creating the Service again !!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -155,24 +140,7 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         [SessionExpireFilter]
         public async Task<IActionResult> Edit(int? id)
-        {
-            var userid = _session.GetInt32("MDnAloggedinuserid");
-            var _user = await _database.ApplicationUsers.FindAsync(userid);
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
-
-            var roleid = _user.RoleId;
-
-            var role = _database.Roles.Find(roleid);
-
-            ViewData["userrole"] = role.Name;
-
-            if (role.CanDoEverything == false)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
-
+        {   
             if (id == null)
             {
                 return RedirectToAction("Index", "Error");
@@ -199,7 +167,7 @@ namespace MeckDoramenAndAssociates.Controllers
                     service.DateLastModified = DateTime.Now;
                     service.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
 
-                    TempData["services"] = "You have successfully modified Meck Doramen And Associates's Service !!!";
+                    TempData["service"] = "You have successfully modified " + service.Name + " Meck Doramen And Associates's Service !!!";
                     TempData["notificationType"] = NotificationType.Success.ToString();
 
                     _database.Update(service);
@@ -217,12 +185,35 @@ namespace MeckDoramenAndAssociates.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Service");
+
+                return Json(new { success = true });
             }
 
             TempData["service"] = "So please try again an error ecored!!!";
             TempData["notificationType"] = NotificationType.Error.ToString();
             return RedirectToAction("Index", "Service");
+        }
+
+        #endregion
+
+        #region Details
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+            var _service = await _database.Services.SingleOrDefaultAsync(s => s.ServiceId == id);
+
+            if (_service == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            
+            return PartialView("Details", _service);
         }
 
         #endregion

@@ -68,6 +68,7 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpPost]
         [Route("applicationuser/create")]
         [SessionExpireFilter]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
