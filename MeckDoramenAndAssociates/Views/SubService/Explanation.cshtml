@@ -1,6 +1,7 @@
 ﻿@model dynamic
 
 @{
+    ViewData["Title"] = "Subservice";
     Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
 }
 
@@ -31,6 +32,16 @@
                 @foreach (Paragraph paragraph in Model.Paragraph)
                 {
                     <p style="text-align: justify; padding-bottom: 10px;">@paragraph.Body</p>
+
+                }
+                @foreach (var bull in ViewBag.BulletPointList)
+                {
+                    <ul>
+                        <li>
+                            <p style="text-align: justify; padding-bottom: 3px;">@bull.Body</p>
+                        </li>
+                    </ul>
+
                 }
             </li>
         </ul>

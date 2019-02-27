@@ -14,7 +14,8 @@
     </h1>
     <ol class="breadcrumb" style="padding-bottom: 10px">
         <li><a asp-controller="Admin" asp-action="Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">SubService</li>
+        <li><a asp-controller="Service" asp-action="Index">Services</a></li>
+        <li class="active">SubServices</li>
     </ol>
 </section>
 
@@ -77,6 +78,7 @@
                                 @item.Name
                             </td>
                             <td>
+                                <a class="btn btn-info btn-sm" data-modal="" asp-action="Index" asp-controller="Paragraph" asp-route-id="@item.SubServiceId"><i class="fa fa-book "></i> Paragraphs</a>
                                 <a class="btn btn-info btn-sm" data-modal="" asp-action="Details" asp-route-id="@item.SubServiceId"><i class="fa fa-book "></i> Detail</a>
                                 <a class="btn btn-warning btn-sm" data-modal="" asp-action="Edit" asp-route-id="@item.SubServiceId"><i class="fa fa-pencil-square-o "></i> Edit</a>
                                 <a class="btn btn-danger btn-sm" data-modal="" asp-action="Delete" asp-route-id="@item.SubServiceId"><i class="fa fa-trash-o "></i> Delete</a>
@@ -103,3 +105,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            columnDefs: [
+                {
+                    targets: [0, 1, 2],
+                    className: 'dataTable'
+                }
+            ]
+        });
+    });
+</script>

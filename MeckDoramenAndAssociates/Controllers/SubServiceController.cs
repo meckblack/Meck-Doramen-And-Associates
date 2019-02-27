@@ -35,7 +35,8 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> Index()
+        [Route("subservice/index")]
+        public async Task<IActionResult> Index(int? id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
             var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
@@ -48,7 +49,10 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _subServices = await _database.SubServices.ToListAsync();
+            _session.SetInt32("serviceid", Convert.ToInt32(id));
+
+            var _subServices = await _database.SubServices.Where(subservice => subservice.ServiceId == id).ToListAsync();
+
             return View(_subServices);
         }
 
@@ -60,7 +64,8 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("subservice/create")]
         public IActionResult Create()
         {
-            ViewBag.ServiceId = new SelectList(_database.Services, "ServiceId", "Name");
+            var id = _session.GetInt32("serviceid");
+            ViewBag.ServiceId = new SelectList(_database.Services.Where(subservice => subservice.ServiceId == id), "ServiceId", "Name");
 
             var _subService = new SubService();
             return PartialView("Create", _subService);
@@ -85,8 +90,13 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 return Json(new { success = true });
             }
-            ViewBag.ServiceId = new SelectList(_database.Services, "ServiceId", "Name", _subService.ServiceId);
-            return View(_subService);
+            var id = _session.GetInt32("serviceid");
+            ViewBag.ServiceId = new SelectList(_database.Services.Where(subservice => subservice.ServiceId == id), "ServiceId", "Name", _subService.ServiceId);
+
+            TempData["subservice"] = "Sorry an error occured, Try adding the subservice again !!!";
+            TempData["notificationType"] = NotificationType.Success.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -223,22 +233,33 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.Paragraph = GetParagraphs(id);
 
 
-            var paragraphs = GetParagraphs(id).ToArray();
-            var length = paragraphs.Length;
+            //var paragraphs = GetParagraphs(id).ToArray();
+            //var length = paragraphs.Length;
+
+            var paragraphs = GetParagraphs(id);
 
 
-            List<SelectListItem> items = new List<SelectListItem>();
-            var _object = Json(new { });
-            var paragraphStore = new List<dynamic>();
+            //List<SelectListItem> items = new List<SelectListItem>();
+            //var _object = Json(new { });
+            //var paragraphStore = new List<dynamic>();
+
+
             foreach (Paragraph paragraph in paragraphs)
             {
-                var bulletpoints = _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToArray();
-                _object = Json(new { paragraph, bulletpoints });
-                paragraphStore.Append(_object);
-            }
+                var bulletpoints = await _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToListAsync();
 
-            //ViewBag["paragraphs"] = paragraphStore;
-            mymodel.paragraphs = paragraphStore;
+                //var bulletpoints = _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToArray();
+
+                //_object = Json(new { bulletpoints });
+
+                //paragraphStore.Append(bulletpoints);
+
+                ViewBag.BulletPointList = bulletpoints;
+                
+            }
+            
+            
+            //mymodel.BulletPoint = paragraphStore;
 
             foreach (Logo logo in mymodel.Logos)
             {

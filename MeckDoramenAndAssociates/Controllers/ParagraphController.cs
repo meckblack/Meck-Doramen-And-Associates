@@ -34,7 +34,8 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> Index()
+        [Route("paragraph/index")]
+        public async Task<IActionResult> Index(int? id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
             var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
@@ -47,7 +48,9 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _paragraphs = await _database.Paragraphs.ToListAsync();
+            _session.SetInt32("subserviceid", Convert.ToInt32(id));
+
+            var _paragraphs = await _database.Paragraphs.Where(paragraph => paragraph.SubServiceId == id).ToListAsync();
             return View(_paragraphs);
         }
 
@@ -59,7 +62,8 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("paragraph/create")]
         public IActionResult Create()
         {
-            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name");
+            var id = _session.GetInt32("subserviceid");
+            ViewBag.SubServiceId = new SelectList(_database.SubServices.Where(subservice => subservice.SubServiceId == id), "SubServiceId", "Name");
 
             var paragraph = new Paragraph();
             return PartialView("Create");
@@ -85,8 +89,8 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 return Json(new { success = true });
             }
-
-            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name", paragraph.SubServiceId);
+            var id = _session.GetInt32("subserviceid");
+            ViewBag.SubServiceId = new SelectList(_database.SubServices.Where(subservice => subservice.SubServiceId == id), "SubServiceId", "Name", paragraph.SubServiceId);
             return View(paragraph);
         }
 

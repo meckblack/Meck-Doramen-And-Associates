@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<MeckDoramenAndAssociates.Models.Paragraph>
 @using MeckDoramenAndAssociates.Models.Enums
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
 
 @{
     ViewData["Title"] = "Index";
@@ -14,6 +17,8 @@
     </h1>
     <ol class="breadcrumb" style="padding-bottom: 10px">
         <li><a asp-controller="Admin" asp-action="Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a asp-action="Index" asp-controller="Service">Services</a></li>
+        <li><a asp-action="Index" asp-controller="SubService" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetInt32("subserviceid")"> Sub Services</a></li>
         <li class="active">Paragraph</li>
     </ol>
 </section>
