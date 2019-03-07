@@ -12,8 +12,8 @@
         word-wrap: break-word;
         overflow: hidden;
         text-align: justify;
-        max-height: 4.2em;
-        line-height: 1.2em;
+        max-height: 4.0em;
+        line-height: 1.0em;
     }
 </style>
 
@@ -26,7 +26,7 @@
 <section class="products-title">
     <div class="container">
         <h3>
-            READ LATEST NEWS
+            <strong>READ LATEST NEWS</strong>
         </h3>
     </div>
 </section>
@@ -37,14 +37,12 @@
             @foreach (var item in Model)
             {
                 <li class="col-12 col-sm-12 col-md-12" data-aos="fade-up" data-aos-duration="800">
-                    <h3 class="d-inline-block">@item.Title</h3>
-                    <p class="text-concat">
-                        @item.Body
+                    <h3 class="d-inline-block" style="text-transform: uppercase"><strong>@item.Title</strong></h3>
+                    <p class="text-concat" style="padding-bottom:2px;">
+                        @item.Body 
                     </p>
                     <p><a style="color:blue" asp-action="ReadMore" asp-controller="News" asp-route-id="@item.NewsId">Click here</a> to Read More</p>
                 </li>
-                
-
             }
         </ul>
     </div>

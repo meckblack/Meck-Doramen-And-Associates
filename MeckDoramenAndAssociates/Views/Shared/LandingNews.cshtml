@@ -28,11 +28,11 @@
                         <figure style="background: url(UploadedFiles/News/@news.Image);"></figure>
                     </a>
                     <a asp-action="ReadMore" asp-controller="News" asp-route-id="@news.NewsId">
-                        <h4>
+                        <h4 style="text-transform: uppercase">
                             @news.Title
                         </h4>
-                        <span class="text-concat">@news.Body</span>
                     </a>
+                    <span class="text-concat">@news.Body</span>
                 </div>
             </li>
 
