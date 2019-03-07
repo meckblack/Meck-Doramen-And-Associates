@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MeckDoramenAndAssociates.Data;
 using MeckDoramenAndAssociates.Models;
@@ -105,8 +103,8 @@ namespace MeckDoramenAndAssociates.Controllers
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
-                    Password = BCrypt.Net.BCrypt.HashPassword(user.Password),
-                    ConfirmPassword = BCrypt.Net.BCrypt.HashPassword(user.ConfirmPassword),
+                    Password = new Hashing().HashPassword(user.Password),
+                    ConfirmPassword = new Hashing().HashPassword(user.ConfirmPassword),
                     CreatedBy = 1,
                     LastModifiedBy = 1,
                     DateCreated = DateTime.Now,
