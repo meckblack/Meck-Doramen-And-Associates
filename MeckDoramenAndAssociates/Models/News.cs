@@ -17,6 +17,18 @@ namespace MeckDoramenAndAssociates.Models
         [Required(ErrorMessage ="Body field is required")]
         public string Body { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "This field is required")]
+        public string Body1 { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "This field is required")]
+        public string Body2 { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "This field is required")]
+        public string Body3 { get; set; }
+
         [Required(ErrorMessage = "Image field is required")]
         public string Image { get; set; }
 

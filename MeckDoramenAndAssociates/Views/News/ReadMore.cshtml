@@ -17,18 +17,21 @@
     </div>
 </section>
 
-<section class="products-body">
+<section class="products-body"  style="padding-top:50px;">
     <div class="container">
         <ul class="row">
-            @*<li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
-                <figure style="background: url(images/WeddingServices.jpg);">
-                </figure>
-            </li>*@
-
             <li class="col-12 col-sm-12 col-md-12" data-aos="fade-up" data-aos-duration="800">
-                @*<h3 class="d-inline-block">@Html.DisplayFor(model => model.Title)</h3>*@
                 <p>
                     @ViewData["newsbody"]
+                </p>
+                <p>
+                    @ViewData["newsbody1"]
+                </p>
+                <p>
+                    @ViewData["newsbody2"]
+                </p>
+                <p>
+                    @ViewData["newsbody3"]
                 </p>
                 <p>You can find more information on the above topic by clicking the following link <a href="@ViewData["readmore"]">@ViewData["readmore"]</a> </p>
             </li>

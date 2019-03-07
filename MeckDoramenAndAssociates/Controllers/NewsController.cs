@@ -350,6 +350,9 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["newsheader"] = _news.Title;
             ViewData["newsbody"] = _news.Body;
+            ViewData["newsbody1"] = _news.Body1;
+            ViewData["newsbody2"] = _news.Body2;
+            ViewData["newsbody3"] = _news.Body3;
             ViewData["readmore"] = _news.ReadMore;
 
 
