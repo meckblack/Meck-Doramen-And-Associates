@@ -34,7 +34,7 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [SessionExpireFilterAttribute]
-        [Route("paragraph/index")]
+        [Route("paragraph/index/{id}")]
         public async Task<IActionResult> Index(int? id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
@@ -113,7 +113,9 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Edit");
             }
 
-            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name");
+            var suberserviceid = _session.GetInt32("subserviceid");
+
+            ViewBag.SubServiceId = new SelectList(_database.SubServices.Where(ss => ss.SubServiceId == suberserviceid), "SubServiceId", "Name");
 
             return PartialView("Edit", _paragraph);
         }
@@ -155,7 +157,8 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            ViewBag.SubServiceId = new SelectList(_database.SubServices, "SubServiceId", "Name", paragraph.SubServiceId);
+            var suberserviceid = _session.GetInt32("subserviceid");
+            ViewBag.SubServiceId = new SelectList(_database.SubServices.Where(ss => ss.SubServiceId == suberserviceid), "SubServiceId", "Name", paragraph.SubServiceId);
             return View(paragraph);
         }
 

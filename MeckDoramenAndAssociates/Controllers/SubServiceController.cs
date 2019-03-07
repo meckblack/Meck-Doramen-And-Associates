@@ -32,10 +32,10 @@ namespace MeckDoramenAndAssociates.Controllers
         #endregion
 
         #region Index
-
+        
         [HttpGet]
         [SessionExpireFilterAttribute]
-        [Route("subservice/index")]
+        [Route("subservice/index/{id}")]
         public async Task<IActionResult> Index(int? id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
@@ -64,8 +64,8 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("subservice/create")]
         public IActionResult Create()
         {
-            var id = _session.GetInt32("serviceid");
-            ViewBag.ServiceId = new SelectList(_database.Services.Where(subservice => subservice.ServiceId == id), "ServiceId", "Name");
+            var serviceid = _session.GetInt32("serviceid");
+            ViewBag.ServiceId = new SelectList(_database.Services.Where(subservice => subservice.ServiceId == serviceid), "ServiceId", "Name");
 
             var _subService = new SubService();
             return PartialView("Create", _subService);
@@ -90,8 +90,9 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 return Json(new { success = true });
             }
-            var id = _session.GetInt32("serviceid");
-            ViewBag.ServiceId = new SelectList(_database.Services.Where(subservice => subservice.ServiceId == id), "ServiceId", "Name", _subService.ServiceId);
+
+            var serviceid = _session.GetInt32("serviceid");
+            ViewBag.ServiceId = new SelectList(_database.Services.Where(subservice => subservice.ServiceId == serviceid), "ServiceId", "Name", _subService.ServiceId);
 
             TempData["subservice"] = "Sorry an error occured, Try adding the subservice again !!!";
             TempData["notificationType"] = NotificationType.Success.ToString();
@@ -118,14 +119,16 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            ViewBag.ServiceId = new SelectList(_database.Services, "ServiceId", "Name");
+            var serviceid = _session.GetInt32("serviceid");
+            ViewBag.ServiceId = new SelectList(_database.Services.Where(subservice => subservice.ServiceId == serviceid), "ServiceId", "Name");
+
             return PartialView("Edit", _subService);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int? id, SubService subService)
+        public async Task<IActionResult> Edit(int? id, SubService _subService)
         {
-            if(id != subService.SubServiceId)
+            if(id != _subService.SubServiceId)
             {
                 return RedirectToAction("Index", "Error");
             }
@@ -134,16 +137,16 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 try
                 {
-                    subService.DateLastModified = DateTime.Now;
-                    subService.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+                    _subService.DateLastModified = DateTime.Now;
+                    _subService.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
                     
-                    _database.Update(subService);
+                    _database.Update(_subService);
                     await _database.SaveChangesAsync();
                     
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SubServiceExists(subService.SubServiceId))
+                    if (!SubServiceExists(_subService.SubServiceId))
                     {
                         return RedirectToAction("Index", "Error");
                     }
@@ -158,8 +161,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });   
             }
 
-            ViewBag.ServiceId = new SelectList(_database.Services, "ServiceId", "Name", subService.ServiceId);
-            return View(subService);
+            var serviceid = _session.GetInt32("serviceid");
+            ViewBag.ServiceId = new SelectList(_database.Services.Where(subservice => subservice.ServiceId == serviceid), "ServiceId", "Name", _subService.ServiceId);
+
+            return View(_subService);
         }
 
         #endregion
@@ -233,26 +238,23 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.Paragraph = GetParagraphs(id);
 
 
-            //var paragraphs = GetParagraphs(id).ToArray();
-            //var length = paragraphs.Length;
-
-            var paragraphs = GetParagraphs(id);
-
-
-            //List<SelectListItem> items = new List<SelectListItem>();
-            //var _object = Json(new { });
-            //var paragraphStore = new List<dynamic>();
+            var paragraphs = GetParagraphs(id).ToArray();
+            var length = paragraphs.Length;
+            
+            List<SelectListItem> items = new List<SelectListItem>();
+            var _object = Json(new { });
+            var paragraphStore = new List<dynamic>();
 
 
             foreach (Paragraph paragraph in paragraphs)
             {
-                var bulletpoints = await _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToListAsync();
+                //var bulletpoints = await _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToListAsync();
 
-                //var bulletpoints = _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToArray();
+                var bulletpoints = _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToArray();
 
-                //_object = Json(new { bulletpoints });
+                _object = Json(new { bulletpoints });
 
-                //paragraphStore.Append(bulletpoints);
+                paragraphStore.Append(bulletpoints);
 
                 ViewBag.BulletPointList = bulletpoints;
                 

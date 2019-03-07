@@ -55,3 +55,9 @@
 }
 
 
+<script>
+    $('option').each(function () {
+        var text = $(this).text()
+        $(this).val(text).text(text.substr(0, 80) + '…')
+    })
+</script>

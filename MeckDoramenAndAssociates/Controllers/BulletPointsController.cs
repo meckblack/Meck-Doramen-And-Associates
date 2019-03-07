@@ -34,7 +34,8 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> Index()
+        [Route("bulletpoints/index/{id}")]
+        public async Task<IActionResult> Index(int? id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
             var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
@@ -47,7 +48,9 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _bulletPoints = await _database.BulletPoints.ToListAsync();
+            _session.SetInt32("paragraphid", Convert.ToInt32(id));
+
+            var _bulletPoints = await _database.BulletPoints.Where(b => b.ParagraphId == id).ToListAsync();
             return View(_bulletPoints);
         }
 
@@ -59,7 +62,8 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("bulletpoint/create")]
         public IActionResult Create()
         {
-            ViewBag.Paragraph = new SelectList(_database.Paragraphs, "ParagraphId", "Body");
+            var paragraphid = _session.GetInt32("paragraphid");
+            ViewBag.Paragraph = new SelectList(_database.Paragraphs.Where(p => p.ParagraphId == paragraphid), "ParagraphId", "Body");
 
             var bulletPoint = new BulletPoint();
             return PartialView("Create", bulletPoint);
@@ -87,7 +91,8 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            ViewBag.Paragraph = new SelectList(_database.Paragraphs, "ParagraphId", "Name", bulletPoint.ParagraphId);
+            var paragraphid = _session.GetInt32("paragraphid");
+            ViewBag.Paragraph = new SelectList(_database.Paragraphs.Where(p => p.ParagraphId == paragraphid), "ParagraphId", "Name", bulletPoint.ParagraphId);
             return View(bulletPoint);
         }
 
@@ -110,7 +115,8 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Edit");
             }
 
-            ViewBag.Paragraph = new SelectList(_database.Paragraphs, "ParagraphId", "Body");
+            var paragraphid = _session.GetInt32("paragraphid");
+            ViewBag.Paragraph = new SelectList(_database.Paragraphs.Where(p => p.ParagraphId == paragraphid), "ParagraphId", "Body");
 
             return PartialView("Edit", _bulletpoint);
         }
@@ -152,7 +158,8 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            ViewBag.Paragraph = new SelectList(_database.Paragraphs, "ParagraphId", "Body", bulletPoint.BulletPointId);
+            var paragraphid = _session.GetInt32("paragraphid");
+            ViewBag.Paragraph = new SelectList(_database.Paragraphs.Where(p => p.ParagraphId == paragraphid), "ParagraphId", "Name", bulletPoint.ParagraphId);
             return View(bulletPoint);
         }
 

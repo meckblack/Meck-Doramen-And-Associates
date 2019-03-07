@@ -20,7 +20,7 @@
                 <div class="col-md-12">
                     <label>Service</label>
                     <select asp-for="SubServiceId" class="form-control" asp-items="ViewBag.SubServiceId">
-                        <option selected>------------------------------------------ Select A Sub Service --------------------------------------------</option>
+                        <option selected>--------------------------------- Select A Sub Service --------------------------------</option>
                     </select>
                     <span asp-validation-for="SubService" class="text-danger"></span>
                 </div>
@@ -54,4 +54,9 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-
+<script>
+    $('option').each(function () {
+        var text = $(this).text()
+        $(this).val(text).text(text.substr(0, 80) + '…')
+    })
+</script>
