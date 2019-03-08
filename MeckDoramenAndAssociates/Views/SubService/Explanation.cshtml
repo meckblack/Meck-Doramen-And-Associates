@@ -31,19 +31,17 @@
 
             <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" style="padding-bottom: 35px;">
                 @*<h3 class="d-inline-block">@Html.DisplayFor(model => model.Name)</h3>*@
-                @foreach (Paragraph paragraph in Model.Paragraph)
+                @foreach (var item in Model.Paragraph)
                 {
-                    <p style="text-align: justify; padding-bottom: 10px;">@paragraph.Body</p>
-
-                }
-                @foreach (var bull in ViewBag.BulletPointList)
-                {
-                    <ul>
-                        <li>
-                            <p style="text-align: justify; padding-bottom: 3px;">@bull.Body</p>
-                        </li>
-                    </ul>
-
+                    <p style="text-align: justify; padding-bottom: 10px;">@item.paragraph.Body</p>
+                    @foreach (var bullet in item.bullets)
+                    {
+                        <ul>
+                            <li>
+                                <p style="text-align: justify; padding-bottom: 3px;">O  @bullet.Body</p>
+                            </li>
+                        </ul>
+                    }
                 }
             </li>
         </ul>

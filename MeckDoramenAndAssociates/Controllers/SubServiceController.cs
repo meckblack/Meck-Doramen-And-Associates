@@ -15,6 +15,12 @@ using Newtonsoft.Json;
 
 namespace MeckDoramenAndAssociates.Controllers
 {
+    public class ParagraphBullet
+    {
+        public Paragraph paragraph { get; set; }
+        public List<BulletPoint> bullets { get; set; }
+    }
+
     public class SubServiceController : Controller
     {
         private readonly ApplicationDbContext _database;
@@ -236,30 +242,6 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.HeaderImage = GetHeaderImage();
             mymodel.FooterImage = GetFooterImage();
             mymodel.Paragraph = GetParagraphs(id);
-
-
-            var paragraphs = GetParagraphs(id).ToArray();
-            var length = paragraphs.Length;
-            
-            List<SelectListItem> items = new List<SelectListItem>();
-            var _object = Json(new { });
-            var paragraphStore = new List<dynamic>();
-
-
-            foreach (Paragraph paragraph in paragraphs)
-            {
-                //var bulletpoints = await _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToListAsync();
-
-                var bulletpoints = _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToArray();
-
-                _object = Json(new { bulletpoints });
-
-                paragraphStore.Append(bulletpoints);
-
-                ViewBag.BulletPointList = bulletpoints;
-                
-            }
-            
             
             //mymodel.BulletPoint = paragraphStore;
 
@@ -368,11 +350,21 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #region Get Paragraph
 
-        private List<Paragraph> GetParagraphs(int? id)
+        private List<ParagraphBullet> GetParagraphs(int? id)
         {
             var _paragraph = _database.Paragraphs.Where(p => p.SubServiceId == id).ToList();
+            var paragraphStore = new List<ParagraphBullet>();
+            foreach (Paragraph paragraph in _paragraph)
+            {
+                //var bulletpoints = await _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToListAsync();
 
-            return _paragraph;
+                var bulletpoints = _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToList();
+                var _object = new ParagraphBullet();
+                _object.paragraph = paragraph;
+                _object.bullets = bulletpoints;
+                paragraphStore.Add(_object);
+            }
+            return paragraphStore;
         }
 
         #endregion

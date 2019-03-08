@@ -95,7 +95,7 @@ namespace MeckDoramenAndAssociates.Controllers
                     DateLastModified = DateTime.Now,
                 };
 
-                await _database.AddAsync(_role);
+                await _database.Roles.AddAsync(_role);
                 await _database.SaveChangesAsync();
 
                 var _user = new ApplicationUser()
@@ -113,7 +113,7 @@ namespace MeckDoramenAndAssociates.Controllers
                     RoleId = _role.RoleId,
                 };
 
-                await _database.AddAsync(_user);
+                await _database.ApplicationUsers.AddAsync(_user);
                 await _database.SaveChangesAsync();
 
                 return RedirectToAction("SignIn");
