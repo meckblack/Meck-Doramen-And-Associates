@@ -77,6 +77,7 @@
                                 @item.Title
                             </td>
                             <td>
+                                <a class="btn btn-primary btn-sm" asp-action="Index" asp-controller="MarketResearchParagraph" asp-route-id="@item.MarketResearchId"><i class="fa fa-pencil-square-o "></i> Paragraphs</a>
                                 <a class="btn btn-warning btn-sm" data-modal="" asp-action="Edit" asp-route-id="@item.MarketResearchId"><i class="fa fa-pencil-square-o "></i> Edit</a>
                                 <a class="btn btn-danger btn-sm" data-modal="" asp-action="Delete" asp-route-id="@item.MarketResearchId"><i class="fa fa-trash-o "></i> Delete</a>
                             </td>

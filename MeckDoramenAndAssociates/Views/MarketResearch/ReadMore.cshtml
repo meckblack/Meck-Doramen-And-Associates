@@ -15,7 +15,7 @@
     <div class="container">
         <h3 style="text-transform: uppercase">
             <strong>
-                @ViewData["name"]
+               Market Research
             </strong>
         </h3>
     </div>
@@ -25,17 +25,36 @@
     <div class="container">
         <ul class="row a">
             <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" style="padding-bottom: 35px;">
-                @foreach (var item in Model.Paragraph)
+
+                
+
+
+                @foreach (var item in Model.MarketResearchParagraph)
                 {
-                    <p style="text-align: justify; padding-bottom: 10px;">@item.paragraph.Body</p>
-                    @foreach (var bullet in item.bullets)
+                    if(item.marketResearchParagraph.MarketResearch.Title != "")
+                    {
+                        <h1 style="text-align: justify; padding-bottom: 10px;">
+                            @item.marketResearchParagraph.MarketResearch.Title
+                        </h1>
+                    }
+
+                        
+
+                   
+                    <p style="text-align: justify; padding-bottom: 10px;">
+                        @item.marketResearchParagraph.Body
+                    </p>
+
+                    @foreach (var marketResearchBullet in item.MarketResearchBullets)
                     {
                         <ul>
                             <li>
-                                <p style="text-align: justify; padding-bottom: 3px;">O  @bullet.Body</p>
+                                <p style="text-align: justify; padding-bottom: 3px;">O  @marketResearchBullet.Body</p>
                             </li>
                         </ul>
                     }
+
+                
                 }
             </li>
         </ul>

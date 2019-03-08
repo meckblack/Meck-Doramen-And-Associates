@@ -34,7 +34,8 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> Index()
+        [Route("marketresearch/index/{id}")]
+        public async Task<IActionResult> Index(int? id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
             var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
@@ -47,19 +48,23 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _marketResearchParagraph = await _database.MarketResearchBulletPoints.ToListAsync();
+            _session.SetInt32("marketresearchid", Convert.ToInt32(id));
+
+            var _marketResearchParagraph = await _database.MarketResearchParagraphs.Where(mrp => mrp.MarketResearchId == id).ToListAsync();
             return View(_marketResearchParagraph);
         }
 
         #endregion
 
         #region Create
-
+        
         [HttpGet]
         [Route("marketreseachparagraph/create")]
         public IActionResult Create()
         {
-            ViewBag.MarketResearch = new SelectList(_database.MarketResearches, "MarketResearchId", "Name");
+            var marketresearchid = _session.GetInt32("marketresearchid");
+            ViewBag.MarketResearch = new SelectList(_database.MarketResearches.Where(mrp => mrp.MarketResearchId == marketresearchid), 
+                                                    "MarketResearchId", "Title");
 
             var _marketResearchParagraph = new MarketResearchParagraph();
             return PartialView("Create", _marketResearchParagraph);
@@ -85,8 +90,9 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            ViewBag.MarketResearch = new SelectList(_database.MarketResearches, "MarketResearchId", "Name", marketResearchParagraph.MarketResearchId);
-            return View(marketResearchParagraph);
+            TempData["marketresearchparagraph"] = "Sorry you encountered an error. Kindly try adding the Market Research Paragraph again. !!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -94,6 +100,7 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Edit
 
         [HttpGet]
+        [Route("marketresearchparagraph/edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,11 +114,15 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-            ViewBag.MarketResearch = new SelectList(_database.MarketResearches, "MarketResearchId", "Name");
+
+            var marketresearchid = _session.GetInt32("marketresearchid");
+            ViewBag.MarketResearch = new SelectList(_database.MarketResearches.Where(mrp => mrp.MarketResearchId == marketresearchid), 
+                                                    "MarketResearchId", "Title");
 
             return PartialView("Edit", _marketResearchParagraph);
         }
 
+        [Route("marketresearchparagraph/edit/{id}")]
         [HttpPost]
         public async Task<IActionResult> Edit(int? id, MarketResearchParagraph marketResearchParagraph)
         {
@@ -148,7 +159,9 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            return View(marketResearchParagraph);
+            TempData["marketresearchparagraph"] = "Sorry you encountered an error. Kindly try editing the Market Research Paragraph again. !!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+            return RedirectToAction("Index");
         }
 
         #endregion

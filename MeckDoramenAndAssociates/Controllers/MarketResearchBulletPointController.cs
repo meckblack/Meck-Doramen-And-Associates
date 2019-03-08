@@ -33,8 +33,9 @@ namespace MeckDoramenAndAssociates.Controllers
         #region Index
 
         [HttpGet]
+        [Route("marketresearchbulletpoint/index/{id}")]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
             var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
@@ -47,7 +48,9 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _marketresearchBulletPoint = await _database.MarketResearchBulletPoints.ToListAsync();
+            _session.SetInt32("marketresearchparagraphid", Convert.ToInt32(id));
+
+            var _marketresearchBulletPoint = await _database.MarketResearchBulletPoints.Where(mrb => mrb.MarketResearchParagraphId == id).ToListAsync();
             return View(_marketresearchBulletPoint);
         }
 
@@ -59,7 +62,9 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("marketresearchbulletpoint/create")]
         public IActionResult Create()
         {
-            ViewBag.MarketResearchParagraph = new SelectList(_database.MarketResearchParagraphs, "MarketResearchParagraphId", "Body");
+            var marketresearchparagraphid = _session.GetInt32("marketresearchparagraphid");
+            ViewBag.MarketResearchParagraph = new SelectList(_database.MarketResearchParagraphs.Where(mrp => mrp.MarketResearchParagraphId == marketresearchparagraphid),
+                                                             "MarketResearchParagraphId", "Body");
 
             var marketResearchBulletPoint = new MarketResearchBulletPoint();
             return PartialView("Create", marketResearchBulletPoint);
@@ -85,9 +90,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            ViewBag.MarketResearchParagraph = new SelectList(_database.MarketResearchParagraphs, "MarketResearchParagraphId", 
-                                                                "Body", marketResearchBulletPoint.MarketResearchParagraphId);
-            return View(marketResearchBulletPoint);
+            TempData["marketresearchbulletpoint"] = "Sorry you have encountered an error. Kindly try adding the Market Research Bullet Point again!!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -108,7 +114,10 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-            ViewBag.MarketResearchParagraph = new SelectList(_database.MarketResearchParagraphs, "MarketResearchParagraphId", "Body");
+
+            var marketresearchparagraphid = _session.GetInt32("marketresearchparagraphid");
+            ViewBag.MarketResearchParagraph = new SelectList(_database.MarketResearchParagraphs.Where(mrp => mrp.MarketResearchParagraphId == marketresearchparagraphid),
+                                                             "MarketResearchParagraphId", "Body");
 
             return PartialView("Edit", _marketResearchBulletPoint);
         }
@@ -148,9 +157,11 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 return Json(new { success = true });
             }
-            ViewBag.MarketResearchParagraph = new SelectList(_database.MarketResearchParagraphs, "MarketResearchParagraphId", "Body", 
-                                                                                marketResearchBulletPoint.MarketResearchParagraphId);
-            return View(marketResearchBulletPoint);
+
+            TempData["markeresearchbulletpoint"] = "Sorry you have encountered an error. Kindly try editing the Market Research Bullet Point again !!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion

@@ -56,6 +56,14 @@
             }
             @if (ViewData["candoeverything"] != null)
             {
+                <li>
+                    <a asp-action="Index" asp-controller="MarketResearch">
+                        <i class="fa fa-car"></i> <span>MARKET RESEARCH</span>
+                    </a>
+                </li>
+            }
+            @if (ViewData["candoeverything"] != null)
+            {
                 <li class="treeview">
                     <a>
                         <i class="fa fa-car"></i> <span>ABOUT US PAGE </span>
@@ -70,7 +78,7 @@
                     </ul>
                 </li>
             }
-            @if(ViewData["candoeverything"] != null)
+            @if (ViewData["candoeverything"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="Enquiry">

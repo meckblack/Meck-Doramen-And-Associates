@@ -14,6 +14,7 @@
     </h1>
     <ol class="breadcrumb" style="padding-bottom: 10px">
         <li><a asp-controller="Admin" asp-action="Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a asp-action="Index" asp-controller="MarketResearch">Market Research</a></li>
         <li class="active">Market Research Paragraph</li>
     </ol>
 </section>
@@ -77,6 +78,7 @@
                                 @item.Body
                             </td>
                             <td>
+                                <a class="btn btn-primary btn-sm" asp-action="Index" asp-controller="MarketResearchBulletPoint" asp-route-id="@item.MarketResearchParagraphId"><i class="fa fa-book "></i> Bullet Points</a>
                                 <a class="btn btn-primary btn-sm" data-modal="" asp-action="Details" asp-route-id="@item.MarketResearchParagraphId"><i class="fa fa-book "></i> Details</a>
                                 <a class="btn btn-warning btn-sm" data-modal="" asp-action="Edit" asp-route-id="@item.MarketResearchParagraphId"><i class="fa fa-pencil-square-o "></i> Edit</a>
                                 <a class="btn btn-danger btn-sm" data-modal="" asp-action="Delete" asp-route-id="@item.MarketResearchParagraphId"><i class="fa fa-trash-o "></i> Delete</a>
@@ -90,6 +92,7 @@
     <!-- /.box -->
 </section>
 <!-- /.content -->
+
 
 <script src="~/Admin/bower_components/jquery/dist/jquery.js"></script>
 <script src="~/Modal/Modal.js"></script>

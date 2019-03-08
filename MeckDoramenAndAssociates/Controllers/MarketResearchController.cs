@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using MeckDoramenAndAssociates.Data;
@@ -15,6 +16,13 @@ namespace MeckDoramenAndAssociates.Controllers
 {
     public class MarketResearchController : Controller
     {
+        public class MarketResearchParagraphBullet
+        {
+            public MarketResearch marketResearch { get; set; }
+            public MarketResearchParagraph marketResearchParagraph { get; set; }
+            public List<MarketResearchBulletPoint> MarketResearchBullets { get; set; }
+        }
+
         private readonly ApplicationDbContext _database;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
@@ -184,6 +192,99 @@ namespace MeckDoramenAndAssociates.Controllers
             }
 
             return RedirectToAction("Index", "MarketResearch");
+        }
+
+        #endregion
+
+        #region Read More
+
+        [HttpGet]
+        [Route("marketresearch/readmore")]
+        public IActionResult ReadMore()
+        {
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Logos = GetLogos();
+            mymodel.Contacts = GetContacts();
+            mymodel.MarketResearchParagraph = GetMarketResearchParagraph();
+            mymodel.MarketResearch = GetMarketResearch();
+
+            foreach (Logo logo in mymodel.Logos)
+            {
+                ViewData["logo"] = logo.Image;
+            }
+
+            foreach (Contacts contacts in mymodel.Contacts)
+            {
+                ViewData["address"] = contacts.Address;
+                ViewData["email"] = contacts.Email;
+                ViewData["number"] = contacts.Number;
+                ViewData["openweekdays"] = contacts.OpenWeekdays;
+                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
+                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
+                ViewData["openweekends"] = contacts.OpenWeekends;
+                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
+                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+            }
+
+
+
+            return View(mymodel);
+        }
+
+        #endregion
+
+        #region Get Contacts
+
+        private List<Contacts> GetContacts()
+        {
+            var _contacts = _database.Contacts.ToList();
+
+            return _contacts;
+        }
+
+        #endregion
+
+        #region Get Logo
+
+        private List<Logo> GetLogos()
+        {
+            var _logos = _database.Logo.ToList();
+
+            return _logos;
+        }
+
+        #endregion
+
+        #region Get MarketResearch
+
+        private List<MarketResearch> GetMarketResearch()
+        {
+            var _marketResearches = _database.MarketResearches.ToList();
+
+            return _marketResearches;
+        }
+
+        #endregion
+
+        #region Get Market Research Paragraph
+
+        private List<MarketResearchParagraphBullet> GetMarketResearchParagraph()
+        {
+            var _markeResearchParagraph = _database.MarketResearchParagraphs.ToList();
+            var marketResearchParagraphStore = new List<MarketResearchParagraphBullet>();
+            
+            foreach (MarketResearchParagraph marketResearchParagraph in _markeResearchParagraph)
+            {
+                
+                var marketResearchBulletPoints = _database.MarketResearchBulletPoints.Where(mbp => mbp.MarketResearchParagraphId == marketResearchParagraph.MarketResearchParagraphId)
+                                                                                    .ToList();
+                
+                var _object = new MarketResearchParagraphBullet();
+                _object.marketResearchParagraph = marketResearchParagraph;
+                _object.MarketResearchBullets = marketResearchBulletPoints;
+                marketResearchParagraphStore.Add(_object);
+            }
+            return marketResearchParagraphStore;
         }
 
         #endregion
