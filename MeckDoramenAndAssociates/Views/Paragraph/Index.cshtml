@@ -79,7 +79,10 @@
                                 @(x++)
                             </td>
                             <td>
-                                @item.Body
+                                <div>
+                                    @item.Body
+                                </div>
+                                
                             </td>
                             <td>
                                 <a class="btn btn-info btn-sm" asp-action="Index" asp-controller="BulletPoints" asp-route-id="@item.ParagraphId"><i class="fa fa-book "></i> BulletPoints</a>

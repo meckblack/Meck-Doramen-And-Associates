@@ -17,8 +17,8 @@
     <ol class="breadcrumb" style="padding-bottom: 10px">
         <li><a asp-controller="Admin" asp-action="Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li><a asp-action="Index" asp-controller="Service">Services</a></li>
-        <li><a asp-action="Index" asp-controller="SubService" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetInt32("subserviceid")"> Sub Services</a></li>
-        <li class="active"><a asp-action="Index" asp-controller="Paragraph" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetInt32("paragraphid")"> Paragraph</a></li>
+        <li><a asp-action="Index" asp-controller="SubService" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetInt32("serviceid")"> Sub Services</a></li>
+        <li class="active"><a asp-action="Index" asp-controller="Paragraph" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetInt32("subserviceid")"> Paragraph</a></li>
         <li class="active">Bullet Points</li>
     </ol>
 </section>

@@ -89,9 +89,11 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 return Json(new { success = true });
             }
-            var id = _session.GetInt32("subserviceid");
-            ViewBag.SubServiceId = new SelectList(_database.SubServices.Where(subservice => subservice.SubServiceId == id), "SubServiceId", "Name", paragraph.SubServiceId);
-            return View(paragraph);
+
+            TempData["paragraph"] = "You have encountered and error. Kindly try adding the Paragraph again !!!";
+            TempData["notificationType"] = NotificationType.Success.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -157,9 +159,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            var suberserviceid = _session.GetInt32("subserviceid");
-            ViewBag.SubServiceId = new SelectList(_database.SubServices.Where(ss => ss.SubServiceId == suberserviceid), "SubServiceId", "Name", paragraph.SubServiceId);
-            return View(paragraph);
+            TempData["paragraph"] = "You have encountered and error. Kindly try editing the Paragraph again !!!";
+            TempData["notificationType"] = NotificationType.Success.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion
