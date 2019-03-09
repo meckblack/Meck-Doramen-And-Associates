@@ -21,40 +21,25 @@
     </div>
 </section>
 
-<section class="products-body" style="padding-top: 65px;">
+<section class="products-body" style="padding-top: 55px;">
     <div class="container">
         <ul class="row a">
             <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" style="padding-bottom: 35px;">
 
-                
-
-
                 @foreach (var item in Model.MarketResearchParagraph)
                 {
-                    if(item.marketResearchParagraph.MarketResearch.Title != "")
-                    {
-                        <h1 style="text-align: justify; padding-bottom: 10px;">
-                            @item.marketResearchParagraph.MarketResearch.Title
-                        </h1>
-                    }
+                    <h1 style="text-align: justify; padding-top: 10px;">
+                        @item.marketResearchParagraph.MarketResearch.Title
+                    </h1>
 
-                        
-
-                   
                     <p style="text-align: justify; padding-bottom: 10px;">
                         @item.marketResearchParagraph.Body
                     </p>
 
                     @foreach (var marketResearchBullet in item.MarketResearchBullets)
                     {
-                        <ul>
-                            <li>
-                                <p style="text-align: justify; padding-bottom: 3px;">O  @marketResearchBullet.Body</p>
-                            </li>
-                        </ul>
+                        <p style=" text-align:justify; padding-left: 30px;">O  @marketResearchBullet.Body</p>
                     }
-
-                
                 }
             </li>
         </ul>

@@ -239,8 +239,6 @@ namespace MeckDoramenAndAssociates.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
-            mymodel.HeaderImage = GetHeaderImage();
-            mymodel.FooterImage = GetFooterImage();
             mymodel.Paragraph = GetParagraphs(id);
             
             //mymodel.BulletPoint = paragraphStore;
@@ -262,17 +260,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
                 ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
             }
-
-            foreach (HeaderImage headerImage in mymodel.HeaderImage)
-            {
-                ViewData["headerimage"] = headerImage.Image;
-            }
-
-            foreach (FooterImage footerImage in mymodel.FooterImage)
-            {
-                ViewData["footerimage"] = footerImage.Image;
-            }
-
+            
             return View(mymodel);
         }
 
@@ -304,17 +292,6 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #endregion
 
-        #region Get Footer Image
-
-        private List<FooterImage> GetFooterImage()
-        {
-            var _footerImage = _database.FooterImages.ToList();
-
-            return _footerImage;
-        }
-
-        #endregion
-
         #region Get Contacts
 
         private List<Contacts> GetContacts()
@@ -336,18 +313,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-        #region Get Header Image
-
-        private List<HeaderImage> GetHeaderImage()
-        {
-            var _headerImage = _database.HeaderImages.ToList();
-
-            return _headerImage;
-        }
-
-        #endregion
-
+        
         #region Get Paragraph
 
         private List<ParagraphBullet> GetParagraphs(int? id)
@@ -356,8 +322,6 @@ namespace MeckDoramenAndAssociates.Controllers
             var paragraphStore = new List<ParagraphBullet>();
             foreach (Paragraph paragraph in _paragraph)
             {
-                //var bulletpoints = await _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToListAsync();
-
                 var bulletpoints = _database.BulletPoints.Where(b => b.ParagraphId == paragraph.ParagraphId).ToList();
                 var _object = new ParagraphBullet();
                 _object.paragraph = paragraph;

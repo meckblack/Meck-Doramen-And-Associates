@@ -1,7 +1,7 @@
 ﻿@model dynamic
 
 @{
-    ViewData["Title"] = "Subservice";
+    ViewData["Title"] = "All Services";
     Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
 }
 
@@ -15,26 +15,25 @@
     <div class="container">
         <h3 style="text-transform: uppercase">
             <strong>
-                @ViewData["name"]
+                ABOUT US
             </strong>
         </h3>
     </div>
 </section>
 
-<section class="products-body" style="padding-top: 65px;">
+<section class="products-body" style="padding-top: 55px;">
     <div class="container">
         <ul class="row a">
             <li class="col-md-offset-1 col-md-10 col-md-offset-1" data-aos="fade-up" data-aos-duration="800" style="padding-bottom: 35px;">
-                @foreach (var item in Model.Paragraph)
+                @foreach (var item in Model.AboutUsParagraph)
                 {
-                    <p style="text-align: justify; padding-bottom: 10px;">@item.paragraph.Body</p>
-                    @foreach (var bullet in item.bullets)
+                    <h1 style="text-align: justify; padding-top: 10px;">
+                        @item.aboutUsParagraph.AboutUs.Name
+                    </h1>
+                    <p style="text-align: justify; padding-bottom: 10px;">@item.aboutUsParagraph.Body</p>
+                    @foreach (var aboutUsBullet in item.aboutUsBulletPoints)
                     {
-                        <ul>
-                            <li>
-                                <p style="text-align: justify; padding-bottom: 30px;">O  @bullet.Body</p>
-                            </li>
-                        </ul>
+                        <p style="text-align: justify; padding-left: 30px;">O  @aboutUsBullet.Body</p>
                     }
                 }
             </li>

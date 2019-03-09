@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using MeckDoramenAndAssociates.Data;
@@ -13,6 +14,13 @@ using Newtonsoft.Json;
 
 namespace MeckDoramenAndAssociates.Controllers
 {
+    public class AboutUsParagraphBullet
+    {
+        public AboutUs aboutUs { get; set; }
+        public AboutUsParagraph aboutUsParagraph { get; set; }
+        public List<AboutUsBulletPoint> aboutUsBulletPoints { get; set; }
+    }
+
     public class AboutUsController : Controller
     {
         private readonly ApplicationDbContext _database;
@@ -187,12 +195,99 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-        
+
+        #region ReadMore
+
+        [HttpGet]
+        [Route("aboutus/readmore")]
+        public IActionResult ReadMore()
+        {
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Logos = GetLogos();
+            mymodel.Contacts = GetContacts();
+            mymodel.AboutUs = GetAboutUs();
+            mymodel.AboutUsParagraph = GetAboutUsParagraphs();
+
+            foreach (Logo logo in mymodel.Logos)
+            {
+                ViewData["logo"] = logo.Image;
+            }
+
+            foreach (Contacts contacts in mymodel.Contacts)
+            {
+                ViewData["address"] = contacts.Address;
+                ViewData["email"] = contacts.Email;
+                ViewData["number"] = contacts.Number;
+                ViewData["openweekdays"] = contacts.OpenWeekdays;
+                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
+                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
+                ViewData["openweekends"] = contacts.OpenWeekends;
+                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
+                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+            }
+
+            return View(mymodel);
+        }
+
+        #endregion
+
         #region About Us Exists
 
         private bool AboutUsExists(int id)
         {
             return _database.AboutUs.Any(e => e.AboutUsId == id);
+        }
+
+        #endregion
+
+        #region Get Contacts
+
+        private List<Contacts> GetContacts()
+        {
+            var _contacts = _database.Contacts.ToList();
+
+            return _contacts;
+        }
+
+        #endregion
+
+        #region Get AboutUs Paragraph
+
+        private List<AboutUsParagraphBullet> GetAboutUsParagraphs()
+        {
+            var _aboutUsParagraph = _database.AboutUsParagraph.ToList();
+            var aboutUsParagraphStore = new List<AboutUsParagraphBullet>();
+            foreach(AboutUsParagraph aboutUsParagraph in _aboutUsParagraph)
+            {
+                var aboutUsBulletPoints = _database.AboutUsBulletPoint.Where(aub => aub.AboutUsParagraphId == aboutUsParagraph.AboutUsParagraphId).ToList();
+                var _object = new AboutUsParagraphBullet();
+                _object.aboutUsParagraph = aboutUsParagraph;
+                _object.aboutUsBulletPoints = aboutUsBulletPoints;
+                aboutUsParagraphStore.Add(_object);
+            }
+            return aboutUsParagraphStore;
+        }
+
+        #endregion
+
+        #region Get Logo
+
+        private List<Logo> GetLogos()
+        {
+            var _logos = _database.Logo.ToList();
+
+            return _logos;
+        }
+
+        #endregion
+
+        #region Get About US
+
+        private List<AboutUs> GetAboutUs()
+        {
+            var _aboutUs = _database.AboutUs.ToList();
+
+            return _aboutUs;
         }
 
         #endregion

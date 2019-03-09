@@ -275,10 +275,8 @@ namespace MeckDoramenAndAssociates.Controllers
             
             foreach (MarketResearchParagraph marketResearchParagraph in _markeResearchParagraph)
             {
-                
                 var marketResearchBulletPoints = _database.MarketResearchBulletPoints.Where(mbp => mbp.MarketResearchParagraphId == marketResearchParagraph.MarketResearchParagraphId)
                                                                                     .ToList();
-                
                 var _object = new MarketResearchParagraphBullet();
                 _object.marketResearchParagraph = marketResearchParagraph;
                 _object.MarketResearchBullets = marketResearchBulletPoints;
