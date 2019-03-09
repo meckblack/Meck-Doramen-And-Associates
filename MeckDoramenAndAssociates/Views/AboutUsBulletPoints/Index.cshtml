@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<MeckDoramenAndAssociates.Models.AboutUsBulletPoint>
 @using MeckDoramenAndAssociates.Models.Enums
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
 
 @{
     ViewData["Title"] = "Index";
@@ -14,6 +17,8 @@
     </h1>
     <ol class="breadcrumb" style="padding-bottom: 10px">
         <li><a asp-controller="Admin" asp-action="Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a asp-controller="AboutUs" asp-action="Index"> About Us</a></li>
+        <li><a asp-controller="AboutUsParagraph" asp-action="Index" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetInt32("aboutusparagraphid")"> About Us Paragraph</a></li>
         <li class="active">About Us Bullet Point</li>
     </ol>
 </section>

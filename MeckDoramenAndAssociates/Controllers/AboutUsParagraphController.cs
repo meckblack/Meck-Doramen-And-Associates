@@ -34,7 +34,8 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> Index()
+        [Route("aboutusparagraph/index/{id}")]
+        public async Task<IActionResult> Index(int id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
             var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
@@ -47,7 +48,9 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _aboutUsParagraph = await _database.AboutUsParagraph.ToListAsync();
+            _session.SetInt32("aboutusid", id);
+
+            var _aboutUsParagraph = await _database.AboutUsParagraph.Where(aup => aup.AboutUsId == id).ToListAsync();
             return View(_aboutUsParagraph);
         }
 
@@ -59,7 +62,8 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("aboutusparagraph/create")]
         public IActionResult Create()
         {
-            ViewBag.AboutUs = new SelectList(_database.AboutUs, "AboutUsId", "Name");
+            var aboutUsId = _session.GetInt32("aboutusid");
+            ViewBag.AboutUs = new SelectList(_database.AboutUs.Where(au => au.AboutUsId == aboutUsId), "AboutUsId", "Name");
 
             var _aboutUsParagraph = new AboutUsParagraph();
             return PartialView("Create", _aboutUsParagraph);
@@ -85,8 +89,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            ViewBag.AboutUs = new SelectList(_database.AboutUs, "AboutUsId", "Name", aboutUsParagraph.AboutUsId);
-            return View(aboutUsParagraph);
+            TempData["aboutusparagraph"] = "Sorry you have encountered an error. Kindly try adding the About Us Paragraph again!!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -107,7 +113,9 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-            ViewBag.AboutUs = new SelectList(_database.AboutUs, "AboutUsId", "Name");
+
+            var aboutUsId = _session.GetInt32("aboutusid");
+            ViewBag.AboutUs = new SelectList(_database.AboutUs.Where(au => au.AboutUsId == aboutUsId), "AboutUsId", "Name");
 
             return PartialView("Edit", _aboutUsParagraph);
         }
@@ -148,7 +156,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            return View(aboutUsParagraph);
+            TempData["aboutusparagraph"] = "Sorry you have encountered an error. Kindly try editing the About Us Paragraph again!!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion

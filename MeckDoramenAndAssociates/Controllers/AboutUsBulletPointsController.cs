@@ -34,7 +34,8 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> Index()
+        [Route("aboutusbulletpoint/index/{id}")]
+        public async Task<IActionResult> Index(int id)
         {
             var userObject = _session.GetString("MDnAloggedinuser");
             var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
@@ -47,7 +48,9 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
 
-            var _aboutUsBulletPoint = await _database.AboutUsBulletPoint.ToListAsync();
+            _session.SetInt32("aboutusparagraphid", id);
+            var _aboutUsBulletPoint = await _database.AboutUsBulletPoint.Where(aup => aup.AboutUsParagraphId == id).ToListAsync();
+
             return View(_aboutUsBulletPoint);
         }
 
@@ -59,7 +62,8 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("aboutusbulletpoint/create")]
         public IActionResult Create()
         {
-            ViewBag.AboutUsParagraph = new SelectList(_database.AboutUsParagraph, "AboutUsParagraphId", "Body");
+            var aboutusparagraphid = _session.GetInt32("aboutusparagraphid");
+            ViewBag.AboutUsParagraph = new SelectList(_database.AboutUsParagraph.Where(aup => aup.AboutUsParagraphId == aboutusparagraphid), "AboutUsParagraphId", "Body");
 
             var _aboutUsBulletPoint = new AboutUsBulletPoint();
             return PartialView("Create", _aboutUsBulletPoint);
@@ -85,8 +89,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 return Json(new { success = true });
             }
 
-            ViewBag.AboutUsParagraph = new SelectList(_database.AboutUsParagraph, "AboutUsParagraphId", "Body", aboutUsBulletPoint.AboutUsParagraphId);
-            return View(aboutUsBulletPoint);
+            TempData["aboutusbulletpoint"] = "Sorry you have encountered an error. Kindly try adding the About Us Bullet Point again!!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -107,7 +113,9 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-            ViewBag.AboutUsParagraph = new SelectList(_database.AboutUsParagraph, "AboutUsParagraphId", "Body");
+
+            var aboutusparagraphid = _session.GetInt32("aboutusparagraphid");
+            ViewBag.AboutUsParagraph = new SelectList(_database.AboutUsParagraph.Where(aup => aup.AboutUsParagraphId == aboutusparagraphid), "AboutUsParagraphId", "Body");
 
             return PartialView("Edit", _aboutUsBulletPoint);
         }
@@ -147,8 +155,11 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 return Json(new { success = true });
             }
-            ViewBag.AboutUsParagraph = new SelectList(_database.AboutUsParagraph, "AboutUsParagraphId", "Body", aboutUsBulletPoint.AboutUsParagraphId);
-            return View(aboutUsBulletPoint);
+
+            TempData["aboutusbulletpoint"] = "Sorry you have encountered an error. Kindly try editing the About Us Bullet Point again!!!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+
+            return RedirectToAction("Index");
         }
 
         #endregion
