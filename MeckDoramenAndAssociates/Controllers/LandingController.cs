@@ -56,18 +56,28 @@ namespace MeckDoramenAndAssociates.Controllers
             ViewData["landingskillchecker"] = _database.LandingSkills.Count();
             ViewData["headerimage"] = _database.HeaderImages.Count();
 
-            var roleid = _user.RoleId;
+            #region Checker
 
-            var role = _database.Roles.Find(roleid);
+            //Checks if user is autorized to view this page
 
-            ViewData["userrole"] = role.Name;
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
 
             if (role.CanManageLandingDetails == false)
             {
+                TempData["error"] = "Sorry you are not authorized to access this page";
                 return RedirectToAction("Index", "Error");
             }
 
-            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true && r.RoleId == roleid);
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageServices"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+
+            #endregion
 
             return View(mymodel);
         }

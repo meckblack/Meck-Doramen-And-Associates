@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using MeckDoramenAndAssociates.Data;
@@ -28,45 +27,27 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-        #region Index
-
-        public IActionResult Index()
-        {
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Logos = GetLogos();
-            mymodel.Contacts = GetContacts();
-
-
-
-            foreach (Contacts contact in mymodel.Contacts)
-            {
-
-            }
-
-            foreach (Logo logo in mymodel.Logos)
-            {
-                _session.SetString("imageoflogo", logo.Image);
-
-                ViewData["imageoflogo"] = logo.Image;
-            }
-
-            var customerObject = _session.GetString("imouloggedincustomer");
-            if (customerObject == null)
-            {
-                return View();
-            }
-
-            return View();
-        }
-
-        #endregion
-
+        
         #region Create
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            #region Checker
+
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageLandingDetails == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             var contact = new Contacts();
             return PartialView("Create", contact);
         }
@@ -101,6 +82,21 @@ namespace MeckDoramenAndAssociates.Controllers
         // GET: Contact/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            #region Checker
+
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageLandingDetails == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             if (id == null)
             {
                 return RedirectToAction("Index", "Error");
@@ -140,6 +136,21 @@ namespace MeckDoramenAndAssociates.Controllers
         // GET: Contact/View/5
         public async Task<IActionResult> View(int? id)
         {
+            #region Checker
+
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageLandingDetails == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             if (id == null)
             {
                 return RedirectToAction("Index", "Error");

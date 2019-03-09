@@ -37,19 +37,30 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("aboutusparagraph/index/{id}")]
         public async Task<IActionResult> Index(int id)
         {
-            var userObject = _session.GetString("MDnAloggedinuser");
-            var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
+            #region Checker
 
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
+            //Checks if user is autorized to view this page
 
-            var roleid = _user.RoleId;
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
             var role = await _database.Roles.FindAsync(roleid);
-            ViewData["userrole"] = role.Name;
 
-            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true && r.RoleId == _user.RoleId);
+            if (role.CanManageServices == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
 
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageServices"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+
+            #endregion
+            
             _session.SetInt32("aboutusid", id);
-
             var _aboutUsParagraph = await _database.AboutUsParagraph.Where(aup => aup.AboutUsId == id).ToListAsync();
             return View(_aboutUsParagraph);
         }
@@ -60,8 +71,23 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("aboutusparagraph/create")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            #region Checker
+
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageAboutUs == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             var aboutUsId = _session.GetInt32("aboutusid");
             ViewBag.AboutUs = new SelectList(_database.AboutUs.Where(au => au.AboutUsId == aboutUsId), "AboutUsId", "Name");
 
@@ -102,6 +128,21 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
+            #region Checker
+
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageAboutUs == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             if (id == null)
             {
                 return RedirectToAction("Index", "Error");
@@ -169,6 +210,21 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
+            #region Checker
+
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageAboutUs == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             if (id == null)
             {
                 return RedirectToAction("Index", "Error");
@@ -210,7 +266,22 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-            if(id == null)
+            #region Checker
+
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageAboutUs == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
+            if (id == null)
             {
                 return RedirectToAction("Index", "Error");
             }

@@ -44,8 +44,6 @@ namespace MeckDoramenAndAssociates.Controllers
 
             var roleid = _session.GetInt32("MDnAloggedinuserroleid");
             var role = await _database.Roles.FindAsync(roleid);
-
-            
             
             if (role.CanManageServices == false)
             {

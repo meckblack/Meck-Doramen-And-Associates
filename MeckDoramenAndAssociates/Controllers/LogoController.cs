@@ -47,22 +47,28 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Landing");
             }
 
-            var userid = _session.GetInt32("MDnAloggedinuserid");
-            var _user = await _database.ApplicationUsers.FindAsync(userid);
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
+            #region Checker
 
-            var roleid = _user.RoleId;
+            //Checks if user is autorized to view this page
 
-            var role = _database.Roles.Find(roleid);
-
-            ViewData["userrole"] = role.Name;
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
 
             if (role.CanManageLandingDetails == false)
             {
+                TempData["error"] = "Sorry you are not authorized to access this page";
                 return RedirectToAction("Index", "Error");
             }
-            
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true && r.RoleId == roleid);
+
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageServices"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+
+            #endregion
 
             return View();
         }
@@ -120,15 +126,20 @@ namespace MeckDoramenAndAssociates.Controllers
         [SessionExpireFilter]
         public async Task<IActionResult> Delete(int? id)
         {
-            var userid = _session.GetInt32("MDnAloggedinuserid");
-            var _user = await _database.ApplicationUsers.FindAsync(userid);
-            var roleid = _user.RoleId;
-            var role = _database.Roles.Find(roleid);
+            #region Checker
+
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
 
             if (role.CanManageLandingDetails == false)
             {
+                TempData["error"] = "Sorry you are not authorized to access this page";
                 return RedirectToAction("Index", "Error");
             }
+
+            #endregion
 
             if (id == null)
             {
@@ -171,15 +182,20 @@ namespace MeckDoramenAndAssociates.Controllers
         [SessionExpireFilter]
         public async Task<IActionResult> View(int? id)
         {
-            var userid = _session.GetInt32("MDnAloggedinuserid");
-            var _user = await _database.ApplicationUsers.FindAsync(userid);
-            var roleid = _user.RoleId;
-            var role = _database.Roles.Find(roleid);
+            #region Checker
 
-            if (role.CanManageLandingDetails == false)
+            //Checks if user is autorized to view this page
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageAboutUs == false)
             {
+                TempData["error"] = "Sorry you are not authorized to access this page";
                 return RedirectToAction("Index", "Error");
             }
+            
+            #endregion
 
             if (id == null)
             {
