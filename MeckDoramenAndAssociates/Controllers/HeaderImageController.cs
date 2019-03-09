@@ -136,8 +136,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            var headerImage = await _database.HeaderImages
-                .SingleOrDefaultAsync(m => m.HeaderImageId == id);
+            var headerImage = await _database.HeaderImages.SingleOrDefaultAsync(m => m.HeaderImageId == id);
             if (headerImage == null)
             {
                 return RedirectToAction("Index", "Error");
@@ -150,10 +149,10 @@ namespace MeckDoramenAndAssociates.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var headerImage = await _database.Logo.SingleOrDefaultAsync(m => m.LogoId == id);
+            var headerImage = await _database.HeaderImages.SingleOrDefaultAsync(h => h.HeaderImageId == id);
             if (headerImage != null)
             {
-                _database.Logo.Remove(headerImage);
+                _database.HeaderImages.Remove(headerImage);
                 await _database.SaveChangesAsync();
 
                 TempData["landing"] = "You have successfully deleted Meck Doramen And Associates Header Image!";
@@ -161,6 +160,10 @@ namespace MeckDoramenAndAssociates.Controllers
 
                 return Json(new { success = true });
             }
+
+            TempData["landing"] = "Sorry you have encountered an error. Try deleting the Header Image again!";
+            TempData["notificationType"] = NotificationType.Error.ToString();
+
             return RedirectToAction("Index");
         }
 
