@@ -218,12 +218,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["address"] = contacts.Address;
                 ViewData["email"] = contacts.Email;
                 ViewData["number"] = contacts.Number;
-                ViewData["openweekdays"] = contacts.OpenWeekdays;
-                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
-                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
-                ViewData["openweekends"] = contacts.OpenWeekends;
-                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
-                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+                ViewData["number2"] = contacts.Number2;
             }
 
 

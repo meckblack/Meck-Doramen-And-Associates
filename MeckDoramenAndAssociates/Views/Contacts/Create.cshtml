@@ -17,59 +17,31 @@
     <div class="modal-body">
         <div class="form-horizontal">
             <div class="row">
-                <div class="col-md-6">
-                    <label>Weekdays Open</label>
-                    <input asp-for="OpenWeekdays" class="form-control " />
-                    <span asp-validation-for="OpenWeekdays" class="text-danger"></span>
-                </div>
-                <div class="col-md-3">
-                    <label>Opening Time</label>
-                    <input asp-for="WeekdaysOpenTime" type="time" class="form-control " />
-                    <span asp-validation-for="OpenWeekdays" class="text-danger"></span>
-                </div>
-                <div class="col-md-3">
-                    <label>Closing Time</label>
-                    <input asp-for="WeekdaysCloseTime" type="time" class="form-control " />
-                    <span asp-validation-for="WeekdaysCloseTime" class="text-danger"></span>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Weekends Open</label>
-                    <input asp-for="OpenWeekends"  class="form-control " />
-                    <span asp-validation-for="OpenWeekends" class="text-danger"></span>
-                </div>
-                <div class="col-md-3">
-                    <label>Opening Time</label>
-                    <input asp-for="WeekendsOpenTime" type="time" class="form-control " />
-                    <span asp-validation-for="WeekendsOpenTime" class="text-danger"></span>
-                </div>
-                <div class="col-md-3">
-                    <label>Closing Time</label>
-                    <input asp-for="WeekendsCloseTIme" type="time" class="form-control " />
-                    <span asp-validation-for="WeekendsCloseTIme" class="text-danger"></span>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-8">
-                    <label>Email</label>
-                    <input asp-for="Email" class="form-control " />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="col-md-4">
-                    <label>Number</label>
-                    <input asp-for="Number" class="form-control " />
-                    <span asp-validation-for="Number" class="text-danger"></span>
+                <div class="col-md-12">
+                    <label>Address</label>
+                    <textarea asp-for="Address" class="form-control "></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-12">
-                    <label>Address</label>
-                    <input asp-for="Address" class="form-control " />
-                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <label>Email</label>
+                    <input asp-for="Email" class="form-control " />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Mobile 1</label>
+                    <input asp-for="Number" class="form-control " />
+                    <span asp-validation-for="Number" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label>Mobile 2</label>
+                    <input asp-for="Number2" class="form-control " />
+                    <span asp-validation-for="Number2" class="text-danger"></span>
                 </div>
             </div>
         </div>

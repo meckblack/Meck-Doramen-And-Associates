@@ -66,8 +66,6 @@ namespace MeckDoramenAndAssociates.Data
 
         public DbSet<HeaderImage> HeaderImages { get; set; }
 
-        public DbSet<FooterImage> FooterImages { get; set; }
-
         public DbSet<News> News { get; set; }
 
         #endregion

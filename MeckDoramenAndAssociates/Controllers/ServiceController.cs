@@ -76,12 +76,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["address"] = contacts.Address;
                 ViewData["email"] = contacts.Email;
                 ViewData["number"] = contacts.Number;
-                ViewData["openweekdays"] = contacts.OpenWeekdays;
-                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
-                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
-                ViewData["openweekends"] = contacts.OpenWeekends;
-                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
-                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+                ViewData["number2"] = contacts.Number2;
             }
 
             foreach (LandingSkill skill in mymodel.LandingSkill)
@@ -283,8 +278,6 @@ namespace MeckDoramenAndAssociates.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
-            mymodel.HeaderImage = GetHeaderImage();
-            mymodel.FooterImage = GetFooterImage();
             mymodel.SubService = GetSubServices(id);
 
             foreach (Logo logo in mymodel.Logos)
@@ -297,22 +290,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["address"] = contacts.Address;
                 ViewData["email"] = contacts.Email;
                 ViewData["number"] = contacts.Number;
-                ViewData["openweekdays"] = contacts.OpenWeekdays;
-                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
-                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
-                ViewData["openweekends"] = contacts.OpenWeekends;
-                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
-                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
-            }
-
-            foreach (HeaderImage headerImage in mymodel.HeaderImage)
-            {
-                ViewData["headerimage"] = headerImage.Image;
-            }
-
-            foreach (FooterImage footerImage in mymodel.FooterImage)
-            {
-                ViewData["footerimage"] = footerImage.Image;
+                ViewData["number2"] = contacts.Number2;
             }
 
             return View(mymodel);
@@ -328,18 +306,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-        #region Get Footer Image
-
-        private List<FooterImage> GetFooterImage()
-        {
-            var _footerImage = _database.FooterImages.ToList();
-
-            return _footerImage;
-        }
-
-        #endregion
-
+        
         #region Get Contacts
 
         private List<Contacts> GetContacts()
@@ -361,18 +328,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-        #region Get Header Image
-
-        private List<HeaderImage> GetHeaderImage()
-        {
-            var _headerImage = _database.HeaderImages.ToList();
-
-            return _headerImage;
-        }
-
-        #endregion
-
+        
         #region Get Sub Service
 
         private List<SubService> GetSubServices(int? id)

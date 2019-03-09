@@ -35,7 +35,6 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.Vision = GetVision();
             mymodel.LandingSkill = GetLandingSkill();
             mymodel.HeaderImage = GetHeaderImage();
-            mymodel.FooterImage = GetFooterImage();
             mymodel.Service = GetServices();
             mymodel.News = GetNews();
 
@@ -49,12 +48,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["address"] = contacts.Address;
                 ViewData["email"] = contacts.Email;
                 ViewData["number"] = contacts.Number;
-                ViewData["openweekdays"] = contacts.OpenWeekdays;
-                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
-                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
-                ViewData["openweekends"] = contacts.OpenWeekends;
-                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
-                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+                ViewData["number2"] = contacts.Number2;
             }
 
             foreach (LandingAboutUs landingAboutUs in mymodel.LandingAboutUs)
@@ -88,11 +82,7 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 ViewData["headerimage"] = headerImage.Image;
             }
-
-            foreach (FooterImage footerImage in mymodel.FooterImage)
-            {
-                ViewData["footerimage"] = footerImage.Image;
-            }
+            
 
             return View(mymodel);
         }
@@ -163,18 +153,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-        #region Get Footer Image
-
-        private List<FooterImage> GetFooterImage()
-        {
-            var _footerImage = _database.FooterImages.ToList();
-
-            return _footerImage;
-        }
-
-        #endregion
-
+        
         #region Get Services
 
         private List<Service> GetServices()

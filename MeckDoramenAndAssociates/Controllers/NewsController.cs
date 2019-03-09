@@ -317,8 +317,6 @@ namespace MeckDoramenAndAssociates.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
-            mymodel.HeaderImage = GetHeaderImage();
-            mymodel.FooterImage = GetFooterImage();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -330,31 +328,15 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["address"] = contacts.Address;
                 ViewData["email"] = contacts.Email;
                 ViewData["number"] = contacts.Number;
-                ViewData["openweekdays"] = contacts.OpenWeekdays;
-                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
-                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
-                ViewData["openweekends"] = contacts.OpenWeekends;
-                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
-                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+                ViewData["number2"] = contacts.Number2;
             }
-
-            foreach (HeaderImage headerImage in mymodel.HeaderImage)
-            {
-                ViewData["headerimage"] = headerImage.Image;
-            }
-
-            foreach (FooterImage footerImage in mymodel.FooterImage)
-            {
-                ViewData["footerimage"] = footerImage.Image;
-            }
-
+            
             ViewData["newsheader"] = _news.Title;
             ViewData["newsbody"] = _news.Body;
             ViewData["newsbody1"] = _news.Body1;
             ViewData["newsbody2"] = _news.Body2;
             ViewData["newsbody3"] = _news.Body3;
             ViewData["readmore"] = _news.ReadMore;
-
 
             return View();
         }
@@ -370,8 +352,6 @@ namespace MeckDoramenAndAssociates.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
-            mymodel.HeaderImage = GetHeaderImage();
-            mymodel.FooterImage = GetFooterImage();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -383,24 +363,9 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["address"] = contacts.Address;
                 ViewData["email"] = contacts.Email;
                 ViewData["number"] = contacts.Number;
-                ViewData["openweekdays"] = contacts.OpenWeekdays;
-                ViewData["weekdaytimeopen"] = contacts.WeekdaysOpenTime.TimeOfDay;
-                ViewData["weekdaytimeclose"] = contacts.WeekdaysCloseTime.TimeOfDay;
-                ViewData["openweekends"] = contacts.OpenWeekends;
-                ViewData["weekendtimeopen"] = contacts.WeekendsOpenTime.TimeOfDay;
-                ViewData["weekendtimeclose"] = contacts.WeekendsCloseTIme.TimeOfDay;
+                ViewData["number2"] = contacts.Number2;
             }
-
-            foreach (HeaderImage headerImage in mymodel.HeaderImage)
-            {
-                ViewData["headerimage"] = headerImage.Image;
-            }
-
-            foreach (FooterImage footerImage in mymodel.FooterImage)
-            {
-                ViewData["footerimage"] = footerImage.Image;
-            }
-
+            
             var _news = await _database.News.ToListAsync();
             return View(_news);
         }
@@ -412,17 +377,6 @@ namespace MeckDoramenAndAssociates.Controllers
         private bool NewsExists(int id)
         {
             return _database.News.Any(e => e.NewsId == id);
-        }
-
-        #endregion
-
-        #region Get Footer Image
-
-        private List<FooterImage> GetFooterImage()
-        {
-            var _footerImage = _database.FooterImages.ToList();
-
-            return _footerImage;
         }
 
         #endregion
@@ -445,17 +399,6 @@ namespace MeckDoramenAndAssociates.Controllers
             var _logos = _database.Logo.ToList();
 
             return _logos;
-        }
-
-        #endregion
-
-        #region Get Header Image
-
-        private List<HeaderImage> GetHeaderImage()
-        {
-            var _headerImage = _database.HeaderImages.ToList();
-
-            return _headerImage;
         }
 
         #endregion

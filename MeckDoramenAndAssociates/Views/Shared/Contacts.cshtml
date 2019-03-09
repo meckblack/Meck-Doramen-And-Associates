@@ -1,16 +1,8 @@
 ﻿
 <div class="bookings">
-    <h6>@ViewData["address"]</h6>
-
-    <h6> Opening Hours :</h6>
-    <span> 
-        @ViewData["openweekdays"] @ViewData["weekdaytimeopen"] AM - @ViewData["weekdaytimeclose"] PM, 
-        @ViewData["openweekends"] @ViewData["weekendtimeopen"] AM - @ViewData["weekendtimeclose"] PM 
-    </span>
-    
-    <h6>Call for Bookings </h6>
-    <span>@ViewData["number"]</span>
-    
-    <h6>Support Email: </h6>
-    <a>@ViewData["email"]</a>
+    <h6 style="color: #ffd911">@ViewData["address"]</h6>
+    <h6>Mobiles </h6>
+    <span style="color: #ffd911">@ViewData["number"] <p><strong> OR </strong></p> @ViewData["number2"]</span>
+    <h6>Contact Email:</h6>
+    <span style="color: #ffd911">@ViewData["email"]</span>
 </div>
