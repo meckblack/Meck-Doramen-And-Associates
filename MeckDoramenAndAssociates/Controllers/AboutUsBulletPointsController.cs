@@ -37,17 +37,27 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("aboutusbulletpoint/index/{id}")]
         public async Task<IActionResult> Index(int id)
         {
-            var userObject = _session.GetString("MDnAloggedinuser");
-            var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
 
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
+            #region roles
 
-            var roleid = _user.RoleId;
-            var role = await _database.Roles.FindAsync(roleid);
-            ViewData["userrole"] = role.Name;
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true && r.RoleId == roleid);
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true && r.RoleId == roleid);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageNews == true && r.RoleId == roleid);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanMangeUsers == true && r.RoleId == roleid);
+            ViewData["CanManageServices"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageServices == true && r.RoleId == roleid);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageMarketResearch == true && r.RoleId == roleid);
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true && r.RoleId == roleid);
+            ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageEnquiry == true && r.RoleId == roleid);
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
+            if (ViewData["CanManageServices"] == null)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
 
+            #endregion
+            
             _session.SetInt32("aboutusparagraphid", id);
             var _aboutUsBulletPoint = await _database.AboutUsBulletPoint.Where(aup => aup.AboutUsParagraphId == id).ToListAsync();
 
@@ -60,8 +70,24 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("aboutusbulletpoint/create")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            #region Checker
+
+            var userObject = _session.GetString("MDnAloggedinuser");
+            var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
+
+            var roleid = _user.RoleId;
+            var role = await _database.Roles.FindAsync(roleid);
+            
+            if (role.CanManageServices == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             var aboutusparagraphid = _session.GetInt32("aboutusparagraphid");
             ViewBag.AboutUsParagraph = new SelectList(_database.AboutUsParagraph.Where(aup => aup.AboutUsParagraphId == aboutusparagraphid), "AboutUsParagraphId", "Body");
 

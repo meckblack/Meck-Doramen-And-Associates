@@ -38,16 +38,22 @@ namespace MeckDoramenAndAssociates.Controllers
         [SessionExpireFilterAttribute]
         public async Task<IActionResult> Index()
         {
-            var userObject = _session.GetString("MDnAloggedinuser");
-            var _user = JsonConvert.DeserializeObject<ApplicationUser>(userObject);
+            #region Checker
 
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
+            //Checks if user is autorized to view this page
 
-            var roleid = _user.RoleId;
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
             var role = await _database.Roles.FindAsync(roleid);
-            ViewData["userrole"] = role.Name;
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
+            
+            
+            if (role.CanManageServices == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
 
             var _services = await _database.Services.ToListAsync();
             return View(_services);
@@ -95,8 +101,21 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("service/create")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            #region Checker
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+            
+            if (role.CanManageServices == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             var service = new Service();
             return PartialView("Create", service);
         }
@@ -135,7 +154,20 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         [SessionExpireFilter]
         public async Task<IActionResult> Edit(int? id)
-        {   
+        {
+            #region Checker
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageServices == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             if (id == null)
             {
                 return RedirectToAction("Index", "Error");
@@ -196,6 +228,19 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
+            #region Checker
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageServices == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
             if (id == null)
             {
                 return RedirectToAction("Index", "Error");
@@ -218,7 +263,20 @@ namespace MeckDoramenAndAssociates.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
-            if(id == null)
+            #region Checker
+
+            var roleid = _session.GetInt32("MDnAloggedinuserroleid");
+            var role = await _database.Roles.FindAsync(roleid);
+
+            if (role.CanManageServices == false)
+            {
+                TempData["error"] = "Sorry you are not authorized to access this page";
+                return RedirectToAction("Index", "Error");
+            }
+
+            #endregion
+
+            if (id == null)
             {
                 return RedirectToAction("Index", "Error");
             }

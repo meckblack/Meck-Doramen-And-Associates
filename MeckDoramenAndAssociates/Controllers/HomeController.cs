@@ -169,7 +169,7 @@ namespace MeckDoramenAndAssociates.Controllers
 
         private List<News> GetNews()
         {
-            var _news = _database.News.ToList();
+            var _news = _database.News.OrderByDescending(x => x.NewsId).Take(3).ToList();
 
             return _news;
         }

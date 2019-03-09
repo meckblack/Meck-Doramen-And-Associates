@@ -1,9 +1,26 @@
-﻿<aside class="main-sidebar">
+﻿@using Microsoft.AspNetCore.Http
+@using MeckDoramenAndAssociates.Data
+@using Newtonsoft.Json
+@*@using (var context = new ApplicationDbContext(options.)) { }*@
+
+@{
+
+
+    ApplicationUser _user = null;
+    if (Context.Session.GetString("MDnAloggedinuser") != null)
+    {
+        _user = JsonConvert.DeserializeObject<ApplicationUser>(Context.Session.GetString("MDnAloggedinuser"));
+        var roleid = _user.RoleId;
+        
+    }
+}
+
+<aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
         <div class="user-panel">
-            <p style="color:white; text-align: center">  @ViewData["loggedinuserfullname"]</p>
+            <p style="color:white; text-align: center">  @Context.Session.GetString("MDnAloggedinusername")</p>
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
@@ -13,7 +30,7 @@
                     <i class="fa fa-dashboard"></i> <span>DASHBOARD</span>
                 </a>
             </li>
-            @if (ViewData["candoeverything"] != null)
+            @if (_user != null && (_user.Role.CanManageLandingDetails))
             {
                 <li>
                     <a asp-action="Index" asp-controller="Landing">
@@ -21,7 +38,7 @@
                     </a>
                 </li>
             }
-            @if (ViewData["candoeverything"] != null)
+            @if (_user != null && _user.Role.CanManageNews == true)
             {
                 <li>
                     <a asp-action="Index" asp-controller="News">
@@ -29,7 +46,7 @@
                     </a>
                 </li>
             }
-            @if (ViewData["candoeverything"] != null)
+            @if (_user != null && _user.Role.CanMangeUsers == true)
             {
                 <li>
                     <a asp-action="Index" asp-controller="ApplicationUser">
@@ -37,15 +54,15 @@
                     </a>
                 </li>
             }
-            @if (ViewData["candoeverything"] != null)
+            @if (_user != null && _user.Role.CanManageServices == true)
             {
                 <li>
                     <a asp-action="Index" asp-controller="Service">
-                        <i class="fa fa-car"></i> <span>SERVICES PAGE </span>
+                        <i class="fa fa-car"></i> <span>SERVICES</span>
                     </a>
                 </li>
             }
-            @if (ViewData["candoeverything"] != null)
+            @if (_user != null && _user.Role.CanManageMarketResearch == true)
             {
                 <li>
                     <a asp-action="Index" asp-controller="MarketResearch">
@@ -53,15 +70,15 @@
                     </a>
                 </li>
             }
-            @if (ViewData["candoeverything"] != null)
+            @if (_user != null && _user.Role.CanManageAboutUs == true)
             {
                 <li>
                     <a asp-action="Index" asp-controller="AboutUs">
-                        <i class="fa fa-car"></i> <span>ABOUT US PAGE </span>
+                        <i class="fa fa-car"></i> <span>ABOUT US</span>
                     </a>
                 </li>
             }
-            @if (ViewData["candoeverything"] != null)
+            @if (_user != null && _user.Role.CanManageEnquiry == true)
             {
                 <li>
                     <a asp-action="Index" asp-controller="Enquiry">

@@ -52,7 +52,7 @@ namespace MeckDoramenAndAssociates.Controllers
             var role = await _database.Roles.FindAsync(roleid);
             ViewData["userrole"] = role.Name;
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageMarketResearch == true && r.RoleId == _user.RoleId);
 
             var _mareketResearch = await _database.MarketResearches.ToListAsync();
             return View(_mareketResearch);

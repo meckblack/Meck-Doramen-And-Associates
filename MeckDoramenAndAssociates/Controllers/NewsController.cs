@@ -49,7 +49,7 @@ namespace MeckDoramenAndAssociates.Controllers
             var role = await _database.Roles.FindAsync(roleid);
             ViewData["userrole"] = role.Name;
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageNews == true && r.RoleId == _user.RoleId);
 
             var _news = await _database.News.ToListAsync();
             return View(_news);
@@ -74,12 +74,12 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["userrole"] = role.Name;
 
-            if (role.CanDoEverything == false)
+            if (role.CanManageNews == false)
             {
                 return RedirectToAction("Index", "Error");
             }
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageNews == true && r.RoleId == roleid);
 
             return View();
         }
@@ -149,12 +149,12 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["userrole"] = role.Name;
 
-            if (role.CanDoEverything == false)
+            if (role.CanManageNews == false)
             {
                 return RedirectToAction("Index", "Error");
             }
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageNews == true && r.RoleId == roleid);
 
             if (id == null)
             {

@@ -1,4 +1,8 @@
-﻿<nav class="navbar navbar-static-top" role="navigation">
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<nav class="navbar navbar-static-top" role="navigation">
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -19,8 +23,7 @@
                     <!-- User image -->
                     <li class="user-header">
                         <p>
-                            @ViewData["loggedinuserfullname"]
-                            <small>@ViewData["userrole"]</small>
+                            @HttpContextAccessor.HttpContext.Session.GetString("MDnAloggedinusername")
                         </p>
                     </li>
 

@@ -61,6 +61,9 @@ namespace MeckDoramenAndAssociates.Controllers
                 {
                     _session.SetString("MDnAloggedinuser", JsonConvert.SerializeObject(_user));
                     _session.SetInt32("MDnAloggedinuserid", _user.ApplicationUserId);
+                    _session.SetInt32("MDnAloggedinuserroleid", _user.RoleId);
+                    _session.SetString("MDnAloggedinusername", _user.DisplayName);
+
                     return RedirectToAction("Dashboard", "Admin");
                 }
                 else
@@ -90,7 +93,13 @@ namespace MeckDoramenAndAssociates.Controllers
                 var _role = new Role()
                 {
                     Name = "SuperUser",
-                    CanDoEverything = true,
+                    CanManageServices = true,
+                    CanManageAboutUs = true,
+                    CanManageEnquiry = true,
+                    CanManageLandingDetails = true,
+                    CanManageMarketResearch = true,
+                    CanManageNews = true,
+                    CanMangeUsers = true,
                     DateCreated = DateTime.Now,
                     DateLastModified = DateTime.Now,
                 };
@@ -159,9 +168,7 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
-
+            
             return View(_user);
         }
 
@@ -201,8 +208,6 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
 
             return PartialView("EditProfile", _user);
         }
@@ -373,9 +378,7 @@ namespace MeckDoramenAndAssociates.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
-
+            
             return View("ChangePassword", _user);
         }
 

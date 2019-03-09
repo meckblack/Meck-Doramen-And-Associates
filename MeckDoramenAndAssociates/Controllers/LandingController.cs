@@ -62,12 +62,12 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["userrole"] = role.Name;
 
-            if (role.CanDoEverything == false)
+            if (role.CanManageLandingDetails == false)
             {
                 return RedirectToAction("Index", "Error");
             }
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true && r.RoleId == roleid);
 
             return View(mymodel);
         }

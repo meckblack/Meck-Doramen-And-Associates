@@ -41,7 +41,15 @@ namespace MeckDoramenAndAssociates.Controllers
             var role = await _database.Roles.FindAsync(roleid);
             ViewData["userrole"] = role.Name;
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true && r.RoleId == _user.RoleId);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageNews == true && r.RoleId == _user.RoleId);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanMangeUsers == true && r.RoleId == _user.RoleId);
+            ViewData["CanManageServices"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageServices == true && r.RoleId == _user.RoleId);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageMarketResearch == true && r.RoleId == _user.RoleId);
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true && r.RoleId == _user.RoleId);
+            ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageEnquiry == true && r.RoleId == _user.RoleId);
+
+
 
             return View();
         }

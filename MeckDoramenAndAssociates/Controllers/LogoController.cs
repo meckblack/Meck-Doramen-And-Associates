@@ -57,12 +57,12 @@ namespace MeckDoramenAndAssociates.Controllers
 
             ViewData["userrole"] = role.Name;
 
-            if (role.CanDoEverything == false)
+            if (role.CanManageLandingDetails == false)
             {
                 return RedirectToAction("Index", "Error");
             }
             
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == roleid);
+            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true && r.RoleId == roleid);
 
             return View();
         }
@@ -125,7 +125,7 @@ namespace MeckDoramenAndAssociates.Controllers
             var roleid = _user.RoleId;
             var role = _database.Roles.Find(roleid);
 
-            if (role.CanDoEverything == false)
+            if (role.CanManageLandingDetails == false)
             {
                 return RedirectToAction("Index", "Error");
             }
@@ -176,7 +176,7 @@ namespace MeckDoramenAndAssociates.Controllers
             var roleid = _user.RoleId;
             var role = _database.Roles.Find(roleid);
 
-            if (role.CanDoEverything == false)
+            if (role.CanManageLandingDetails == false)
             {
                 return RedirectToAction("Index", "Error");
             }

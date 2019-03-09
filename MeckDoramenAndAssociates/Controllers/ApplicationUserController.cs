@@ -45,7 +45,7 @@ namespace MeckDoramenAndAssociates.Controllers
             var role = await _database.Roles.FindAsync(roleid);
             ViewData["userrole"] = role.Name;
 
-            ViewData["candoeverything"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanDoEverything == true && r.RoleId == _user.RoleId);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanMangeUsers == true && r.RoleId == _user.RoleId);
 
             var _appUsers = await _database.ApplicationUsers.ToListAsync();
             return View(_appUsers);

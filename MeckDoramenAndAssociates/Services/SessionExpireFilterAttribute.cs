@@ -10,7 +10,8 @@ namespace MeckDoramenAndAssociates.Services
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (filterContext.HttpContext.Session.GetString("MDnAloggedinuser") == null ||
-                filterContext.HttpContext.Session.GetInt32("MDnAloggedinuserid") == null)
+                filterContext.HttpContext.Session.GetInt32("MDnAloggedinuserid") == null ||
+                filterContext.HttpContext.Session.GetInt32("MDnAloggedinuserroleid") == null)
                 filterContext.Result =
                     new RedirectToRouteResult(
                         new RouteValueDictionary
