@@ -421,7 +421,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["number2"] = contacts.Number2;
             }
             
-            var _news = await _database.News.ToListAsync();
+            var _news = await _database.News.OrderByDescending(n => n.NewsId).ToListAsync();
             return View(_news);
         }
 

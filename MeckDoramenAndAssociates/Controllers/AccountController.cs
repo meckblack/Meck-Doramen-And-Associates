@@ -152,23 +152,21 @@ namespace MeckDoramenAndAssociates.Controllers
         [Route("account/viewprofile")]
         public async Task<IActionResult> ViewProfile()
         {
-            var userid = _session.GetInt32("MDnAloggedinuserid");
-
-            var _user = await _database.ApplicationUsers.SingleOrDefaultAsync(u => u.ApplicationUserId == userid);
-
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
-
-            var roleid = _user.RoleId;
-
-            var role = _database.Roles.Find(roleid);
-
-            ViewData["userrole"] = role.Name;
-
-            if (role.RoleId != roleid)
-            {
-                return RedirectToAction("Index", "Error");
-            }
+            #region Checker
             
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageNews == true);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanMangeUsers == true);
+            ViewData["CanManageServices"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageServices == true);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageMarketResearch == true);
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageEnquiry == true);
+            ViewData["CanManagePartner"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManagePartner == true);
+
+            #endregion
+
+            var userid = _session.GetInt32("MDnAloggedinuserid");
+            var _user = await _database.ApplicationUsers.SingleOrDefaultAsync(u => u.ApplicationUserId == userid);
             return View(_user);
         }
 
@@ -182,13 +180,7 @@ namespace MeckDoramenAndAssociates.Controllers
         public async Task<IActionResult> EditProfile()
         {
             var userid = _session.GetInt32("MDnAloggedinuserid");
-
-            if (userid == null)
-            {
-                TempData["error"] = "Sorry your session has expired. Try signin again";
-                return RedirectToAction("Signin", "Account");
-            }
-
+            
             var _user = await _database.ApplicationUsers.SingleOrDefaultAsync(u => u.ApplicationUserId == userid);
 
             if (_user == null)
@@ -196,18 +188,18 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
+            #region Checker
 
-            var roleid = _user.RoleId;
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageNews == true);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanMangeUsers == true);
+            ViewData["CanManageServices"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageServices == true);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageMarketResearch == true);
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageEnquiry == true);
+            ViewData["CanManagePartner"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManagePartner == true);
 
-            var role = _database.Roles.Find(roleid);
-
-            ViewData["userrole"] = role.Name;
-
-            if (role.RoleId != roleid)
-            {
-                return RedirectToAction("Index", "Error");
-            }
+            #endregion
 
             return PartialView("EditProfile", _user);
         }
@@ -366,19 +358,19 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            ViewData["loggedinuserfullname"] = _user.DisplayName;
+            #region Checker
 
-            var roleid = _user.RoleId;
+            ViewData["CanManageLandingDetails"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageLandingDetails == true);
+            ViewData["CanManageNews"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageNews == true);
+            ViewData["CanMangeUsers"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanMangeUsers == true);
+            ViewData["CanManageServices"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageServices == true);
+            ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageMarketResearch == true);
+            ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
+            ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageEnquiry == true);
+            ViewData["CanManagePartner"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManagePartner == true);
 
-            var role = _database.Roles.Find(roleid);
+            #endregion
 
-            ViewData["userrole"] = role.Name;
-
-            if (role.RoleId != roleid)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-            
             return View("ChangePassword", _user);
         }
 

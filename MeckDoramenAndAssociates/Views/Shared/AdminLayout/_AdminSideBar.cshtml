@@ -72,6 +72,14 @@
                     </a>
                 </li>
             }
+            @if (ViewData["CanManagePartner"] != null)
+            {
+                <li>
+                    <a asp-action="Index" asp-controller="Partner">
+                        <i class="fa fa-dashboard"></i> <span>PARTNER</span>
+                    </a>
+                </li>
+            }
         </ul>
     </section>
     <!-- /.sidebar -->
