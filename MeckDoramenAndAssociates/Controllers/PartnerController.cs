@@ -313,10 +313,10 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #endregion
 
-        #region Details
+        #region Views
 
         [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> View(int? id)
         {
             #region Checker
 
@@ -345,7 +345,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            return PartialView("Details", _partner);
+            return PartialView("View", _partner);
         }
 
         #endregion

@@ -1,0 +1,25 @@
+﻿@model MeckDoramenAndAssociates.Models.Partner
+
+@{
+    ViewData["Title"] = "View Logo";
+    Layout = null;
+}
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="~/UploadedFiles/News/@Html.DisplayFor(model => model.Image)" height="250px" width="300px" alt="Image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+</div>

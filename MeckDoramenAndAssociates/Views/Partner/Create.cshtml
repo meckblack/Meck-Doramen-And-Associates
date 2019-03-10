@@ -1,0 +1,62 @@
+﻿@model MeckDoramenAndAssociates.Models.Partner
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/AdminLayout/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h2>
+                <strong> ADD PARTNER</strong>
+            </h2>
+        </div>
+        <div class="box-body">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <!--MODAL BODY-->
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Name</label>
+                                <input class="form-control" asp-for="Name" placeholder="Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Url"></label>
+                                <input type="url" class="form-control" asp-for="Url" placeholder="Read More" />
+                                <span asp-validation-for="Url" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Logo</label>
+                                <input class="form-control" type="file" name="file" />
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--MODAL FOOTER-->
+                <div class="modal-footer">
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <input type="hidden" value="blank" asp-for="Image" />
+                            <a class="btn btn-danger" asp-action="Index">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
