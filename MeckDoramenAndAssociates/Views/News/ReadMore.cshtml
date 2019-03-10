@@ -19,23 +19,35 @@
     </div>
 </section>
 
-<section class="products-body"  style="padding-top:50px;">
+<section class="products-body about"  style="padding-top:50px;">
     <div class="container">
         <ul class="row">
-            <li class="col-12 col-sm-12 col-md-12" data-aos="fade-up" data-aos-duration="800">
-                <p>
+            <li data-src="images/cover.jpg" class="col-md-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="pic-overlay portfour">
+                    <a>
+                        <figure style="background: url(/UploadedFiles/News/131912925384453026.jpg);"></figure>
+                    </a>
+                </div>
+            </li>
+            <li class="col-12 col-sm-7 col-md-7" data-aos="fade-up" data-aos-duration="1000">
+                <p style="text-align: justify">
                     @ViewData["newsbody"]
                 </p>
-                <p>
+                <p style="text-align: justify">
                     @ViewData["newsbody1"]
                 </p>
-                <p>
+                
+                
+            </li>
+            <li class="col-12 col-sm-12 col-md-12">
+                <p style="text-align: justify" data-aos="fade-up" data-aos-duration="1000">
                     @ViewData["newsbody2"]
                 </p>
-                <p>
+                <p style="text-align: justify" data-aos="fade-up" data-aos-duration="1000">
                     @ViewData["newsbody3"]
                 </p>
-                <p>You can find more information on the above topic by clicking the following link <a style="color: #ffd911" href="@ViewData["readmore"]">@ViewData["readmore"]</a> </p>
+
+                <p style="text-align: justify" data-aos="fade-up" data-aos-duration="1000">You can find more information on the above topic by clicking the following link <a style="color: #ffd911" href="@ViewData["readmore"]">@ViewData["readmore"]</a> </p>
             </li>
         </ul>
     </div>

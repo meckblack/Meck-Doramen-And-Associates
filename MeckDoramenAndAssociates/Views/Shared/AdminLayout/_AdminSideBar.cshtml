@@ -1,19 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
-@using MeckDoramenAndAssociates.Data
-@using Newtonsoft.Json
-@*@using (var context = new ApplicationDbContext(options.)) { }*@
 
-@{
-
-
-    ApplicationUser _user = null;
-    if (Context.Session.GetString("MDnAloggedinuser") != null)
-    {
-        _user = JsonConvert.DeserializeObject<ApplicationUser>(Context.Session.GetString("MDnAloggedinuser"));
-        var roleid = _user.RoleId;
-        
-    }
-}
 
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -30,7 +16,7 @@
                     <i class="fa fa-dashboard"></i> <span>DASHBOARD</span>
                 </a>
             </li>
-            @if (_user != null && (_user.Role.CanManageLandingDetails))
+            @if (ViewData["CanManageLandingDetails"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="Landing">
@@ -38,7 +24,7 @@
                     </a>
                 </li>
             }
-            @if (_user != null && _user.Role.CanManageNews == true)
+            @if (ViewData["CanManageNews"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="News">
@@ -46,7 +32,7 @@
                     </a>
                 </li>
             }
-            @if (_user != null && _user.Role.CanMangeUsers == true)
+            @if (ViewData["CanMangeUsers"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="ApplicationUser">
@@ -54,7 +40,7 @@
                     </a>
                 </li>
             }
-            @if (_user != null && _user.Role.CanManageServices == true)
+            @if (ViewData["CanManageServices"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="Service">
@@ -62,7 +48,7 @@
                     </a>
                 </li>
             }
-            @if (_user != null && _user.Role.CanManageMarketResearch == true)
+            @if (ViewData["CanManageMarketResearch"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="MarketResearch">
@@ -70,7 +56,7 @@
                     </a>
                 </li>
             }
-            @if (_user != null && _user.Role.CanManageAboutUs == true)
+            @if (ViewData["CanManageAboutUs"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="AboutUs">
@@ -78,7 +64,7 @@
                     </a>
                 </li>
             }
-            @if (_user != null && _user.Role.CanManageEnquiry == true)
+            @if (ViewData["CanManageEnquiry"] != null)
             {
                 <li>
                     <a asp-action="Index" asp-controller="Enquiry">
