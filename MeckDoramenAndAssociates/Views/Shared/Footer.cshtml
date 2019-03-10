@@ -1,36 +1,79 @@
 ﻿
 <footer style="background: #111111; background-size: cover; background-repeat: no-repeat;">
     <div class="container">
-        <div class="footernav pull-left" data-aos="fade-up" data-aos-duration="800">
-            <ul class="">
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="Index" asp-controller="Home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="ReadMore" asp-controller="AboutUs">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="ViewAllServices" asp-controller="Service">Our Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="ReadMore" asp-controller="MarketResearch">Market Research</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="MakeEnquiry" asp-controller="Enquiry">Make Enquiry</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="ReadNews" asp-controller="News">Read News</a>
-                </li>
-            </ul>
-            <p>
-                (C) @DateTime.Now.Year, All Rights Reserved, <br /> Designed by <a style="color: #ffd911" href="https://github.com/meckblvck"> meckblvck</a> 
+        <div class="row">
+            <div class="col-md-5" style="padding-top: 20px;">
+                <div class="" data-aos="fade-up" data-aos-duration="800">
+                    <h4 style="padding-bottom: 10px; font-size: large; color: #ffd911"> ABOUT US </h4>
+                    <p style="text-align:justify">
+                        @ViewData["body"]
+                    </p>
 
-            </p>
-            <a href="index.html">
-                <img style="width:160px; height:61px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
-            </a>
+                    <p style="padding-top: 20px;">
+                        (C) @DateTime.Now.Year, All Rights Reserved, <br />Designed by <a style="color: #ffd911" href="https://github.com/meckblvck"> meckblvck</a>
 
+                    </p>
+                    <a asp-controller="Home" asp-action="Index">
+                        <img style="width:160px; height:61px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
+                    </a>
+
+                </div>
+            </div>
+            <div class="col-md-3" style="padding-top: 20px;">
+                <div class="" data-aos="fade-up" data-aos-duration="800">
+                    <h4 style="padding-bottom: 10px; font-size: large; color: #ffd911"> LINKS </h4>
+                    <ul class="">
+                        <li class="nav-item" style="display: block">
+                            <a class="nav-link" asp-action="Index" asp-controller="Home">Home</a>
+                        </li>
+                        <li style="display: block">
+                            <a class="nav-link" asp-action="ReadMore" asp-controller="AboutUs">About Us</a>
+                        </li>
+                        <li class="nav-item" style="display: block">
+                            <a class="nav-link" asp-action="ViewAllServices" asp-controller="Service">Our Services</a>
+                        </li>
+                        <li class="nav-item" style="display: block">
+                            <a class="nav-link" asp-action="ReadMore" asp-controller="MarketResearch">Market Research</a>
+                        </li>
+                        <li class="nav-item" style="display: block">
+                            <a class="nav-link" asp-action="MakeEnquiry" asp-controller="Enquiry">Make Enquiry</a>
+                        </li>
+                        <li class="nav-item" style="display: block">
+                            <a class="nav-link" asp-action="ReadNews" asp-controller="News">Read News</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4" style="padding-top: 20px;">
+                <div class="" data-aos="fade-up" data-aos-duration="800">
+                    <ul class="">
+                        <h4 style="padding-bottom: 10px; font-size: large; color: #ffd911"> PARTNERS </h4>
+                        <li>
+                            <img style="width:100px; height:50px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
+                        </li>
+                        <li>
+                            <img style="width:100px; height:50px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
+                        </li>
+                        <li>
+                            <img style="width:100px; height:50px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
+                        </li>
+                        <li>
+                            <img style="width:100px; height:50px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
+                        </li>
+                        <li>
+                            <img style="width:100px; height:50px;" src="~/UploadedFiles/Logo/@ViewData["logo"]" alt="logo">
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
+        @*<div class="row"  style="padding-top: 25px;">
+            <div class="col-md-12">
+                <div class="" data-aos="fade-up" data-aos-duration="800">
+                    
+                </div>
+            </div>
+        </div>*@
     </div>
 
 </footer>

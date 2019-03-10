@@ -36,12 +36,16 @@
         <ul class="row">
             @foreach (var item in Model)
             {
-                <li class="col-12 col-sm-12 col-md-12" data-aos="fade-up" data-aos-duration="800">
+                <li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
+                    <figure style="background: url(/UploadedFiles/News/@item.Image);">
+                    </figure>
+                </li>
+                <li class="col-12 col-sm-8 col-md-9" data-aos="fade-up" data-aos-duration="800">
                     <h3 class="d-inline-block" style="text-transform: uppercase"><strong>@item.Title</strong></h3>
-                    <p class="text-concat" style="padding-bottom:2px;">
-                        @item.Body 
+                    <p>
+                        @item.Body
                     </p>
-                    <p><a style="color:#ffd911" asp-action="ReadMore" asp-controller="News" asp-route-id="@item.NewsId">Click here</a> to Read More</p>
+                    <p style="padding:initial"><a style="color:#ffd911" asp-action="ReadMore" asp-controller="News" asp-route-id="@item.NewsId">Click here</a> to Read More</p>
                 </li>
             }
         </ul>
