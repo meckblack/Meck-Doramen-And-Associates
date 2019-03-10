@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class Partner
+    public class Partner : Transport
     {
         public int PartnerId { get; set; }
 

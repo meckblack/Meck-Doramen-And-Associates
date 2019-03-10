@@ -2573,10 +2573,8 @@
     <Folder Include="Data\Migrations\NewFolder\" />
     <Folder Include="wwwroot\UploadedFiles\Logo\" />
     <Folder Include="wwwroot\UploadedFiles\HeaderImage\" />
-    <Folder Include="wwwroot\UploadedFiles\FooterImage\" />
+    <Folder Include="wwwroot\UploadedFiles\Partners\" />
     <Folder Include="wwwroot\UploadedFiles\News\" />
-    <Folder Include="wwwroot\UploadedFiles\Services\" />
-    <Folder Include="wwwroot\UploadedFiles\Skills\" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,9 @@
 <div class="container">
     <div class="index-blog-heading" data-aos="zoom-in" data-aos-duration="800">
         <h3>
-            LATEST NEWS HAPPENINGS
+            <strong>
+                LATEST NEWS HAPPENINGS
+            </strong>
         </h3>
     </div>
     <ul class="row r2">
@@ -28,7 +30,7 @@
                         <figure style="background: url(UploadedFiles/News/@news.Image);"></figure>
                     </a>
                     <a asp-action="ReadMore" asp-controller="News" asp-route-id="@news.NewsId">
-                        <h4 style="text-transform: uppercase">
+                        <h4 style="text-transform: uppercase; font-weight: 500">
                             @news.Title
                         </h4>
                     </a>

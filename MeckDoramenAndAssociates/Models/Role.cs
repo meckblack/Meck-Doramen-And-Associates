@@ -35,7 +35,10 @@ namespace MeckDoramenAndAssociates.Models
 
         [Display(Name = "Manage Enquiry")]
         public bool CanManageEnquiry { get; set; }
-        
+
+        [Display(Name = "Manage Partner")]
+        public bool CanManagePartner { get; set; }
+
         #endregion
     }
 }
