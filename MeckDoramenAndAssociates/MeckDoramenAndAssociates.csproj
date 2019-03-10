@@ -2570,6 +2570,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Migrations\NewFolder\" />
     <Folder Include="wwwroot\UploadedFiles\Logo\" />
     <Folder Include="wwwroot\UploadedFiles\HeaderImage\" />
     <Folder Include="wwwroot\UploadedFiles\FooterImage\" />

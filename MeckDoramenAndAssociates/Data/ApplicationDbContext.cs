@@ -68,10 +68,10 @@ namespace MeckDoramenAndAssociates.Data
 
         public DbSet<News> News { get; set; }
 
+        public DbSet<Partner> Partners { get; set; }
+
         #endregion
-
-
-
+        
 
     }
 }
