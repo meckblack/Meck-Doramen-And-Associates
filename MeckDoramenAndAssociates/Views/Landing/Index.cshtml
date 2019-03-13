@@ -206,6 +206,59 @@
             </div>
             <!-- /.widget-user -->
         </div>
+
+        <div class="col-md-3">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-blue" style="align-content: center">
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">FOOTER ABOUT US </h3>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        @if (Convert.ToInt32(ViewData["footeraboutus"]) == 0)
+                        {
+                            <li><a asp-action="Create" asp-controller="FooterAboutUs">Add Header Image<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                        }
+
+                        @foreach (FooterAboutUs footerAboutUs in Model.GetFooterAboutUs)
+                        {
+                            <li><a data-modal="" asp-action="View" asp-controller="HeaderImage" asp-route-id="@footerAboutUs.FooterAboutUsId">View Footer About Us<span class="pull-right"><i class="fa fa-image" style="color: blue"></i></span></a></li>
+                            <li><a data-modal="" asp-action="Delete" asp-controller="HeaderImage" asp-route-id="@footerAboutUs.FooterAboutUsId">Delete Footer About Us<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
+
+        <div class="col-md-3">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-blue" style="align-content: center">
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">Brochure </h3>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        @if (Convert.ToInt32(ViewData["brochure"]) == 0)
+                        {
+                            <li><a asp-action="Create" asp-controller="Brochure">Add Brochure<span class="pull-right"><i class="fa fa-plus" style="color: green"></i></span></a></li>
+                        }
+
+                        @foreach (Brochure brochure in Model.Brochure)
+                        {
+                            <li><a data-modal="" asp-action="Delete" asp-controller="HeaderImage" asp-route-id="@brochure.BrochureId">Delete Brochure<span class="pull-right"><i class="fa fa-trash" style="color: red"></i></span></a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
     </div>
 </section>
 

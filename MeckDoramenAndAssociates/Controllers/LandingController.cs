@@ -48,6 +48,8 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.Vision = GetVision();
             mymodel.LandingSkill = GetLandingSkill();
             mymodel.HeaderImage = GetHeaderImage();
+            mymodel.Brochure = GetBrochure();
+            mymodel.FooterAboutUs = GetFooterAboutUs();
             
             ViewData["logochecker"] = _database.Logo.Count();
             ViewData["contactchecker"] = _database.Contacts.Count();
@@ -55,6 +57,8 @@ namespace MeckDoramenAndAssociates.Controllers
             ViewData["visionchecker"] = _database.Vision.Count();
             ViewData["landingskillchecker"] = _database.LandingSkills.Count();
             ViewData["headerimage"] = _database.HeaderImages.Count();
+            ViewData["brochure"] = _database.Brochure.Count();
+            ViewData["footeraboutus"] = _database.FooterAboutUs.Count();
 
             #region Checker
 
@@ -145,6 +149,28 @@ namespace MeckDoramenAndAssociates.Controllers
             var _headerImage = _database.HeaderImages.ToList();
 
             return _headerImage;
+        }
+
+        #endregion
+
+        #region Get FooterAboutUs
+
+        private List<FooterAboutUs> GetFooterAboutUs()
+        {
+            var _footerAboutUs = _database.FooterAboutUs.ToList();
+
+            return _footerAboutUs;
+        }
+
+        #endregion
+
+        #region Get Brochure
+
+        private List<Brochure> GetBrochure()
+        {
+            var _brochure = _database.Brochure.ToList();
+
+            return _brochure;
         }
 
         #endregion
