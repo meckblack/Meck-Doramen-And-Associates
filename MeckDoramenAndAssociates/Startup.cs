@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using MeckDoramenAndAssociates.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace MeckDoramenAndAssociates
 {
@@ -35,6 +37,10 @@ namespace MeckDoramenAndAssociates
                     Configuration.GetConnectionString("MDnA")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddSingleton<IFileProvider>(
+            //    new PhysicalFileProvider(
+            //        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

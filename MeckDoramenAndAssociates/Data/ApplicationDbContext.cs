@@ -70,8 +70,12 @@ namespace MeckDoramenAndAssociates.Data
 
         public DbSet<Partner> Partners { get; set; }
 
+        public DbSet<FooterAboutUs> FooterAboutUs { get; set; }
+
+        public DbSet<Brochure> Brochure { get; set; }
+
         #endregion
-        
+
 
     }
 }
