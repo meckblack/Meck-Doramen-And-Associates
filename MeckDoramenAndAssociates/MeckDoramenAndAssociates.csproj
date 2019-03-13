@@ -2573,6 +2573,7 @@
     <Folder Include="Data\Migrations\NewFolder\" />
     <Folder Include="wwwroot\UploadedFiles\Logo\" />
     <Folder Include="wwwroot\UploadedFiles\HeaderImage\" />
+    <Folder Include="wwwroot\UploadedFiles\Brochure\" />
     <Folder Include="wwwroot\UploadedFiles\Partners\" />
     <Folder Include="wwwroot\UploadedFiles\News\" />
   </ItemGroup>

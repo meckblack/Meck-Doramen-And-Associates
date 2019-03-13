@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class FooterAboutUs
+    public class FooterAboutUs : Transport
     {
         public int FooterAboutUsId { get; set; }
 

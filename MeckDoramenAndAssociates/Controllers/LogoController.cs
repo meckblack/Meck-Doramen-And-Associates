@@ -189,7 +189,7 @@ namespace MeckDoramenAndAssociates.Controllers
             var roleid = _session.GetInt32("MDnAloggedinuserroleid");
             var role = await _database.Roles.FindAsync(roleid);
 
-            if (role.CanManageAboutUs == false)
+            if (role.CanManageLandingDetails == false)
             {
                 TempData["error"] = "Sorry you are not authorized to access this page";
                 return RedirectToAction("Index", "Error");

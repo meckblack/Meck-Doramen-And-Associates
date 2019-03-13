@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MeckDoramenAndAssociates.Models
 {
-    public class Brochure
+    public class Brochure :Transport
     {
         public int BrochureId { get; set; }
 
