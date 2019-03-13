@@ -37,6 +37,7 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.HeaderImage = GetHeaderImage();
             mymodel.Service = GetServices();
             mymodel.News = GetNews();
+            mymodel.Partners = GetPartners();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -172,6 +173,17 @@ namespace MeckDoramenAndAssociates.Controllers
             var _news = _database.News.OrderByDescending(x => x.NewsId).Take(3).ToList();
 
             return _news;
+        }
+
+        #endregion
+
+        #region Get Partners
+
+        private List<Partner> GetPartners()
+        {
+            var _partners = _database.Partners.ToList();
+
+            return _partners;
         }
 
         #endregion
