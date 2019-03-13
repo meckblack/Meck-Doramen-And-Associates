@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MeckDoramenAndAssociates.Controllers
 {
-    public class ContactsController : Controller
+    public class FooterAboutUsController : Controller
     {
         private readonly ApplicationDbContext _database;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -20,14 +20,14 @@ namespace MeckDoramenAndAssociates.Controllers
 
         #region Constructor
 
-        public ContactsController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public FooterAboutUsController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _database = context;
             _httpContextAccessor = httpContextAccessor;
         }
 
         #endregion
-        
+
         #region Create
 
         [HttpGet]
@@ -48,26 +48,26 @@ namespace MeckDoramenAndAssociates.Controllers
 
             #endregion
 
-            var contact = new Contacts();
-            return PartialView("Create", contact);
+            var footerAboutUs = new FooterAboutUs();
+            return PartialView("Create", footerAboutUs);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionExpireFilterAttribute]
-        public async Task<IActionResult> Create(Contacts contact)
+        public async Task<IActionResult> Create(FooterAboutUs footerAboutUs)
         {
             if (ModelState.IsValid)
             {
-                contact.DateCreated = DateTime.Now;
-                contact.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-                contact.DateLastModified = DateTime.Now;
-                contact.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
-             
-                await _database.Contacts.AddAsync(contact);
+                footerAboutUs.DateCreated = DateTime.Now;
+                footerAboutUs.CreatedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+                footerAboutUs.DateLastModified = DateTime.Now;
+                footerAboutUs.LastModifiedBy = Convert.ToInt32(_session.GetInt32("MDnAloggedinuserid"));
+
+                await _database.FooterAboutUs.AddAsync(footerAboutUs);
                 await _database.SaveChangesAsync();
 
-                TempData["landing"] = "You have successfully added the contact details";
+                TempData["footerAboutUs"] = "You have successfully added the Footer About Us details";
                 TempData["notificationType"] = NotificationType.Success.ToString();
 
                 return Json(new { success = true });
@@ -76,7 +76,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-        
+
         #region Delete
 
         // GET: Contact/Delete/5
@@ -102,14 +102,14 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            var contact = await _database.Contacts
-                .FirstOrDefaultAsync(m => m.ContactsId == id);
-            if (contact == null)
+            var _footerAboutUs = await _database.FooterAboutUs
+                .FirstOrDefaultAsync(m => m.FooterAboutUsId == id);
+            if (_footerAboutUs == null)
             {
                 return RedirectToAction("Index", "Error");
             }
 
-            return PartialView("Delete", contact);
+            return PartialView("Delete", _footerAboutUs);
         }
 
         // POST: Contact/Delete/5
@@ -117,12 +117,12 @@ namespace MeckDoramenAndAssociates.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var _contact = await _database.Contacts.FindAsync(id);
-            if (_contact != null)
+            var _footerAboutUs = await _database.FooterAboutUs.FindAsync(id);
+            if (_footerAboutUs != null)
             {
-                _database.Contacts.Remove(_contact);
+                _database.FooterAboutUs.Remove(_footerAboutUs);
                 await _database.SaveChangesAsync();
-                TempData["landing"] = "You have successfully deleted the contact details";
+                TempData["footerAboutUs"] = "You have successfully deleted the Footer About Us details";
                 TempData["notificationType"] = NotificationType.Success.ToString();
                 return Json(new { success = true });
             }
@@ -156,14 +156,14 @@ namespace MeckDoramenAndAssociates.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            var contact = await _database.Contacts
-                .FirstOrDefaultAsync(m => m.ContactsId == id);
-            if (contact == null)
+            var _footerAboutUs = await _database.FooterAboutUs
+                .FirstOrDefaultAsync(m => m.FooterAboutUsId == id);
+            if (_footerAboutUs == null)
             {
                 return RedirectToAction("Index", "Error");
             }
 
-            return PartialView("View", contact);
+            return PartialView("View", _footerAboutUs);
         }
 
         #endregion

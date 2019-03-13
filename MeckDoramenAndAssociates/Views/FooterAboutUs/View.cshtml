@@ -1,0 +1,32 @@
+﻿@model MeckDoramenAndAssociates.Models.FooterAboutUs
+
+@{
+    ViewData["Title"] = "View";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h2>
+        FOOTER ABOUT US
+    </h2>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <dt>
+                <b>Write Up</b>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WriteUp)
+            </dd>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <div class="row pull-right">
+        <div class="col-md-12">
+            <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+        </div>
+    </div>
+</div>
