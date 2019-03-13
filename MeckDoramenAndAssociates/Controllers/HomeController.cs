@@ -41,6 +41,8 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.Service = GetServices();
             mymodel.News = GetNews();
             mymodel.Partners = GetPartners();
+            mymodel.FooterAboutUs = GetFooterAboutUs();
+
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -87,6 +89,11 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["headerimage"] = headerImage.Image;
             }
             
+            foreach (FooterAboutUs footerAboutUs in mymodel.FooterAboutUs)
+            {
+                ViewData["footeraboutus"] = footerAboutUs.WriteUp;
+            }
+
 
             return View(mymodel);
         }
@@ -217,6 +224,17 @@ namespace MeckDoramenAndAssociates.Controllers
             var _partners = _database.Partners.ToList();
 
             return _partners;
+        }
+
+        #endregion
+
+        #region Get Footer About US
+
+        private List<FooterAboutUs> GetFooterAboutUs()
+        {
+            var _footerAboutUs = _database.FooterAboutUs.ToList();
+
+            return _footerAboutUs; 
         }
 
         #endregion
