@@ -401,7 +401,7 @@ namespace MeckDoramenAndAssociates.Controllers
             ViewData["readmore"] = _news.ReadMore;
             ViewData["image"] = _news.Image;
 
-            return View();
+            return View(mymodel);
         }
 
         #endregion
@@ -410,11 +410,14 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("news/readnews")]
-        public async Task<IActionResult> ReadNews()
+        public IActionResult ReadNews()
         {
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
+            mymodel.News = GetNews();
+            mymodel.Partners = GetPartners();
+            mymodel.FooterAboutUs = GetFooterAboutUs();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -428,9 +431,13 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["number"] = contacts.Number;
                 ViewData["number2"] = contacts.Number2;
             }
-            
-            var _news = await _database.News.OrderByDescending(n => n.NewsId).ToListAsync();
-            return View(_news);
+
+            foreach (FooterAboutUs footerAboutUs in mymodel.FooterAboutUs)
+            {
+                ViewData["footeraboutus"] = footerAboutUs.WriteUp;
+            }
+
+            return View(mymodel);
         }
 
         #endregion
@@ -440,6 +447,17 @@ namespace MeckDoramenAndAssociates.Controllers
         private bool NewsExists(int id)
         {
             return _database.News.Any(e => e.NewsId == id);
+        }
+
+        #endregion
+
+        #region Get News
+
+        private List<News> GetNews()
+        {
+            var _news= _database.News.OrderByDescending(n => n.NewsId).ToList();
+
+            return _news;
         }
 
         #endregion

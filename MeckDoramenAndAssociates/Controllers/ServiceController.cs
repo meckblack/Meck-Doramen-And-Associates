@@ -72,12 +72,15 @@ namespace MeckDoramenAndAssociates.Controllers
 
         [HttpGet]
         [Route("service/viewallservices")]
-        public async Task<IActionResult> ViewAllServices()
+        public IActionResult ViewAllServices()
         {
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
             mymodel.LandingSkill = GetLandingSkills();
+            mymodel.FooterAboutUs = GetFooterAboutUs();
+            mymodel.Partners = GetPartners();
+            mymodel.Service = GetServices();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -97,9 +100,13 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["Landingheader"] = skill.Header;
                 ViewData["Landingbody"] = skill.Body;
             }
-            
-            var allservices = await _database.Services.ToListAsync();
-            return View(allservices);
+
+            foreach (FooterAboutUs footerAboutUs in mymodel.FooterAboutUs)
+            {
+                ViewData["footeraboutus"] = footerAboutUs.WriteUp;
+            }
+
+            return View(mymodel);
         }
 
         #endregion
@@ -408,6 +415,17 @@ namespace MeckDoramenAndAssociates.Controllers
             var _subService = _database.SubServices.Where(s => s.ServiceId == id).ToList();
 
             return _subService;
+        }
+
+        #endregion
+
+        #region Get Service
+
+        private List<Service> GetServices()
+        {
+            var _service = _database.Services.ToList();
+
+            return _service;
         }
 
         #endregion

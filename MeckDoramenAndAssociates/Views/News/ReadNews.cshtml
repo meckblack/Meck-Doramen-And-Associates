@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MeckDoramenAndAssociates.Models.News>
+﻿@model dynamic
 
 @{
     ViewData["Title"] = "Read More";
@@ -34,18 +34,18 @@
 <section class="products-body" style="padding-top: 65px;">
     <div class="container">
         <ul class="row">
-            @foreach (var item in Model)
+            @foreach (News news in Model.News)
             {
                 <li class="col-12 col-sm-4 col-md-3" data-aos="fade-up" data-aos-duration="800">
-                    <figure style="background: url(/UploadedFiles/News/@item.Image);">
+                    <figure style="background: url(/UploadedFiles/News/@news.Image);">
                     </figure>
                 </li>
                 <li class="col-12 col-sm-8 col-md-9" data-aos="fade-up" data-aos-duration="800">
-                    <h3 class="d-inline-block" style="text-transform: uppercase"><strong>@item.Title</strong></h3>
+                    <h3 class="d-inline-block" style="text-transform: uppercase"><strong>@news.Title</strong></h3>
                     <p>
-                        @item.Body
+                        @news.Body
                     </p>
-                    <p style="padding:initial"><a style="color:#ffd911" asp-action="ReadMore" asp-controller="News" asp-route-id="@item.NewsId">Click here</a> to Read More</p>
+                    <p style="padding:initial"><a style="color:#ffd911" asp-action="ReadMore" asp-controller="News" asp-route-id="@news.NewsId">Click here</a> to Read More</p>
                 </li>
             }
         </ul>

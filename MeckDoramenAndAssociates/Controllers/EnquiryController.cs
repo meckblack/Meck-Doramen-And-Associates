@@ -96,7 +96,7 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["footeraboutus"] = footerAboutUs.WriteUp;
             }
 
-            return View();
+            return View(mymodel);
         }
 
         [HttpPost]

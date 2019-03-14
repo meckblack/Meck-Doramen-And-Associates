@@ -99,35 +99,6 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-        #region Download
-
-        //[HttpPost]
-        //public async Task<IActionResult> Download(string filename)
-        //{
-        //    if(filename == null)
-        //    {
-        //        return Content("filename not present");
-        //    }
-
-        //    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles/News", filename);
-
-        //    var memory = new MemoryStream();
-        //    using(var stream = new FileStream(path, FileMode.Open))
-        //    {
-        //        await stream.CopyToAsync(memory);
-        //    }
-        //    memory.Position = 0;
-        //    return File(memory, GetContentType(path), Path.GetFileName(path));
-        //}
-
-        public FileResult Download(string ImageName)
-        {
-            var path = "" + ImageName;
-            return File(path, "application/force- download", Path.GetFileName(path));
-        }
-
-        #endregion
         
         #region Get Logo
 
@@ -237,6 +208,5 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
     }
 }

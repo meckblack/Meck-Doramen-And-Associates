@@ -1,6 +1,7 @@
-﻿@model IEnumerable<MeckDoramenAndAssociates.Models.Service>
+﻿@model  dynamic
+
 @{
-    ViewData["Title"] = "All Services";
+    ViewData["Title"] = "Our Services";
     Layout = "~/Views/Shared/LandingLayout/_LandingLayout.cshtml";
 }
 
@@ -32,9 +33,9 @@
                     @ViewData["Landingbody"]
                 </p>
 
-                @foreach (var item in Model)
+                @foreach (Service service in Model.Service)
                 {
-                    <p> <span style="color: blue">=></span> <a asp-action="Explanation" asp-controller="Service" asp-route-id="@item.ServiceId"> @item.Name</a></p>
+                    <p> <span style="color: blue">=></span> <a asp-action="Explanation" asp-controller="Service" asp-route-id="@service.ServiceId"> @service.Name</a></p>
                 }
             </li>
         </ul>

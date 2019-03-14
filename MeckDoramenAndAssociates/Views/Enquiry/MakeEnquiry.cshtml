@@ -1,4 +1,4 @@
-﻿@model MeckDoramenAndAssociates.Models.Enquiry
+﻿@model dynamic
 
 @{
     ViewData["Title"] = "Read More";
@@ -8,7 +8,9 @@
 <section class="products-title">
     <div class="container">
         <h3>
-            Make Enquiry
+            <strong>
+                Make Enquiry
+            </strong>
         </h3>
     </div>
 </section>
@@ -17,7 +19,7 @@
     <div class="container">
         <ul class="row">
             <li class="col-12 col-md-6" data-aos="fade-up" data-aos-duration="800">
-                <form asp-action="MakeEnquiry">
+                @*<form asp-action="MakeEnquiry">
                     <input asp-for="Email" type="text" placeholder="Your Email" required>
                     <input asp-for="PhoneNumber" type="text" placeholder="Your Phone Number" required>
 
@@ -26,23 +28,15 @@
                     <textarea asp-for="Message" placeholder="Your Message" required></textarea>
 
                     <button type="submit">alright submit it</button>
-                </form>
+                </form>*@
             </li>
             <li class="col-12 col-md-6" data-aos="fade-up" data-aos-duration="800">
                 <div class="bookings">
-                    <h6>@ViewData["address"]</h6>
-
-                    <h6> Opening Hours :</h6>
-                    <span>
-                        @ViewData["openweekdays"] @ViewData["weekdaytimeopen"] AM - @ViewData["weekdaytimeclose"] PM,
-                        @ViewData["openweekends"] @ViewData["weekendtimeopen"] AM - @ViewData["weekendtimeclose"] PM
-                    </span>
-
-                    <h6>Call for Bookings </h6>
-                    <span>@ViewData["number"]</span>
-
-                    <h6>Support Email: </h6>
-                    <a>@ViewData["email"]</a>
+                    <h6 style="color: #ffd911">@ViewData["address"]</h6>
+                    <h6>Mobiles </h6>
+                    <span style="color: #ffd911">@ViewData["number"] <p><strong> OR </strong></p> @ViewData["number2"]</span>
+                    <h6>Contact Email:</h6>
+                    <span style="color: #ffd911">@ViewData["email"]</span>
                 </div>
             </li>
         </ul>
