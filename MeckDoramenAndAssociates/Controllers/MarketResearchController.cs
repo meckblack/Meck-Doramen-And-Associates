@@ -264,6 +264,8 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.Contacts = GetContacts();
             mymodel.MarketResearchParagraph = GetMarketResearchParagraph();
             mymodel.MarketResearch = GetMarketResearch();
+            mymodel.Partners = GetPartners();
+            mymodel.FooterAboutUs = GetFooterAboutUs();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -278,6 +280,10 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["number2"] = contacts.Number2;
             }
 
+            foreach (FooterAboutUs footerAboutUs in mymodel.FooterAboutUs)
+            {
+                ViewData["footeraboutus"] = footerAboutUs.WriteUp;
+            }
 
 
             return View(mymodel);
@@ -344,6 +350,28 @@ namespace MeckDoramenAndAssociates.Controllers
         private bool MarketResearchExists(int id)
         {
             return _database.MarketResearches.Any(e => e.MarketResearchId == id);
+        }
+
+        #endregion
+
+        #region Get Partners
+
+        private List<Partner> GetPartners()
+        {
+            var _partners = _database.Partners.ToList();
+
+            return _partners;
+        }
+
+        #endregion
+
+        #region Get Footer About US
+
+        private List<FooterAboutUs> GetFooterAboutUs()
+        {
+            var _footerAboutUs = _database.FooterAboutUs.ToList();
+
+            return _footerAboutUs;
         }
 
         #endregion

@@ -296,6 +296,7 @@ namespace MeckDoramenAndAssociates.Controllers
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
             mymodel.Paragraph = GetParagraphs(id);
+            mymodel.Partners = GetPartners();
             mymodel.FooterAboutUs = GetFooterAboutUs();
 
             //mymodel.BulletPoint = paragraphStore;
@@ -432,6 +433,17 @@ namespace MeckDoramenAndAssociates.Controllers
             var _footerAboutUs = _database.FooterAboutUs.ToList();
 
             return _footerAboutUs;
+        }
+
+        #endregion
+
+        #region Get Partners
+
+        private List<Partner> GetPartners()
+        {
+            var _partners = _database.Partners.ToList();
+
+            return _partners;
         }
 
         #endregion

@@ -56,6 +56,7 @@ namespace MeckDoramenAndAssociates.Controllers
             ViewData["CanManageMarketResearch"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageMarketResearch == true);
             ViewData["CanManageAboutUs"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageAboutUs == true);
             ViewData["CanManageEnquiry"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManageEnquiry == true);
+            ViewData["CanManagePartner"] = await _database.Roles.SingleOrDefaultAsync(r => r.CanManagePartner == true);
 
             #endregion
 
@@ -74,6 +75,8 @@ namespace MeckDoramenAndAssociates.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Logos = GetLogos();
             mymodel.Contacts = GetContacts();
+            mymodel.Partners = GetPartners();
+            mymodel.FooterAboutUs = GetFooterAboutUs();
 
             foreach (Logo logo in mymodel.Logos)
             {
@@ -86,6 +89,11 @@ namespace MeckDoramenAndAssociates.Controllers
                 ViewData["email"] = contacts.Email;
                 ViewData["number"] = contacts.Number;
                 ViewData["number2"] = contacts.Number2;
+            }
+
+            foreach (FooterAboutUs footerAboutUs in mymodel.FooterAboutUs)
+            {
+                ViewData["footeraboutus"] = footerAboutUs.WriteUp;
             }
 
             return View();
@@ -246,6 +254,28 @@ namespace MeckDoramenAndAssociates.Controllers
             var _logos = _database.Logo.ToList();
 
             return _logos;
+        }
+
+        #endregion
+
+        #region Get Partners
+
+        private List<Partner> GetPartners()
+        {
+            var _partners = _database.Partners.ToList();
+
+            return _partners;
+        }
+
+        #endregion
+
+        #region Get Footer About US
+
+        private List<FooterAboutUs> GetFooterAboutUs()
+        {
+            var _footerAboutUs = _database.FooterAboutUs.ToList();
+
+            return _footerAboutUs;
         }
 
         #endregion

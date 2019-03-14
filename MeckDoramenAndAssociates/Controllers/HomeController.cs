@@ -128,8 +128,7 @@ namespace MeckDoramenAndAssociates.Controllers
         }
 
         #endregion
-
-
+        
         #region Get Logo
 
         private List<Logo> GetLogos()
