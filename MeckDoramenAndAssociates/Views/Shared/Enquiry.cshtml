@@ -1,6 +1,12 @@
-﻿@*@model MeckDoramenAndAssociates.Models.Enquiry
+﻿@model MeckDoramenAndAssociates.Models.Enquiry
 
+<form asp-action="MakeEnquiry">
+    <input asp-for="Email" type="text" placeholder="Your Email" required>
+    <input asp-for="PhoneNumber" type="text" placeholder="Your Phone Number" required>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+    <input asp-for="FullName" type="text" placeholder="Your Full Name" required>
+
+    <textarea asp-for="Message" placeholder="Your Message" required></textarea>
+
+    <button type="submit">alright submit it</button>
+</form>
